@@ -1,20 +1,32 @@
 [
   {
-    "title": "Escuadra",
-    "price": 123.45,
+    "name": "Escuadra",
+    "description": "Una escuadra",
+    "code": 123456,
     "thumbnail": "https://icon.foo.bar.escuadra.png",
+    "price": 123.45,
+    "stock": 3,
+    "timestamp": 1635110999966,
     "id": 1
   },
   {
-    "title": "Planeta",
-    "price": 345.67,
+    "name": "Planeta",
+    "description": "Una planeta",
+    "code": 123456,
     "thumbnail": "https://icon.foo.bar.planeta.png",
+    "price": 345.67,
+    "stock": 6,
+    "timestamp": 1635110999966,
     "id": 3
   },
   {
-    "title": "Computadora",
-    "price": 789.56,
+    "name": "Computadora",
+    "description": "Una computadora",
+    "code": 123456,
     "thumbnail": "https://icon.foo.bar.computadora.png",
+    "price": 789.56,
+    "stock": 1,
+    "timestamp": 1635110999966,
     "id": 4
   }
 ]

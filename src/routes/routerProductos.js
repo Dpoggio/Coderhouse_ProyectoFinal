@@ -44,10 +44,10 @@ routerProductos.put('/:id', async (req, res, next) => {
     }
 })
 
-routerProductos.delete('/:id', (req, res, next) => {  
+routerProductos.delete('/:id', async (req, res, next) => {  
     try {
         const id = parser.parseID(req.params.id)
-        productoController.delete(id)
+        await productoController.delete(id)
         res.json({})
     } catch (error) {
         next(error)

@@ -1,6 +1,7 @@
 
 const express = require('express')
 const { routerProductos } = require("./routes/routerProductos.js")
+const { routerCarrito } = require("./routes/routerCarrito.js")
 
 /**** CONSTANTES ****/
 const PORT = process.env.PORT || 8080
@@ -16,6 +17,7 @@ app.use(express.urlencoded({extended: true}))
 
 // Routers
 app.use('/api/productos', routerProductos)
+app.use('/api/carrito', routerCarrito)
 
 // Middleware Errores
 app.use((err, req, res, next) => {

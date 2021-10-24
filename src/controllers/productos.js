@@ -30,11 +30,12 @@ class Producto {
         }
     }
 
-    async save(object, id = null){
+    async save(producto, id = null){
+        producto.timestamp = Date.now()
         if (id === null){
-            return await this.productos.save(object)
+            return await this.productos.save(producto)
         } else {
-            const producto = await this.productos.saveById(object, id)
+            const producto = await this.productos.saveById(producto, id)
             if (producto == null){
                 throw new ProductoNoEncontrado()
             }
