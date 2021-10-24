@@ -39,7 +39,14 @@ class Carrito {
         if (carrito == null){
             throw new CarritoNoEncontrado()
         }
-        return carrito.productos
+        const listaProductos = []
+        console.log(carrito.productos)
+        for (const id of carrito.productos){
+            console.log(id)
+            const prod = await this.productoController.get(id)
+            listaProductos.push(prod)
+        }
+        return listaProductos
     }
 
     async add(idCarrito, idProducto){
@@ -48,7 +55,7 @@ class Carrito {
             throw new CarritoNoEncontrado()
         }
         const producto = await this.productoController.get(idProducto)
-        carrito.productos.push(producto)
+        carrito.productos.push(producto.id)
         await this.carritos.saveById(carrito, idCarrito)
     }
 
@@ -57,7 +64,7 @@ class Carrito {
         if (carrito == null){
             throw new CarritoNoEncontrado()
         }
-        carrito.productos = carrito.productos.filter(prod => prod.id != idProducto);
+        carrito.productos = carrito.productos.filter(id => id != idProducto);
         await this.carritos.saveById(carrito, idCarrito)
     }
 }
