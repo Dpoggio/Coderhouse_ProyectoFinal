@@ -1,6 +1,6 @@
 
 const express = require('express')
-const { routerProductos } = require("./routers/routerProductos.js")
+const { routerProductos } = require("./routes/routerProductos.js")
 
 /**** CONSTANTES ****/
 const PORT = process.env.PORT || 8080
