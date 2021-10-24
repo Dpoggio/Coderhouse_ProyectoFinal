@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const Carrito = require('../controllers/carrito.js')
-const parser = require('../utils/idParser.js')
+const parser = require('../lib/idParser.js')
+const cfg = require('../lib/constants.js')
 
 const routerCarrito = Router();
 const carritoController = new Carrito()
@@ -9,7 +10,7 @@ const carritoController = new Carrito()
 routerCarrito.post('/', async (req, res, next) => {  
     try {
         const id = await carritoController.save()
-        res.status(201).json({ id })
+        res.status(cfg.HTTP_CREATED).json({ id })
     } catch (error) {
         next(error)
     }
@@ -24,8 +25,6 @@ routerCarrito.delete('/:id', async (req, res, next) => {
         next(error)
     }
 })
- 
-///
 
 routerCarrito.get('/:id/productos', async (req, res, next) => {  
     try {

@@ -1,11 +1,11 @@
 
 const express = require('express')
+const cfg = require('./lib/constants.js')
 const { routerProductos } = require("./routes/routerProductos.js")
 const { routerCarrito } = require("./routes/routerCarrito.js")
 
 /**** CONSTANTES ****/
-const PORT = process.env.PORT || 8080
-const ERROR_CODE = 500
+const PORT = process.env.PORT || cfg.DEFAULT_PORT
 
 /**** Inicio App ****/
 const app = express()
@@ -20,11 +20,20 @@ app.use('/api/productos', routerProductos)
 app.use('/api/carrito', routerCarrito)
 
 // Middleware Errores
+app.use((req, res, next) => {
+    next({
+        code: cfg.ROUTE_NOT_FOUND_ERRCODE,
+        httpStatusCode: cfg.HTTP_NOT_FOUND,
+        message: `ruta '${req.originalUrl}' metodo '${req.method}' no implementada`
+    });
+})
+
 app.use((err, req, res, next) => {
-    console.error(err.stack);
-    const { httpStatusCode = ERROR_CODE } = err
+    // console.error(err.stack);
+    const { httpStatusCode = cfg.HTTP_SERVER_ERROR } = err
     res.status(httpStatusCode).json({
-        error: err.message
+        error: err.code,
+        description: err.message
     });
 })
 

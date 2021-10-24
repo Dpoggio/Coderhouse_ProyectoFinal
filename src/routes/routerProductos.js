@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const Productos = require('../controllers/productos.js')
-const parser = require('../utils/idParser.js')
+const parser = require('../lib/idParser.js')
+const cfg = require('../lib/constants.js')
 
 const routerProductos = Router();
 const productoController = new Productos()
@@ -28,7 +29,7 @@ routerProductos.get('/:id', async (req, res, next) => {
 routerProductos.post('/', async (req, res, next) => {  
     try {
         const producto = await productoController.save(req.body)
-        res.status(201).json(producto)
+        res.status(cfg.HTTP_CREATED).json(producto)
     } catch (error) {
         next(error)
     }

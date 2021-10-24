@@ -1,9 +1,12 @@
+const cfg = require('./constants.js')
+
 /**** Helpers ****/
 class IdNoNumerico extends Error {
     constructor() {
         super('id no numerico')
         this.name = this.constructor.name
-        this.httpStatusCode = 400
+        this.httpStatusCode = cfg.HTTP_BAD_REQUEST
+        this.code = cfg.INVALID_ID_ERRCODE
         Error.captureStackTrace(this, this.constructor)
     }
 }

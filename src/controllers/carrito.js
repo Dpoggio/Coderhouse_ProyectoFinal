@@ -1,5 +1,6 @@
-const Contenedor = require('../utils/contenedor.js')
+const Contenedor = require('../lib/contenedor.js')
 const Productos = require('./productos.js')
+const cfg = require('../lib/constants.js')
 
 /**** Constantes ****/
 const ARCHIVO_CARRITO = './DB/carritos.txt'
@@ -9,7 +10,8 @@ class CarritoNoEncontrado extends Error {
     constructor() {
         super('carrito no encontrado')
         this.name = this.constructor.name
-        this.httpStatusCode = 404
+        this.httpStatusCode = cfg.HTTP_NOT_FOUND
+        this.code = cfg.CHRT_NOT_FOUND_ERRCODE
         Error.captureStackTrace(this, this.constructor)
     }
 }

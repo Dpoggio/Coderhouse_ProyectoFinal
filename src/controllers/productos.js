@@ -1,4 +1,5 @@
-const Contenedor = require('../utils/contenedor.js')
+const Contenedor = require('../lib/contenedor.js')
+const cfg = require('../lib/constants.js')
 
 /**** Constantes ****/
 const ARCHIVO_PRODUCTOS = './DB/productos.txt'
@@ -8,7 +9,8 @@ class ProductoNoEncontrado extends Error {
     constructor() {
         super('producto no encontrado')
         this.name = this.constructor.name
-        this.httpStatusCode = 404
+        this.httpStatusCode = cfg.HTTP_NOT_FOUND
+        this.code = cfg.PROD_NOT_FOUND_ERRCODE
         Error.captureStackTrace(this, this.constructor)
     }
 }
