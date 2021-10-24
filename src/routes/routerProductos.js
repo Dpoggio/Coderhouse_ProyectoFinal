@@ -2,6 +2,7 @@ const { Router } = require('express');
 const Productos = require('../controllers/productos.js')
 const parser = require('../lib/idParser.js')
 const cfg = require('../lib/constants.js')
+const { auth } = require('../lib/login.js')
 
 const routerProductos = Router();
 const productoController = new Productos()
@@ -26,7 +27,7 @@ routerProductos.get('/:id', async (req, res, next) => {
     }
 })
 
-routerProductos.post('/', async (req, res, next) => {  
+routerProductos.post('/', auth, async (req, res, next) => {  
     try {
         const producto = await productoController.save(req.body)
         res.status(cfg.HTTP_CREATED).json(producto)
@@ -35,7 +36,7 @@ routerProductos.post('/', async (req, res, next) => {
     }
 })
 
-routerProductos.put('/:id', async (req, res, next) => {  
+routerProductos.put('/:id', auth, async (req, res, next) => {  
     try {
         const id = parser.parseID(req.params.id)
         const producto = await productoController.save(req.body, id)
@@ -45,7 +46,7 @@ routerProductos.put('/:id', async (req, res, next) => {
     }
 })
 
-routerProductos.delete('/:id', async (req, res, next) => {  
+routerProductos.delete('/:id', auth, async (req, res, next) => {  
     try {
         const id = parser.parseID(req.params.id)
         await productoController.delete(id)

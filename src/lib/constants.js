@@ -7,6 +7,7 @@ function define(name, value) {
 
 // Misc
 define("DEFAULT_PORT", 8080);
+define("ADMIN", false);
 
 // HTTP
 define("HTTP_NOT_FOUND", 404);

@@ -37,11 +37,11 @@ class Producto {
         if (id === null){
             return await this.productos.save(producto)
         } else {
-            const producto = await this.productos.saveById(producto, id)
-            if (producto == null){
+            const nuevoProducto = await this.productos.saveById(producto, id)
+            if (nuevoProducto == null){
                 throw new ProductoNoEncontrado()
             }
-            return producto
+            return nuevoProducto
         }
     }
 

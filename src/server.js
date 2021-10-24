@@ -4,7 +4,7 @@ const cfg = require('./lib/constants.js')
 const { routerProductos } = require("./routes/routerProductos.js")
 const { routerCarrito } = require("./routes/routerCarrito.js")
 
-/**** CONSTANTES ****/
+/**** VARIABLES ****/
 const PORT = process.env.PORT || cfg.DEFAULT_PORT
 
 /**** Inicio App ****/
@@ -29,7 +29,7 @@ app.use((req, res, next) => {
 })
 
 app.use((err, req, res, next) => {
-    // console.error(err.stack);
+    console.error(err.stack);
     const { httpStatusCode = cfg.HTTP_SERVER_ERROR } = err
     res.status(httpStatusCode).json({
         error: err.code,
