@@ -1,11 +1,11 @@
 const { Router } = require('express');
-const Productos = require('../controllers/productos.js')
+const ProductosContr = require('../controllers/productos.js')
 const parser = require('../lib/idParser.js')
 const cfg = require('../lib/constants.js')
 const { auth } = require('../lib/login.js')
 
 const routerProductos = Router();
-const productoController = new Productos()
+const productoController = new ProductosContr()
 
 /**** Rutas ****/
 routerProductos.get('/', async (req, res, next) => {  

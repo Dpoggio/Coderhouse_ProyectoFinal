@@ -1,6 +1,5 @@
 const cfg = require('./constants.js')
 
-/**** Helpers ****/
 class IdNoNumerico extends Error {
     constructor() {
         super('id no numerico')

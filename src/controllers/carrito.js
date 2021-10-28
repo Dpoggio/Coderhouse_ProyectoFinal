@@ -1,5 +1,5 @@
 const Contenedor = require('../lib/contenedor.js')
-const Productos = require('./productos.js')
+const ProductosContr = require('./productos.js')
 const cfg = require('../lib/constants.js')
 
 /**** Constantes ****/
@@ -16,10 +16,10 @@ class CarritoNoEncontrado extends Error {
     }
 }
 
-class Carrito {
+class CarritoContr {
     constructor(){
         this.carritos = new Contenedor(ARCHIVO_CARRITO)
-        this.productoController = new Productos()
+        this.productoController = new ProductosContr()
     }
 
     async save(){
@@ -40,10 +40,8 @@ class Carrito {
             throw new CarritoNoEncontrado()
         }
         const listaProductos = []
-        console.log(carrito.productos)
-        for (const id of carrito.productos){
-            console.log(id)
-            const prod = await this.productoController.get(id)
+        for (const p of carrito.productos){
+            const prod = await this.productoController.get(p.id)
             listaProductos.push(prod)
         }
         return listaProductos
@@ -55,7 +53,7 @@ class Carrito {
             throw new CarritoNoEncontrado()
         }
         const producto = await this.productoController.get(idProducto)
-        carrito.productos.push(producto.id)
+        carrito.productos.push({ id: producto.id })
         await this.carritos.saveById(carrito, idCarrito)
     }
 
@@ -64,9 +62,9 @@ class Carrito {
         if (carrito == null){
             throw new CarritoNoEncontrado()
         }
-        carrito.productos = carrito.productos.filter(id => id != idProducto);
+        carrito.productos = carrito.productos.filter(prod => prod.id != idProducto)
         await this.carritos.saveById(carrito, idCarrito)
     }
 }
 
-module.exports = Carrito;
+module.exports = CarritoContr;

@@ -15,7 +15,7 @@ class ProductoNoEncontrado extends Error {
     }
 }
 
-class Producto {
+class ProductoContr {
     constructor(){
         this.productos = new Contenedor(ARCHIVO_PRODUCTOS)
     }
@@ -53,4 +53,4 @@ class Producto {
     }
 }
 
-module.exports = Producto;
+module.exports = ProductoContr;

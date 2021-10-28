@@ -1,10 +1,10 @@
 const { Router } = require('express');
-const Carrito = require('../controllers/carrito.js')
+const CarritoContr = require('../controllers/carrito.js')
 const parser = require('../lib/idParser.js')
 const cfg = require('../lib/constants.js')
 
 const routerCarrito = Router();
-const carritoController = new Carrito()
+const carritoController = new CarritoContr()
 
 /**** Rutas ****/
 routerCarrito.post('/', async (req, res, next) => {  
