@@ -39,12 +39,15 @@ class CarritoContr {
         if (carrito == null){
             throw new CarritoNoEncontrado()
         }
-        const listaProductos = []
-        for (const p of carrito.productos){
-            const prod = await this.productoController.get(p.id)
-            listaProductos.push(prod)
-        }
-        return listaProductos
+        const promises = carrito.productos.map(async p => { 
+            return {
+                id: carrito.id,
+                timestamp: carrito.timestamp,
+                producto: await this.productoController.get(p.id)
+            }
+        })
+                
+        return Promise.all(promises)
     }
 
     async add(idCarrito, idProducto){
