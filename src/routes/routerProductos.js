@@ -2,7 +2,7 @@ const { Router } = require('express');
 const ProductosContr = require('../controllers/productos.js')
 const parser = require('../lib/idParser.js')
 const cfg = require('../lib/constants.js')
-const { auth } = require('../lib/login.js')
+const { auth } = require('../lib/auth.js')
 
 const routerProductos = Router();
 const productoController = new ProductosContr()
