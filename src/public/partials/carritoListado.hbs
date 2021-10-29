@@ -1,0 +1,23 @@
+
+<div class="container bg-dark text-white">
+  <div class="row">
+  
+    <div class="col-md-4"><b>Nombre</b></div>
+    <div class="col-md-4"><b>Precio</b></div>
+    <div class="col-md-4"></div>
+  </div>  
+  
+  {{#each productos }}
+  <div class="row">
+    <div class="col-md-4">{{this.name}}</div>
+    <div class="col-md-4">${{formatNumber this.price}}</div>
+    <div class="col-md-4">
+        <button onclick="quitarDelCarrito({{this.id}})" class="btn-sm btn-danger">Quitar</button>
+    </div>
+  </div>
+  {{/each}}
+  <div class="row">
+    <div class="col-md-4"><b>Total</b></div>
+    <div class="col-md-4"><b>${{formatNumber (sumarProductos productos) }}</b></div>
+  </div> 
+</div>

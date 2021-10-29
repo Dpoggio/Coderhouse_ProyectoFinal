@@ -1,0 +1,57 @@
+<style>
+  .card-product .img-wrap {
+      border-radius: 3px 3px 0 0;
+      overflow: hidden;
+      position: relative;
+      text-align: center;
+  }
+  .card-product .img-wrap img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: cover;
+  }
+  .card-product .info-wrap {
+      overflow: hidden;
+      padding: 15px;
+      border-top: 1px solid #eee;
+  }
+  .card-product .bottom-wrap {
+      padding: 15px;
+      border-top: 1px solid #eee;
+  }
+
+  .label-rating { margin-right:10px;
+      color: #333;
+      display: inline-block;
+      vertical-align: middle;
+  }
+</style>
+
+{{#if productos }}
+
+  <div class="row">
+  {{#each productos }}
+    <div class="col-md-4">
+      <figure class="card card-product">
+        <div class="img-wrap"><img src="{{this.thumbnail}}"></div>
+        <figcaption class="info-wrap">
+            <h4 class="title">{{this.name}}</h4>
+            <p class="desc">{{this.description}}</p>
+            <div class="rating-wrap">
+              <div class="label-rating">Cantidad: {{this.stock}}</div>
+            </div> <!-- rating-wrap.// -->
+        </figcaption>
+        <div class="bottom-wrap">
+          <a onclick="agregarAlCarrito({{this.id}})" class="btn btn-sm btn-primary float-right">Agregar</a>	
+          <div class="price-wrap h5">
+            <span class="price-new">${{this.price}}</span>
+          </div> <!-- price-wrap.// -->
+        </div> <!-- bottom-wrap.// -->
+      </figure>
+    </div> <!-- col // -->
+  {{/each}}
+  </div> <!-- row.// -->
+
+{{ else }}
+  <h3 class="alert alert-warning">No se encontraron productos</h1>
+{{/if}}
