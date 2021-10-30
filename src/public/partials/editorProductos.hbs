@@ -27,10 +27,13 @@
   }
 </style>
 
+<div class="mb-3 row">
+
+</div>
 {{#if productos }}
 
   <div class="row">
-  {{#each productos }}
+    {{#each productos }}
     <div class="col-md-4">
       <figure class="card card-product">
         <div class="img-wrap"><img src="{{this.thumbnail}}"></div>
@@ -39,18 +42,20 @@
             <p class="desc">{{this.description}}</p>
             <div class="rating-wrap">
               <div class="label-rating">Cantidad: {{this.stock}}</div>
-              <div class="label-rating">Codigo: {{this.code}}</div>
             </div> <!-- rating-wrap.// -->
         </figcaption>
         <div class="bottom-wrap">
-          <a onclick="agregarAlCarrito({{this.id}})" class="btn btn-sm btn-success float-right">Agregar</a>	
+          
           <div class="price-wrap h5">
-            <span class="price-new">${{formatNumber this.price}}</span>
-          </div> <!-- price-wrap.// -->
+            <span class="price-new">${{this.price}}</span>
+          </div> 
+
+          <button onclick="cargarEditor({{this.id}})" class="btn btn-sm btn-success">Editar</button>	
+          <button onclick="eliminarProducto({{this.id}})" class="btn btn-sm btn-danger">Eliminar</button>	
         </div> <!-- bottom-wrap.// -->
       </figure>
     </div> <!-- col // -->
-  {{/each}}
+    {{/each}}
   </div> <!-- row.// -->
 
 {{ else }}
