@@ -1,6 +1,6 @@
 # API RESTful
 
-Desafio 4 del curso Backend de Coderhouse
+Proyecto Final de Coderhouse
 
 ## Instalar dependencias
 
@@ -10,42 +10,27 @@ npm install
 
 node ./server.js
 
-## Obtener un listado de productos
+## Api de Productos
 
-### Request
+### Obtener un listado de productos
+
+#### Request
 
 `GET /api/productos`
 
     curl -i http://localhost:8080/api/productos
 
-### Response
+### Obtener un producto segun su ID
 
-    HTTP/1.1 200 OK
-    Content-Type: application/json; charset=utf-8
-    Content-Length: 278
-
-    [{"title":"Escuadra","price":123.45,"thumbnail":"https://icon.foo.bar.escuadra.png","id":1},{"title":"Planeta","price":345.67,"thumbnail":"https://icon.foo.bar.planeta.png","id":3},{"title":"Computadora","price":789.56,"thumbnail":"https://icon.foo.bar.computadora.png","id":4}]
-
-## Obtener un producto segun su ID
-
-### Request
+#### Request
 
 `GET /api/productos/{id}`
 
     curl -i http://localhost:8080/api/productos/1
 
-### Response
+### Agregar un producto al contenedor
 
-    HTTP/1.1 200 OK
-    Content-Type: application/json; charset=utf-8
-    Content-Length: 90
-
-    {"title":"Escuadra","price":123.45,"thumbnail":"https://icon.foo.bar.escuadra.png","id":1}
-
-
-## Agregar un producto al contenedor
-
-### Request
+#### Request
 
 `POST /api/productos`
 
@@ -54,17 +39,9 @@ node ./server.js
     --data '{"title":"Escuadra","price":123.45,"thumbnail":"https://icon.foo.bar.escuadra.png"}' \
     http://localhost:8080/api/productos
 
-### Response
+### Reempplazar un producto segun su ID
 
-    HTTP/1.1 201 CREATED
-    Content-Type: application/json; charset=utf-8
-    Content-Length: 90
-
-    {"title":"Escuadra","price":123.45,"thumbnail":"https://icon.foo.bar.escuadra.png","id":2}
-
-## Reempplazar un producto segun su ID
-
-### Request
+#### Request
 
 `PUT /api/productos/{id}`
 
@@ -73,17 +50,9 @@ node ./server.js
     --data '{"title":"Escuadra","price":123.45,"thumbnail":"https://icon.foo.bar.escuadra.png"}' \
     http://localhost:8080/api/productos/1
 
-### Response
+### Eliminar un producto segun su ID
 
-    HTTP/1.1 200 OK
-    Content-Type: application/json; charset=utf-8
-    Content-Length: 90
-
-    {"title":"Escuadra","price":123.45,"thumbnail":"https://icon.foo.bar.escuadra.png","id":1}
-
-## Eliminar un producto segun su ID
-
-### Request
+#### Request
 
 `DELETE /api/productos/{id}`
 
@@ -91,10 +60,67 @@ node ./server.js
     --request DELETE \
     http://localhost:8080/api/productos/1
 
-### Response
 
-    HTTP/1.1 200 OK
-    Content-Type: application/json; charset=utf-8
-    Content-Length: 2
+## Api de Carrito
 
-    {}
+### Crear un nuevo carrito
+
+#### Request
+
+`POST /api/carrito`
+
+    curl --header "Content-Type: application/json" \
+    --request POST \
+    http://localhost:8080/api/carrito
+
+### Eliminar un carrito segun su ID
+
+#### Request
+
+`DELETE /api/carrito/{id}`
+
+    curl --header "Content-Type: application/json" \
+    --request DELETE \
+    http://localhost:8080/api/carrito/1
+
+### Obtener un listado de productos de un carrito
+
+#### Request
+
+`GET /api/carrito/:id/productos`
+
+    curl -i http://localhost:8080/api/carrito/1/productos
+
+### Incorporar un producto segun su ID de producto a un carrito segun su ID
+
+#### Request
+
+`POST /api/carrito/{idCarrito}/productos/{idProducto}`
+
+    curl --header "Content-Type: application/json" \
+    --request POST \ 
+    http://localhost:8080/api/carrito/1/productos/2
+
+### Eliminar un producto segun su ID de producto a un carrito segun su ID
+
+#### Request
+
+`POST /api/carrito/{idCarrito}/productos/{idProducto}`
+
+    curl --header "Content-Type: application/json" \
+    --request DELETE \ 
+    http://localhost:8080/api/carrito/1/productos/2
+
+## Front
+
+## Pantalla Editor de productos
+
+`localhost:8080`
+
+En esta pantalla se pueden administrar los productos existentes. Para eliminar, editar o agregar cualquier producto se debe marcar la casilla de administrador.
+
+## Pantalla del Carrito
+
+`localhost:8080\carrito.html`
+
+Al ingresar en esta pagina, automaticamente se genera un carrito nuevo. Luego, es posible agregar o quitar productos al carrito generado.
