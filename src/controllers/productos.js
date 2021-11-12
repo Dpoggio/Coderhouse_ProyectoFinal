@@ -1,4 +1,4 @@
-const Contenedor = require('../lib/contenedor.js')
+const Contenedor = require('../contenedores/contenedor.js')
 const cfg = require('../lib/constants.js')
 
 /**** Constantes ****/
