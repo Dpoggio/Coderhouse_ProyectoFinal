@@ -1,8 +1,6 @@
-const Contenedor = require('../contenedores/contenedor.js')
+const ProductoDao = require('../dao/productos/productoDaoArchivos.js')
 const cfg = require('../lib/constants.js')
 
-/**** Constantes ****/
-const ARCHIVO_PRODUCTOS = './DB/productos.txt'
 
 /**** Excepciones ****/
 class ProductoNoEncontrado extends Error {
@@ -17,7 +15,7 @@ class ProductoNoEncontrado extends Error {
 
 class ProductoContr {
     constructor(){
-        this.productos = new Contenedor(ARCHIVO_PRODUCTOS)
+        this.productos = new ProductoDao()
     }
 
     async get(id = null){

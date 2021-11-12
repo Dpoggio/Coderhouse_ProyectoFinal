@@ -1,9 +1,7 @@
-const Contenedor = require('../contenedores/contenedor.js')
+const CarritoDao = require('../dao/carritos/carritoDaoArchivos.js')
 const ProductosContr = require('./productos.js')
 const cfg = require('../lib/constants.js')
 
-/**** Constantes ****/
-const ARCHIVO_CARRITO = './DB/carritos.txt'
 
 /**** Helpers ****/
 class CarritoNoEncontrado extends Error {
@@ -18,7 +16,7 @@ class CarritoNoEncontrado extends Error {
 
 class CarritoContr {
     constructor(){
-        this.carritos = new Contenedor(ARCHIVO_CARRITO)
+        this.carritos = new CarritoDao()
         this.productoController = new ProductosContr()
     }
 
