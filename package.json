@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./src/server.js",
-    "devStart": "nodemon ./src/server.js"
+    "devStart": "nodemon ./src/server.js",
+    "installSql": "node ./install/createTables.js",
+    "uninstallSql": "node ./install/dropTables.js"
   },
   "engines": {
     "node": "16.x"
@@ -23,7 +25,9 @@
   "homepage": "https://github.com/Dpoggio/Coderhouse_ProyectoFinal#readme",
   "dependencies": {
     "basic-auth": "^2.0.1",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "knex": "^0.95.14",
+    "sqlite3": "^5.0.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.14"

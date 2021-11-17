@@ -1,4 +1,4 @@
-const ProductoDao = require('../dao/productos/productoDaoArchivos.js')
+const ProductoDao = require('../dao/productos/productoDaoDB.js')
 const cfg = require('../lib/constants.js')
 
 
