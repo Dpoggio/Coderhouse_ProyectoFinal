@@ -1,3 +1,5 @@
+import Knex from 'knex'
+
 class Contenedor {
     /**
      * Genera el contenedor a partir de un objeto de conexion a una DB y un nombre de tabla.
@@ -5,7 +7,7 @@ class Contenedor {
      * @param {string} tabla : Nombre de la tabla
      */
     constructor(options, tabla) {
-        this.knex = require('knex')(options)
+        this.knex = Knex(options)
         this.tabla = tabla
     }
 
@@ -99,4 +101,4 @@ class Contenedor {
     }
 }
 
-module.exports = Contenedor
+export default Contenedor

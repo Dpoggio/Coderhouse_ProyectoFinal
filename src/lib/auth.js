@@ -1,5 +1,5 @@
-const cfg = require('./constants.js')
-const basicAuth = require('basic-auth')
+import cfg from './constants.js'
+import basicAuth from 'basic-auth'
 
 const IS_ADMIN = cfg.ADMIN
 
@@ -16,4 +16,4 @@ function auth(req, res, next){
     }
 }
 
-module.exports = { auth }
+export { auth }

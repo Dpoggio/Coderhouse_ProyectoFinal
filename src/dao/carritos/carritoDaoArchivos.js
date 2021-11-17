@@ -1,4 +1,4 @@
-const Contenedor = require('../../contenedores/contenedorArchivos.js')
+import Contenedor from '../../contenedores/contenedorArchivos.js'
 
 /**** Constantes ****/
 const ARCHIVO = './DB/carritos.txt'
@@ -9,4 +9,4 @@ class CarritoDaoArchivos extends Contenedor{
     }
 }
 
-module.exports = CarritoDaoArchivos
+export default CarritoDaoArchivos

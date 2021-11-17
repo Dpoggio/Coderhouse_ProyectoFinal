@@ -1,7 +1,7 @@
-const { Router } = require('express');
-const CarritoContr = require('../controllers/carrito.js')
-const parser = require('../lib/idParser.js')
-const cfg = require('../lib/constants.js')
+import { Router } from 'express'
+import CarritoContr from '../controllers/carrito.js'
+import parser from '../lib/idParser.js'
+import cfg from '../lib/constants.js'
 
 const routerCarrito = Router();
 const carritoController = new CarritoContr()
@@ -59,4 +59,4 @@ routerCarrito.delete('/:id/productos/:id_prod', async (req, res, next) => {
 })
 
 
-exports.routerCarrito = routerCarrito;
+export { routerCarrito }

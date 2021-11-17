@@ -1,5 +1,5 @@
-const ProductoDao = require('../dao/productos/productoDaoDB.js')
-const cfg = require('../lib/constants.js')
+import ProductoDao from '../dao/productos/productoDaoDB.js'
+import cfg from '../lib/constants.js'
 
 
 /**** Excepciones ****/
@@ -51,4 +51,4 @@ class ProductoContr {
     }
 }
 
-module.exports = ProductoContr;
+export default ProductoContr;

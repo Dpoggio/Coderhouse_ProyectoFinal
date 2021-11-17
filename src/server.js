@@ -1,8 +1,8 @@
 
-const express = require('express')
-const cfg = require('./lib/constants.js')
-const { routerProductos } = require("./routes/routerProductos.js")
-const { routerCarrito } = require("./routes/routerCarrito.js")
+import express from 'express'
+import cfg from './lib/constants.js'
+import { routerProductos } from "./routes/routerProductos.js"
+import { routerCarrito } from "./routes/routerCarrito.js"
 
 /**** VARIABLES ****/
 const PORT = process.env.PORT || cfg.DEFAULT_PORT

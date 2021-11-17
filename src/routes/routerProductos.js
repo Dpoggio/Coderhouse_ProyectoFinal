@@ -1,8 +1,8 @@
-const { Router } = require('express');
-const ProductosContr = require('../controllers/productos.js')
-const parser = require('../lib/idParser.js')
-const cfg = require('../lib/constants.js')
-const { auth } = require('../lib/auth.js')
+import { Router } from 'express'
+import ProductosContr from '../controllers/productos.js'
+import parser from '../lib/idParser.js'
+import cfg from '../lib/constants.js'
+import { auth } from '../lib/auth.js'
 
 const routerProductos = Router();
 const productoController = new ProductosContr()
@@ -57,4 +57,4 @@ routerProductos.delete('/:id', auth, async (req, res, next) => {
 })
 
 
-exports.routerProductos = routerProductos;
+export { routerProductos }

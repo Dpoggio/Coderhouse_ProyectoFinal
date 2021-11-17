@@ -1,5 +1,5 @@
-const Contenedor = require('../../contenedores/contenedorDB.js')
-const conn = require('../../lib/connections.js')
+import Contenedor from '../../contenedores/contenedorDB.js'
+import conn from '../../lib/connections.js'
 
 class ProductoDaoDB extends Contenedor{
     constructor(){
@@ -7,4 +7,4 @@ class ProductoDaoDB extends Contenedor{
     }
 }
 
-module.exports = ProductoDaoDB
+export default ProductoDaoDB

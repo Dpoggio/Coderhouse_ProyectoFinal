@@ -1,4 +1,4 @@
-const cfg = require('./constants.js')
+import cfg from './constants.js'
 
 class IdNoNumerico extends Error {
     constructor() {
@@ -18,4 +18,4 @@ function parseID(idString){
     return id
 }
 
-module.exports = { parseID }
+export default { parseID }

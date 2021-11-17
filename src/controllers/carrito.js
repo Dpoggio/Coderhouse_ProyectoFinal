@@ -1,6 +1,6 @@
-const CarritoDao = require('../dao/carritos/carritoDaoArchivos.js')
-const ProductosContr = require('./productos.js')
-const cfg = require('../lib/constants.js')
+import CarritoDao from '../dao/carritos/carritoDaoArchivos.js'
+import ProductosContr from './productos.js'
+import cfg from '../lib/constants.js'
 
 
 /**** Helpers ****/
@@ -68,4 +68,4 @@ class CarritoContr {
     }
 }
 
-module.exports = CarritoContr;
+export default CarritoContr;

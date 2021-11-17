@@ -1,4 +1,4 @@
-const fs = require('fs')
+import fs from 'fs'
 
 const CODIFICATION = 'utf-8'
 const NUMERO_INICIAL = 1
@@ -132,4 +132,4 @@ class Contenedor {
     }
 }
 
-module.exports = Contenedor
+export default Contenedor
