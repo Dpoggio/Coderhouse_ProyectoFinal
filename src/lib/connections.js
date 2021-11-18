@@ -12,5 +12,6 @@ export default Object.freeze({
     sqlite: {
         client: 'sqlite3',
         connection: { filename: './DB/ecommerce.db'}
-    } 
+    },
+    mongoDbURL: "mongodb://localhost:27017/ecommerce"
 })

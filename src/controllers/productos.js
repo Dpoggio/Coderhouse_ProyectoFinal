@@ -1,4 +1,4 @@
-import ProductoDao from '../dao/productos/productoDaoDB.js'
+import { ProductoDao } from '../dao/index.js'
 import cfg from '../lib/constants.js'
 
 
@@ -44,6 +44,11 @@ class ProductoContr {
     }
 
     async delete(id){
+        // Only For Testing:
+        // if (id == 0){
+        //     await this.productos.deleteAll()
+        //     return 
+        // }
         const producto = await this.productos.deleteById(id)
         if (producto == null) {
             throw new ProductoNoEncontrado()

@@ -1,4 +1,4 @@
-import CarritoDao from '../dao/carritos/carritoDaoArchivos.js'
+import { CarritoDao } from '../dao/index.js'
 import ProductosContr from './productos.js'
 import cfg from '../lib/constants.js'
 
