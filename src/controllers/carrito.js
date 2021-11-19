@@ -66,6 +66,11 @@ class CarritoContr {
         carrito.productos = carrito.productos.filter(prod => prod.id != idProducto)
         await this.carritos.saveById(carrito, idCarrito)
     }
+
+    // Solo para testeo
+    async deleteAll(){
+        await this.carritos.deleteAll()
+    }
 }
 
 export default CarritoContr;

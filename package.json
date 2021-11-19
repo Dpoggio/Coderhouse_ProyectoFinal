@@ -27,6 +27,7 @@
   "dependencies": {
     "basic-auth": "^2.0.1",
     "express": "^4.17.1",
+    "firebase-admin": "^10.0.0",
     "knex": "^0.95.14",
     "mongoose": "^6.0.13",
     "sqlite3": "^5.0.2"

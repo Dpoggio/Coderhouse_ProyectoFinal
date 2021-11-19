@@ -44,11 +44,6 @@ class ProductoContr {
     }
 
     async delete(id){
-        // Only For Testing:
-        // if (id == 0){
-        //     await this.productos.deleteAll()
-        //     return 
-        // }
         const producto = await this.productos.deleteById(id)
         if (producto == null) {
             throw new ProductoNoEncontrado()

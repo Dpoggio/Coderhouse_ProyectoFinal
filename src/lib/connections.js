@@ -13,5 +13,6 @@ export default Object.freeze({
         client: 'sqlite3',
         connection: { filename: './DB/ecommerce.db'}
     },
-    mongoDbURL: "mongodb://localhost:27017/ecommerce"
+    mongoDbURL: "mongodb://localhost:27017/ecommerce",
+    firebaseFile: "./DB/firebase.json"
 })

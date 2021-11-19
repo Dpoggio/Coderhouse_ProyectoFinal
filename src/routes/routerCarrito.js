@@ -59,4 +59,15 @@ routerCarrito.delete('/:id/productos/:id_prod', async (req, res, next) => {
 })
 
 
+// Solo para testeo
+routerCarrito.delete('/', async (req, res, next) => {  
+    try {
+        await carritoController.deleteAll()
+        res.json({})
+    } catch (error) {
+        next(error)
+    }
+})
+
+
 export { routerCarrito }
