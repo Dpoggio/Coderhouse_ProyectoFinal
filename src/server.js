@@ -1,11 +1,13 @@
-
+/*** Inicio APP ***/
 import express from 'express'
 import cfg from './config.js'
 import { routerProductos } from "./routes/routerProductos.js"
 import { routerCarrito } from "./routes/routerCarrito.js"
 
+
+
 /**** VARIABLES ****/
-const PORT = process.env.PORT || cfg.DEFAULT_PORT
+const PORT = cfg.PORT
 
 /**** Inicio App ****/
 const app = express()

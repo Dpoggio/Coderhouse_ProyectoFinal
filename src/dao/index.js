@@ -1,41 +1,45 @@
-import ProductoDaoArchivos from '../dao/productos/productoDaoArchivos.js'
-import cfg from '../config.js'
-import ProductoDaoMongo from '../dao/productos/productoDaoMongo.js'
-import ProductoDaoFirebase from '../dao/productos/productoDaoFirebase.js'
-
-import CarritoDaoArchivos from '../dao/carritos/carritoDaoArchivos.js'
-import CarritoDaoDB from '../dao/carritos/carritoDaoDB.js'
-import CarritoDaoMongo from '../dao/carritos/carritoDaoMongo.js'
-import CarritoDaoFirebase from '../dao/carritos/carritoDaoFirebase.js'
-
-import mongoose from 'mongoose'
 import conn from '../lib/connections.js'
+import cfg from '../config.js'
+
+
+// Validacion de Opciones
+if(!Object.values(cfg.DAO_OPTIONS).includes(cfg.PRODUCTO_DAO)){
+  throw new Error(`No se reconoce el DAO [${cfg.PRODUCTO_DAO}] seleccionado`)
+}
+
+if(!Object.values(cfg.DAO_OPTIONS).includes(cfg.CARRITO_DAO)){
+  throw new Error(`No se reconoce el DAO [${cfg.CARRITO_DAO}] seleccionado`)
+}
 
 // Conexion con Mongo DB
-await mongoose.connect(conn.mongoDbURL, {
+if ([cfg.PRODUCTO_DAO, cfg.CARRITO_DAO].includes(cfg.DAO_OPTIONS.MONGO)) {
+  const mongoose = (await import('mongoose')).default
+  await mongoose.connect(conn.mongoDbURL, {
     useNewUrlParser: true,
     useUnifiedTopology: true
-})
+  })
 
-const mongoDb = mongoose.connection;
+  const mongoDb = mongoose.connection;
 
-mongoDb.on('error', error => console.error(`Error al conectarse a la base de datos: ${error}`))
-mongoDb.once('open', () => {
-  console.log('Conectado a la base de datos');
-});
-
+  mongoDb.on('error', error => console.error(`Error al conectarse a la base de datos: ${error}`))
+  mongoDb.once('open', () => {
+    console.log('Conectado a la base de datos');
+  });
+}
 
 // Conexion con Firebase
-import fs from 'fs'
-import firebase from 'firebase-admin'
+if ([cfg.PRODUCTO_DAO, cfg.CARRITO_DAO].includes(cfg.DAO_OPTIONS.FIREBASE)) {
+  const firebase = (await import('firebase-admin')).default
+  const fs = (await import('fs')).default
+  const file = await fs.promises.readFile(conn.firebaseFile)
+  const serviceAccount = JSON.parse(file.toString())
 
-const file = await fs.promises.readFile(conn.firebaseFile)
-const serviceAccount = JSON.parse(file.toString())
-
-firebase.initializeApp({
-    credential: firebase.credential.cert(serviceAccount)
-})
+  firebase.initializeApp({
+      credential: firebase.credential.cert(serviceAccount)
+  })
+}
 
 
-export const ProductoDao = ProductoDaoFirebase
-export const CarritoDao = CarritoDaoFirebase
+// Export
+export const ProductoDao = (await import(`../dao/productos/productoDao${cfg.PRODUCTO_DAO}.js`)).default
+export const CarritoDao = (await import(`../dao/carritos/carritoDao${cfg.CARRITO_DAO}.js`)).default
