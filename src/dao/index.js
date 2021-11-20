@@ -1,4 +1,3 @@
-import conn from '../lib/connections.js'
 import cfg from '../config.js'
 
 
@@ -11,10 +10,17 @@ if(!Object.values(cfg.DAO_OPTIONS).includes(cfg.CARRITO_DAO)){
   throw new Error(`No se reconoce el DAO [${cfg.CARRITO_DAO}] seleccionado`)
 }
 
+/**  ToDo: Soportar la carga de carritos en tablas SQL
+ * Actualmente no es posible guardar carritos en tablas SQL debido al campo "productos".
+ *  */
+if ([cfg.DAO_OPTIONS.SQLITE, cfg.DAO_OPTIONS.DB].includes(cfg.CARRITO_DAO)) {
+  throw new Error('No es posible seleccinar bases SQL para la entidad "Carritos"')
+}
+
 // Conexion con Mongo DB
 if ([cfg.PRODUCTO_DAO, cfg.CARRITO_DAO].includes(cfg.DAO_OPTIONS.MONGO)) {
   const mongoose = (await import('mongoose')).default
-  await mongoose.connect(conn.mongoDbURL, {
+  await mongoose.connect(cfg.mongoDbURL, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
@@ -31,7 +37,7 @@ if ([cfg.PRODUCTO_DAO, cfg.CARRITO_DAO].includes(cfg.DAO_OPTIONS.MONGO)) {
 if ([cfg.PRODUCTO_DAO, cfg.CARRITO_DAO].includes(cfg.DAO_OPTIONS.FIREBASE)) {
   const firebase = (await import('firebase-admin')).default
   const fs = (await import('fs')).default
-  const file = await fs.promises.readFile(conn.firebaseFile)
+  const file = await fs.promises.readFile(cfg.firebaseFile)
   const serviceAccount = JSON.parse(file.toString())
 
   firebase.initializeApp({

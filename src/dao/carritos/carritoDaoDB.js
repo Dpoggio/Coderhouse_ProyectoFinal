@@ -1,9 +1,9 @@
 import Contenedor from '../../contenedores/contenedorDB.js'
-import conn from '../../lib/connections.js'
+import cfg from '../../config.js'
 
 class CarritoDaoDB extends Contenedor{
     constructor(){
-        super(conn.sqlite,'carritos')
+        super(cfg.mariaDb,'carritos')
     }
 }
 

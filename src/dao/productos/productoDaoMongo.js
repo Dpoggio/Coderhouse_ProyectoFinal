@@ -1,5 +1,4 @@
 import Contenedor from '../../contenedores/contenedorMongo.js'
-import conn from '../../lib/connections.js'
 import mongoose from 'mongoose'
 
 const productoSchema = new mongoose.Schema({

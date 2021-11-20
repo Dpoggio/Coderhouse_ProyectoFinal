@@ -1,11 +1,11 @@
-const conn = require('../src/lib/connections.js')
+import cfg from '../src/config.js'
+import Knex from 'knex'
 
 async function main(){
-    const sqlite = require('knex')(conn.sqlite)
+    const db = Knex(cfg.sqlite)
 
-    
     //Creacion tabla Productos
-    await sqlite.schema.createTable('productos', table => {
+    await db.schema.createTable('productos', table => {
             // Columnas
             table.increments('id') // Primary Key
             table.string('name')
@@ -22,7 +22,7 @@ async function main(){
             console.log(err)
         })
         .finally(() => {
-            sqlite.destroy()
+            db.destroy()
         })
 
 

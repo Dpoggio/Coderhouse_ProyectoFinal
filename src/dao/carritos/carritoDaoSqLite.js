@@ -1,10 +1,10 @@
 import Contenedor from '../../contenedores/contenedorDB.js'
 import cfg from '../../config.js'
 
-class ProductoDaoDB extends Contenedor{
+class CarritoDaoDB extends Contenedor{
     constructor(){
-        super(cfg.mariaDb,'productos')
+        super(cfg.sqlite,'carritos')
     }
 }
 
-export default ProductoDaoDB
+export default CarritoDaoDB

@@ -1,12 +1,13 @@
-const conn = require('../src/lib/connections.js')
+import cfg from '../src/config.js'
+import Knex from 'knex'
 
 async function main(){
     
-    const sqlite = require('knex')(conn.sqlite)
+    const db = Knex(cfg.mariaDb)
     
         
     // Drop tabla productos
-    await sqlite.schema.dropTableIfExists('productos')
+    await db.schema.dropTableIfExists('productos')
         .catch(err => {
             console.log('Error al dropear tabla de Productos')
             console.log(err)
@@ -14,7 +15,7 @@ async function main(){
 
 
 
-    sqlite.destroy()
+    db.destroy()
 }
 
 main()

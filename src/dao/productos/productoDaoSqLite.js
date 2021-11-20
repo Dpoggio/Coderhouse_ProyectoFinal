@@ -3,7 +3,7 @@ import cfg from '../../config.js'
 
 class ProductoDaoDB extends Contenedor{
     constructor(){
-        super(cfg.mariaDb,'productos')
+        super(cfg.sqlite,'productos')
     }
 }
 

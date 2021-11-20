@@ -4,6 +4,7 @@ dotenv.config()
 const DAO_OPTIONS = {
     FILE: 'Archivos',
     DB: 'DB',
+    SQLITE: 'SqLite',
     MONGO: 'Mongo',
     FIREBASE: 'Firebase'
 }
@@ -29,6 +30,23 @@ export default Object.freeze({
 
     // DAO
     DAO_OPTIONS: DAO_OPTIONS,
-    PRODUCTO_DAO:  process.env.PRODUCTOS_DAO || DAO_OPTIONS.MONGO,
-    CARRITO_DAO:  process.env.CARRITOS_DAO || DAO_OPTIONS.MONGO,
+    PRODUCTO_DAO:  process.env.PRODUCTOS_DAO || DAO_OPTIONS.FILE,
+    CARRITO_DAO:  process.env.CARRITOS_DAO || DAO_OPTIONS.FILE,
+
+    // CONECTIONS
+    mariaDb: {
+        client: 'mysql',
+        connection: { 
+            host: process.env.DB_HOST || 'localhost',
+            user: process.env.DB_USER || 'root',
+            password: process.env.DB_PASSWORD || '',
+            database: process.env.DB_DATABASE || 'test'
+        }
+    },
+    sqlite: {
+        client: 'sqlite3',
+        connection: { filename: process.env.SQLITE_FILENAME || './DB/ecommerce.db'}
+    },
+    mongoDbURL: process.env.MONGO_URL || "mongodb://localhost:27017/ecommerce",
+    firebaseFile: process.env.FIREBASE_FILE || "./DB/firebase.json"
 })

@@ -8,8 +8,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./src/server.js",
     "devStart": "nodemon ./src/server.js",
-    "installSql": "node ./install/createTables.js",
-    "uninstallSql": "node ./install/dropTables.js"
+    "installMariaDB": "node ./install/createTables.js",
+    "uninstallMariaDB": "node ./install/dropTables.js",
+    "installSqLite": "node ./install/createTables.js",
+    "uninstallSqLite": "node ./install/dropTables.js"
   },
   "engines": {
     "node": "16.x"
@@ -31,6 +33,7 @@
     "firebase-admin": "^10.0.0",
     "knex": "^0.95.14",
     "mongoose": "^6.0.13",
+    "mysql": "^2.18.1",
     "sqlite3": "^5.0.2"
   },
   "devDependencies": {
