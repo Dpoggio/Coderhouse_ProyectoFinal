@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import CarritoContr from '../controllers/carrito.js'
 import parser from '../lib/idParser.js'
-import cfg from '../lib/constants.js'
+import cfg from '../config.js'
 
 const routerCarrito = Router();
 const carritoController = new CarritoContr()

@@ -1,4 +1,4 @@
-import cfg from './constants.js'
+import cfg from '../config.js'
 
 class IdNoNumerico extends Error {
     constructor() {

@@ -1,5 +1,5 @@
 import ProductoDaoArchivos from '../dao/productos/productoDaoArchivos.js'
-import ProductoDaoDB from '../dao/productos/productoDaoDB.js'
+import cfg from '../config.js'
 import ProductoDaoMongo from '../dao/productos/productoDaoMongo.js'
 import ProductoDaoFirebase from '../dao/productos/productoDaoFirebase.js'
 

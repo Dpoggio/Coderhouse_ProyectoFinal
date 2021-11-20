@@ -1,4 +1,4 @@
-import cfg from './constants.js'
+import cfg from '../config.js'
 import basicAuth from 'basic-auth'
 
 const IS_ADMIN = cfg.ADMIN

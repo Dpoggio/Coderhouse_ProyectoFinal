@@ -1,5 +1,5 @@
 import { ProductoDao } from '../dao/index.js'
-import cfg from '../lib/constants.js'
+import cfg from '../config.js'
 
 
 /**** Excepciones ****/

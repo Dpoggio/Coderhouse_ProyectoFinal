@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import ProductosContr from '../controllers/productos.js'
 import parser from '../lib/idParser.js'
-import cfg from '../lib/constants.js'
+import cfg from '../config.js'
 import { auth } from '../lib/auth.js'
 
 const routerProductos = Router();

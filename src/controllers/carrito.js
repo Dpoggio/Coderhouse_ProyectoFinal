@@ -1,6 +1,6 @@
 import { CarritoDao } from '../dao/index.js'
 import ProductosContr from './productos.js'
-import cfg from '../lib/constants.js'
+import cfg from '../config.js'
 
 
 /**** Helpers ****/

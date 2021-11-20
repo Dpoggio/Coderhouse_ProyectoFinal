@@ -1,6 +1,6 @@
 
 import express from 'express'
-import cfg from './lib/constants.js'
+import cfg from './config.js'
 import { routerProductos } from "./routes/routerProductos.js"
 import { routerCarrito } from "./routes/routerCarrito.js"
 
