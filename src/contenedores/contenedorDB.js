@@ -46,6 +46,18 @@ class Contenedor {
     }
 
     /**
+     * Recibe una clave y un valor devuelve todos los registros que coincidan
+     * @param {number} id : id del registro a obtener
+     */
+     async getByField(name, value){
+        try {
+            return await this.knex(this.tabla).where(name, value)
+        } catch(error){
+            this.#handleError(error)
+        }
+    }
+
+    /**
      * Recibe un objeto, lo guarda en la tabla, devuelve el id asignado
      * @param {object} objeto : objeto a guardar     
      */

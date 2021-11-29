@@ -37,7 +37,7 @@ Proyecto Final de Coderhouse
 ### Genericos
 - **PORT** (**default**: 8080): Puerto donde se iniciara el servidor
 - **PRODUCTOS_DAO** (**default**: Archivos): Dao de persistencia para los productos. Opciones: Archivos,DB,SqLite,Firebase,Mongo. 
-- **CARRITOS_DAO** (**default**: Archivos): Dao de persistencia para los carritos. Opciones: Archivos,Firebase,Mongo.
+- **CARRITOS_DAO** (**default**: Archivos): Dao de persistencia para los carritos. Opciones: Archivos,DB,SqLite,Firebase,Mongo.
 
 ### Base de Datos MySql
 - **DB_HOST** (**default**: "localhost"): Host de conexion para la base de datos MySql/MariaDB

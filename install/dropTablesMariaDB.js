@@ -13,6 +13,19 @@ async function main(){
             console.log(err)
         })
 
+    // Drop tabla carritos
+    await db.schema.dropTableIfExists('carritos')
+            .catch(err => {
+                console.log('Error al dropear tabla de carritos')
+                console.log(err)
+            })
+    
+    // Drop tabla carrito_producto
+    await db.schema.dropTableIfExists('carrito_producto')
+        .catch(err => {
+            console.log('Error al dropear tabla de carrito_producto')
+            console.log(err)
+        })
 
 
     db.destroy()
