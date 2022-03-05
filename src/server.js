@@ -1,7 +1,9 @@
 /*** Inicio APP ***/
 import express from 'express'
 import cfg from './config.js'
-import { routes } from "./routes/routes.js"
+import { routes } from './routes/routes.js'
+import logger from './lib/logger.js'
+import { handleErrors } from './routes/routerError.js'
 
 /**** VARIABLES ****/
 const PORT = cfg.PORT
@@ -13,30 +15,12 @@ const app = express()
 app.use(express.json())
 app.use('/', express.static('src/public'))
 app.use(express.urlencoded({extended: true}))
+app.use(logger.expressLogMiddleware)
 
 // Routers
 app.use('/', routes)
-
-// Middleware Errores
-app.use((req, res, next) => {
-    next({
-        code: cfg.ROUTE_NOT_FOUND_ERRCODE,
-        httpStatusCode: cfg.HTTP_NOT_FOUND,
-        message: `ruta '${req.originalUrl}' metodo '${req.method}' no implementada`
-    });
-})
-
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    const { httpStatusCode = cfg.HTTP_SERVER_ERROR } = err
-    res.status(httpStatusCode).json({
-        error: err.code,
-        description: err.message
-    });
-})
+app.use(handleErrors)
 
 // Inicio server
-const server = app.listen(PORT, () => {
-    console.log(`Servidor HTTP escuchando en el puerto ${server.address().port}`)
-})
-server.on("error", error => console.error(`Error en servidor ${error}`))
+const server = app.listen(PORT, () => logger.info(`Servidor HTTP escuchando en el puerto ${server.address().port}`))
+server.on("error", error => logger.error(`Error en servidor ${error}`))

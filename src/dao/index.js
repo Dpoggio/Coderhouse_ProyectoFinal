@@ -1,4 +1,5 @@
 import cfg from '../config.js'
+import logger from '../lib/logger.js'
 
 
 // Validacion de Opciones
@@ -18,13 +19,9 @@ if ([cfg.PRODUCTO_DAO, cfg.CARRITO_DAO].includes(cfg.DAO_OPTIONS.MONGO)) {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
+  .then(() => logger.info('Conectado a la base de datos Mongo'))
+  .catch(error => logger.error(`Error al conectarse a la base de datos: ${error}`))
 
-  const mongoDb = mongoose.connection;
-
-  mongoDb.on('error', error => console.error(`Error al conectarse a la base de datos: ${error}`))
-  mongoDb.once('open', () => {
-    console.log('Conectado a la base de datos');
-  });
 }
 
 // Conexion con Firebase
