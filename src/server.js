@@ -1,10 +1,7 @@
 /*** Inicio APP ***/
 import express from 'express'
 import cfg from './config.js'
-import { routerProductos } from "./routes/routerProductos.js"
-import { routerCarrito } from "./routes/routerCarrito.js"
-
-
+import { routes } from "./routes/routes.js"
 
 /**** VARIABLES ****/
 const PORT = cfg.PORT
@@ -18,8 +15,7 @@ app.use('/', express.static('src/public'))
 app.use(express.urlencoded({extended: true}))
 
 // Routers
-app.use('/api/productos', routerProductos)
-app.use('/api/carrito', routerCarrito)
+app.use('/', routes)
 
 // Middleware Errores
 app.use((req, res, next) => {

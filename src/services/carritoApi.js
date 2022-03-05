@@ -1,5 +1,5 @@
 import { CarritoDao } from '../dao/index.js'
-import ProductosContr from './productos.js'
+import ProductosApi from './productoApi.js'
 import cfg from '../config.js'
 
 
@@ -14,10 +14,10 @@ class CarritoNoEncontrado extends Error {
     }
 }
 
-class CarritoContr {
+class CarritoApi {
     constructor(){
         this.carritos = new CarritoDao()
-        this.productoController = new ProductosContr()
+        this.productoController = new ProductosApi()
     }
 
     async save(){
@@ -73,4 +73,4 @@ class CarritoContr {
     }
 }
 
-export default CarritoContr;
+export default CarritoApi;

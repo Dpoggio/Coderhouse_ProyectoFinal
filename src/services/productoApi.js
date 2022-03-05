@@ -13,7 +13,7 @@ class ProductoNoEncontrado extends Error {
     }
 }
 
-class ProductoContr {
+class ProductoApi {
     constructor(){
         this.productos = new ProductoDao()
     }
@@ -51,4 +51,4 @@ class ProductoContr {
     }
 }
 
-export default ProductoContr;
+export default ProductoApi;
