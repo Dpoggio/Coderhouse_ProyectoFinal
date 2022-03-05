@@ -1,4 +1,5 @@
 import { ProductoDao } from '../dao/index.js'
+import ProductoDto from '../model/productoDto.js'
 import cfg from '../config.js'
 
 
@@ -20,26 +21,26 @@ class ProductoApi {
 
     async get(id = null){
         if (id === null){
-            return await this.productos.getAll(id)
+            return ProductoDto.asDto(await this.productos.getAll(id))
         } else {
             const producto = await this.productos.getById(id)
             if (producto == null){
                 throw new ProductoNoEncontrado()
             }
-            return producto
+            return ProductoDto.asDto(producto)
         }
     }
 
     async save(producto, id = null){
         producto.timestamp = Date.now()
         if (id === null){
-            return await this.productos.save(producto)
+            return ProductoDto.asDto(await this.productos.save(producto))
         } else {
             const nuevoProducto = await this.productos.saveById(producto, id)
             if (nuevoProducto == null){
                 throw new ProductoNoEncontrado()
             }
-            return nuevoProducto
+            return ProductoDto.asDto(nuevoProducto)
         }
     }
 
