@@ -2,22 +2,25 @@
 <div class="container bg-dark text-white">
   <div class="row">
   
-    <div class="col-md-4"><b>Nombre</b></div>
-    <div class="col-md-4"><b>Precio</b></div>
-    <div class="col-md-4"></div>
+    <div class="col-md-3"><b>Nombre</b></div>
+    <div class="col-md-3"><b>Precio</b></div>
+    <div class="col-md-3"><b>Cantidad</b></div>
+    <div class="col-md-3"></div>
   </div>  
   
-  {{#each productos }}
+  {{#each carrito.productos }}
   <div class="row">
-    <div class="col-md-4">{{this.name}}</div>
-    <div class="col-md-4">${{formatNumber this.price}}</div>
-    <div class="col-md-4">
-        <button onclick="quitarDelCarrito({{this.id}})" class="btn-sm btn-danger">Quitar</button>
+    <div class="col-md-3">{{this.producto.name}}</div>
+    <div class="col-md-3">${{formatNumber this.producto.price}}</div>
+    <div class="col-md-3">{{this.cantidad}}</div>
+    {{!-- <div class="col-md-3">{{this.cantidad}}</div> --}}
+    <div class="col-md-3">
+        <button onclick="quitarDelCarrito({{this.producto.id}})" class="btn-sm btn-danger">Quitar</button>
     </div>
   </div>
   {{/each}}
   <div class="row">
-    <div class="col-md-4"><b>Total</b></div>
-    <div class="col-md-4"><b>${{formatNumber (sumarProductos productos) }}</b></div>
+    <div class="col-md-3"><b>Total</b></div>
+    <div class="col-md-3"><b>${{formatNumber (sumarProductos carrito.productos) }}</b></div>
   </div> 
 </div>

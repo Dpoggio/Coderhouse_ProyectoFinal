@@ -8,8 +8,8 @@ const carritoApi = new CarritoApi()
 class CarritoContr {
     static async post(req, res, next){  
         try {
-            const id = await carritoApi.save()
-            res.status(cfg.HTTP_CREATED).json({ id })
+            const carrito = await carritoApi.save()
+            res.status(cfg.HTTP_CREATED).json(carrito)
         } catch (error) {
             next(error)
         }
@@ -25,11 +25,20 @@ class CarritoContr {
         }
     }
 
+    static async get(req, res, next){  
+        try {
+            const carritos = await carritoApi.get()
+            res.json(carritos)    
+        } catch (error) {
+            return next(error)
+        }
+    }
+
     static async getById(req, res, next){  
         try {
             const id = parser.parseID(req.params.id)
-            const productos = await carritoApi.get(id)
-            res.json(productos)    
+            const carrito = await carritoApi.get(id)
+            res.json(carrito)    
         } catch (error) {
             return next(error)
         }

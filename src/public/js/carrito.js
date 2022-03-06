@@ -31,16 +31,15 @@ async function generarCarrito() {
 }
 
 async function actualizarCarrito() {
-    const [ plantilla, productos ] = await Promise.all([ 
+    const [ plantilla, carrito ] = await Promise.all([ 
         fetch('/partials/carritoListado.hbs')
             .then(respuesta => respuesta.text()),
         fetch(`/api/carrito/${idCarrito}/productos`)
             .then(response => response.json())
-            .then( p => p.map(x => x.producto) )
     ])
 
     const render = Handlebars.compile(plantilla)
-    const html = render({ productos })
+    const html = render({ carrito })
     document.getElementById('carritoListado').innerHTML = html
 }
 
