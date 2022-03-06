@@ -46,6 +46,21 @@ class Contenedor {
     }
 
     /**
+     * Recibe una propiedad y un valor y retorna todos los documentos que cumplan la condicion
+     * @param {string} prop : propiedad sobre la cual buscar
+     * @param {string} value : valor de la propiedad
+     */
+     async getByProperty(prop, value){
+        try {
+            const filter = {}
+            filter[prop] = value 
+            return await this.knex(this.tabla).where(filter)
+        } catch(error){
+            this.#handleError(error)
+        }
+    }
+
+    /**
      * Recibe una clave y un valor devuelve todos los registros que coincidan
      * @param {number} id : id del registro a obtener
      */

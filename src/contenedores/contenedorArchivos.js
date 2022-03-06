@@ -58,6 +58,20 @@ class Contenedor {
     }
 
     /**
+     * Recibe una propiedad y un valor y retorna todos los objetos que cumplan la condicion
+     * @param {string} prop : propiedad sobre la cual buscar
+     * @param {string} value : valor de la propiedad
+     */
+     async getByProperty(prop, value){
+        try {
+            const contenedor = await this.getAll()
+            return contenedor.filter(x => x[prop] == value)
+        } catch(error){
+            this.#handleError(error)
+        }
+    }
+
+    /**
      * Recibe un objeto, lo guarda en el archivo, devuelve el id asignado
      * @param {object} objeto : objeto a guardar     
      */

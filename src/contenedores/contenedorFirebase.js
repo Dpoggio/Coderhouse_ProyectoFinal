@@ -48,6 +48,20 @@ class Contenedor {
     }
 
     /**
+     * Recibe una propiedad y un valor y retorna todos los documentos que cumplan la condicion
+     * @param {string} prop : propiedad sobre la cual buscar
+     * @param {string} value : valor de la propiedad
+     */
+     async getByProperty(prop, value){
+        try {
+            const snapshot = await this.collection.where(prop, '==', value).get()
+            return snapshot.docs.map(item => item.data())
+        } catch(error){
+            this.#handleError(error)
+        }
+    }
+
+    /**
      * Recibe un objeto, lo guarda en la coleccion, devuelve el id asignado
      * @param {object} objeto : objeto a guardar     
      */

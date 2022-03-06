@@ -20,6 +20,7 @@ export default Object.freeze({
     HTTP_CREATED: 201,
     HTTP_NOT_AUTHORIZED: 403,
     HTTP_BAD_REQUEST: 400,
+    HTTP_CONFLICT: 409,
 
     // Custom Error Codes
     NOT_AUTH_ERRCODE: -1,
@@ -27,11 +28,16 @@ export default Object.freeze({
     INVALID_ID_ERRCODE: -3,
     PROD_NOT_FOUND_ERRCODE: -4,
     CHRT_NOT_FOUND_ERRCODE: -5,
+    USER_NOT_FOUND_ERRCODE: -6,
+    USER_DUP_ERRCODE: -7,
 
     // DAO
     DAO_OPTIONS: DAO_OPTIONS,
-    PRODUCTO_DAO:  process.env.PRODUCTOS_DAO || DAO_OPTIONS.FILE,
-    CARRITO_DAO:  process.env.CARRITOS_DAO || DAO_OPTIONS.FILE,
+    DAO_ENTITIES: {
+        PRODUCTO:  process.env.PRODUCTOS_DAO || DAO_OPTIONS.FILE,
+        CARRITO:  process.env.CARRITOS_DAO || DAO_OPTIONS.FILE,
+        USUARIO:  process.env.USUARIOS_DAO || DAO_OPTIONS.FILE
+    },
 
     // CONECTIONS
     mariaDb: {

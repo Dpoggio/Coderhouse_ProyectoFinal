@@ -8,10 +8,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./src/server.js",
     "devStart": "nodemon ./src/server.js",
-    "installMariaDB": "node ./install/createTablesMariaDB.js",
-    "uninstallMariaDB": "node ./install/dropTablesMariaDB.js",
-    "installSqLite": "node ./install/createTablesSqLite.js",
-    "uninstallSqLite": "node ./install/dropTablesSqLite.js"
+    "installMariaDB": "node ./install/createTablesSql.js MariaDB",
+    "uninstallMariaDB": "node ./install/dropTablesSql.js MariaDB",
+    "installSqLite": "node ./install/createTablesSql.js SqLite",
+    "uninstallSqLite": "node ./install/dropTablesSql.js SqLite"
   },
   "engines": {
     "node": "16.x"

@@ -3,17 +3,14 @@ import logger from '../lib/logger.js'
 
 
 // Validacion de Opciones
-if(!Object.values(cfg.DAO_OPTIONS).includes(cfg.PRODUCTO_DAO)){
-  throw new Error(`No se reconoce el DAO [${cfg.PRODUCTO_DAO}] seleccionado`)
+for (const dao in cfg.DAO_ENTITIES){
+  if(!Object.values(cfg.DAO_OPTIONS).includes(cfg.DAO_ENTITIES[dao])){
+    throw new Error(`No se reconoce el DAO [${dao}] seleccionado`)
+  }
 }
-
-if(!Object.values(cfg.DAO_OPTIONS).includes(cfg.CARRITO_DAO)){
-  throw new Error(`No se reconoce el DAO [${cfg.CARRITO_DAO}] seleccionado`)
-}
-
 
 // Conexion con Mongo DB
-if ([cfg.PRODUCTO_DAO, cfg.CARRITO_DAO].includes(cfg.DAO_OPTIONS.MONGO)) {
+if (Object.values(cfg.DAO_ENTITIES).includes(cfg.DAO_OPTIONS.MONGO)) {
   const mongoose = (await import('mongoose')).default
   await mongoose.connect(cfg.mongoDbURL, {
     useNewUrlParser: true,
@@ -25,7 +22,7 @@ if ([cfg.PRODUCTO_DAO, cfg.CARRITO_DAO].includes(cfg.DAO_OPTIONS.MONGO)) {
 }
 
 // Conexion con Firebase
-if ([cfg.PRODUCTO_DAO, cfg.CARRITO_DAO].includes(cfg.DAO_OPTIONS.FIREBASE)) {
+if (Object.values(cfg.DAO_ENTITIES).includes(cfg.DAO_OPTIONS.FIREBASE)) {
   const firebase = (await import('firebase-admin')).default
   const fs = (await import('fs')).default
   const file = await fs.promises.readFile(cfg.firebaseFile)
@@ -38,5 +35,6 @@ if ([cfg.PRODUCTO_DAO, cfg.CARRITO_DAO].includes(cfg.DAO_OPTIONS.FIREBASE)) {
 
 
 // Export
-export const ProductoDao = (await import(`../dao/productos/productoDao${cfg.PRODUCTO_DAO}.js`)).default
-export const CarritoDao = (await import(`../dao/carritos/carritoDao${cfg.CARRITO_DAO}.js`)).default
+export const ProductoDao = (await import(`../dao/productos/productoDao${cfg.DAO_ENTITIES.PRODUCTO}.js`)).default
+export const CarritoDao = (await import(`../dao/carritos/carritoDao${cfg.DAO_ENTITIES.CARRITO}.js`)).default
+export const UsuarioDao = (await import(`../dao/usuarios/usuarioDao${cfg.DAO_ENTITIES.USUARIO}.js`)).default

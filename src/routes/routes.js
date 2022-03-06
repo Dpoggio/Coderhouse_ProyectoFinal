@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import { routerProductos } from "./routerProductos.js"
 import { routerCarrito } from "./routerCarrito.js"
+import { routerUsuarios } from "./routerUsuarios.js"
 import cfg from '../config.js'
 
 const routes = Router();
@@ -8,6 +9,7 @@ const routes = Router();
 /**** Rutas ****/
 routes.use('/api/productos', routerProductos)
 routes.use('/api/carrito', routerCarrito)
+routes.use('/api/usuarios', routerUsuarios)
 
 // Ruta inexistente
 routes.use((req, res, next) => {
