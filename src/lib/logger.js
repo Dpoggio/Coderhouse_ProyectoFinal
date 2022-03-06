@@ -28,7 +28,7 @@ log4js.configure({
     loggerConsola: {
       type: 'logLevelFilter',
       appender: 'consola',
-      level: 'info',
+      level: 'debug',
     },
     loggerArchivoErrores: {
       type: 'logLevelFilter',
@@ -50,7 +50,7 @@ log4js.configure({
     },
     prod: {
       appenders: ['loggerConsola', 'loggerArchivoErrores', 'loggerArchivoWarning'],
-      level: 'all',
+      level: 'info',
     },
     dev: {
       appenders: ['loggerConsola', 'loggerArchivoErrores', 'loggerArchivoWarning'],

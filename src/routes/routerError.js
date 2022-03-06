@@ -1,8 +1,9 @@
 import logger from '../lib/logger.js'
+import cfg from '../config.js'
 
 function handleErrors(err, req, res, next) {
     const { httpStatusCode = cfg.HTTP_SERVER_ERROR } = err
-    logger.trace(err.stack);
+    logger.debug(err.stack);
     if (httpStatusCode >= 400 && httpStatusCode < 500) {
         logger.warn(err.message);
     } else if (httpStatusCode >= 500) {
