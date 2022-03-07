@@ -30,6 +30,7 @@ export default Object.freeze({
     CHRT_NOT_FOUND_ERRCODE: -5,
     USER_NOT_FOUND_ERRCODE: -6,
     USER_DUP_ERRCODE: -7,
+    INVALID_USER_ERRCODE: -8,
 
     // DAO
     DAO_OPTIONS: DAO_OPTIONS,

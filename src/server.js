@@ -4,6 +4,7 @@ import cfg from './config.js'
 import { routes } from './routes/routes.js'
 import logger from './lib/logger.js'
 import { handleErrors } from './routes/routerError.js'
+import passport from 'passport'
 
 /**** VARIABLES ****/
 const PORT = cfg.PORT
@@ -16,6 +17,7 @@ app.use(express.json())
 app.use('/', express.static('src/public'))
 app.use(express.urlencoded({extended: true}))
 app.use(logger.expressLogMiddleware)
+app.use(passport.initialize())
 
 // Routers
 app.use('/', routes)

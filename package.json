@@ -28,13 +28,17 @@
   "homepage": "https://github.com/Dpoggio/Coderhouse_ProyectoFinal#readme",
   "dependencies": {
     "basic-auth": "^2.0.1",
+    "bcrypt": "^5.0.1",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "firebase-admin": "^10.0.0",
+    "jsonwebtoken": "^8.5.1",
     "knex": "^0.95.14",
     "log4js": "^6.4.2",
     "mongoose": "^6.0.13",
     "mysql": "^2.18.1",
+    "passport": "^0.5.2",
+    "passport-local": "^1.0.0",
     "sqlite3": "^5.0.2"
   },
   "devDependencies": {

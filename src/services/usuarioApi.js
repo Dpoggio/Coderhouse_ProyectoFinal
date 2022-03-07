@@ -1,7 +1,16 @@
 import { UsuarioDao } from '../dao/index.js'
 import UsuarioDto from '../model/usuarioDto.js'
 import cfg from '../config.js'
+import bCrypt from 'bcrypt'
 
+
+function createHash(password) {
+    return bCrypt.hashSync(password, bCrypt.genSaltSync(10), null);
+}
+
+function isValidPassword(user, password) {
+    return bCrypt.compareSync(password, user.password);
+}
 
 /**** Excepciones ****/
 class UsuarioNoEncontrado extends Error {
@@ -24,6 +33,16 @@ class UsuarioDuplicado extends Error {
     }
 }
 
+class UsuarioInvalido extends Error {
+    constructor() {
+        super('usuario o password invalido')
+        this.name = this.constructor.name
+        this.httpStatusCode = cfg.HTTP_NOT_AUTHORIZED
+        this.code = cfg.INVALID_USER_ERRCODE
+        Error.captureStackTrace(this, this.constructor)
+    }
+}
+
 class UsuarioApi {
     constructor(){
         this.usuarios = new UsuarioDao()
@@ -41,12 +60,15 @@ class UsuarioApi {
         }
     }
 
+    
+
     async save(usuario, id = null){
         if (id === null){
             const usuariosValidate = await this.usuarios.getByProperty('username',usuario.username)
             if (usuariosValidate.length > 0) {
                 throw new UsuarioDuplicado()
             }
+            usuario.password = createHash(usuario.password)
             return UsuarioDto.asDto(await this.usuarios.save(usuario))
         } else {
             const nuevoUsuario = await this.usuarios.saveById(usuario, id)
@@ -62,6 +84,23 @@ class UsuarioApi {
         if (usuario == null) {
             throw new UsuarioNoEncontrado()
         }
+    }
+
+    async validateUser(username, password){
+        const listaUsuarios = await this.usuarios.getByProperty('username',username)
+        if (listaUsuarios.length === 0) {
+            throw new UsuarioNoEncontrado()
+        }
+        if (listaUsuarios.length > 1) {
+            throw new UsuarioDuplicado()
+        }
+        const usuario = listaUsuarios[0]
+        if (isValidPassword(usuario, password)){
+            return UsuarioDto.asDto(usuario)
+        } else {
+            throw new UsuarioInvalido()
+        }
+
     }
 }
 
