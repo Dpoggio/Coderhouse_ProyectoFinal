@@ -1,19 +1,8 @@
 import { CarritoDao } from '../dao/index.js'
 import ProductosApi from './productoApi.js'
 import CarritoDto from '../model/CarritoDto.js'
-import cfg from '../config.js'
+import { ErrorCarritoNoEncontrado } from '../lib/errors.js'
 
-
-/**** Helpers ****/
-class CarritoNoEncontrado extends Error {
-    constructor() {
-        super('carrito no encontrado')
-        this.name = this.constructor.name
-        this.httpStatusCode = cfg.HTTP_NOT_FOUND
-        this.code = cfg.CHRT_NOT_FOUND_ERRCODE
-        Error.captureStackTrace(this, this.constructor)
-    }
-}
 
 class CarritoApi {
     constructor(){
@@ -29,7 +18,7 @@ class CarritoApi {
     async delete(id){
         const carrito = await this.carritos.deleteById(id)
         if (carrito == null) {
-            throw new CarritoNoEncontrado()
+            throw new ErrorCarritoNoEncontrado()
         }
     }
 
@@ -37,7 +26,7 @@ class CarritoApi {
         if (id) {
             const carrito = await this.carritos.getById(id)
             if (carrito == null){
-                throw new CarritoNoEncontrado()
+                throw new ErrorCarritoNoEncontrado()
             }
             const productosPromises = carrito.productos.map(async p => { 
                 return {
@@ -77,7 +66,7 @@ class CarritoApi {
     async add(idCarrito, idProducto){
         const carrito = await this.carritos.getById(idCarrito)        
         if (carrito == null){
-            throw new CarritoNoEncontrado()
+            throw new ErrorCarritoNoEncontrado()
         }
         const foundIndex = carrito.productos.findIndex(x => x.id == idProducto);
         if (foundIndex > -1) {
@@ -94,7 +83,7 @@ class CarritoApi {
     async remove(idCarrito, idProducto){
         const carrito = await this.carritos.getById(idCarrito)        
         if (carrito == null){
-            throw new CarritoNoEncontrado()
+            throw new ErrorCarritoNoEncontrado()
         }
         carrito.productos = carrito.productos.filter(prod => prod.id != idProducto)
         await this.carritos.saveById(carrito, idCarrito)

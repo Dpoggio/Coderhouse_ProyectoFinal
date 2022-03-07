@@ -1,18 +1,10 @@
-import cfg from '../config.js'
+import { ErrorIdNoNumerico } from './errors.js'
 
-class IdNoNumerico extends Error {
-    constructor() {
-        super('id no numerico')
-        this.name = this.constructor.name
-        this.httpStatusCode = cfg.HTTP_BAD_REQUEST
-        this.code = cfg.INVALID_ID_ERRCODE
-        Error.captureStackTrace(this, this.constructor)
-    }
-}
+
 
 function parseID(idString){
     if (isNaN(idString)) {
-        throw new IdNoNumerico()
+        throw new ErrorIdNoNumerico()
     }
     const id = parseInt(idString)
     return id

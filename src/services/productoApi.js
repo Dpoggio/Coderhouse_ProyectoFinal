@@ -1,18 +1,7 @@
 import { ProductoDao } from '../dao/index.js'
 import ProductoDto from '../model/productoDto.js'
-import cfg from '../config.js'
+import { ErrorProductoNoEncontrado } from '../lib/errors.js'
 
-
-/**** Excepciones ****/
-class ProductoNoEncontrado extends Error {
-    constructor() {
-        super('producto no encontrado')
-        this.name = this.constructor.name
-        this.httpStatusCode = cfg.HTTP_NOT_FOUND
-        this.code = cfg.PROD_NOT_FOUND_ERRCODE
-        Error.captureStackTrace(this, this.constructor)
-    }
-}
 
 class ProductoApi {
     constructor(){
@@ -25,7 +14,7 @@ class ProductoApi {
         } else {
             const producto = await this.productos.getById(id)
             if (producto == null){
-                throw new ProductoNoEncontrado()
+                throw new ErrorProductoNoEncontrado()
             }
             return ProductoDto.asDto(producto)
         }
@@ -38,7 +27,7 @@ class ProductoApi {
         } else {
             const nuevoProducto = await this.productos.saveById(producto, id)
             if (nuevoProducto == null){
-                throw new ProductoNoEncontrado()
+                throw new ErrorProductoNoEncontrado()
             }
             return ProductoDto.asDto(nuevoProducto)
         }
@@ -47,7 +36,7 @@ class ProductoApi {
     async delete(id){
         const producto = await this.productos.deleteById(id)
         if (producto == null) {
-            throw new ProductoNoEncontrado()
+            throw new ErrorProductoNoEncontrado()
         }
     }
 }
