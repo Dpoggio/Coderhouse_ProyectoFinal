@@ -4,6 +4,8 @@ export default class UsuarioDto {
         this.username = datos.username || ''
         this.nombre = datos.nombre || ''
         this.apellido = datos.apellido || ''
+        this.imagenurl = datos.imagenurl || ''
+        this.admin = !!datos.admin 
     }
 
     static asDto(datos) {

@@ -12,7 +12,6 @@ const DAO_OPTIONS = {
 export default Object.freeze({
     // Misc
     PORT: process.env.PORT || 8080,
-    ADMIN: false,
     PRIVATE_KEY: process.env.USER_PRIVATE_KEY,
 
     // HTTP

@@ -6,7 +6,9 @@ const usuarioSchema = new mongoose.Schema({
     username: {type: String},
     password: {type: String},
     nombre: {type: String},
-    apellido: {type: String}
+    apellido: {type: String},
+    imagenUrl: {type: String},
+    admin: {type: Boolean}
 })
 
 class UsuarioDaoMongo extends Contenedor{

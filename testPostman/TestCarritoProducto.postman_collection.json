@@ -6,6 +6,92 @@
 	},
 	"item": [
 		{
+			"name": "Create Admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Test\", function() {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201,409]);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/auth/signup",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login Admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Test\", function() {\r",
+							"    pm.response.to.have.status(200)\r",
+							"    const responseJson = pm.response.json()\r",
+							"    pm.expect(responseJson.usuario.username).to.eql(\"admin\")\r",
+							"    pm.globals.set(\"idUsuario\", responseJson.usuario.id)\r",
+							"    pm.globals.set(\"accessToken\", responseJson.access_token)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/auth/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Ruta Invalida",
 			"event": [
 				{
@@ -59,8 +145,8 @@
 					"script": {
 						"exec": [
 							"pm.test(\"Status Test\", function() {\r",
-							"    pm.response.to.have.status(403)\r",
-							"    pm.response.to.have.body(`{\"error\":-1,\"description\":\"ruta '/api/productos' metodo 'POST' no authorizada\"}`)\r",
+							"    pm.response.to.have.status(401)\r",
+							"    pm.response.to.have.body(`{\"error\":-9,\"description\":\"Se requiere autenticacion para acceder a este recurso\"}`)\r",
 							"    \r",
 							"})"
 						],
@@ -69,6 +155,9 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "noauth"
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -119,11 +208,11 @@
 			],
 			"request": {
 				"auth": {
-					"type": "basic",
-					"basic": [
+					"type": "bearer",
+					"bearer": [
 						{
-							"key": "username",
-							"value": "admin",
+							"key": "token",
+							"value": "{{accessToken}}",
 							"type": "string"
 						}
 					]
@@ -499,9 +588,8 @@
 					"script": {
 						"exec": [
 							"pm.test(\"Status Test\", function() {\r",
-							"    pm.response.to.have.status(403)\r",
-							"    const idProducto = pm.globals.get(\"idProducto\");\r",
-							"    pm.response.to.have.body(`{\"error\":-1,\"description\":\"ruta '/api/productos/${idProducto}' metodo 'PUT' no authorizada\"}`)\r",
+							"    pm.response.to.have.status(401)\r",
+							"    pm.response.to.have.body(`{\"error\":-9,\"description\":\"Se requiere autenticacion para acceder a este recurso\"}`)\r",
 							"    \r",
 							"})"
 						],
@@ -511,14 +599,7 @@
 			],
 			"request": {
 				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "username",
-							"value": "",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "PUT",
 				"header": [],
@@ -570,11 +651,11 @@
 			],
 			"request": {
 				"auth": {
-					"type": "basic",
-					"basic": [
+					"type": "bearer",
+					"bearer": [
 						{
-							"key": "username",
-							"value": "admin",
+							"key": "token",
+							"value": "{{accessToken}}",
 							"type": "string"
 						}
 					]
@@ -760,9 +841,8 @@
 					"script": {
 						"exec": [
 							"pm.test(\"Status Test\", function() {\r",
-							"    pm.response.to.have.status(403)\r",
-							"    const idProducto = pm.globals.get(\"idProducto\");\r",
-							"    pm.response.to.have.body(`{\"error\":-1,\"description\":\"ruta '/api/productos/${idProducto}' metodo 'DELETE' no authorizada\"}`)\r",
+							"    pm.response.to.have.status(401)\r",
+							"    pm.response.to.have.body(`{\"error\":-9,\"description\":\"Se requiere autenticacion para acceder a este recurso\"}`)\r",
 							"})"
 						],
 						"type": "text/javascript"
@@ -770,6 +850,9 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "noauth"
+				},
 				"method": "DELETE",
 				"header": [],
 				"url": {
@@ -804,11 +887,11 @@
 			],
 			"request": {
 				"auth": {
-					"type": "basic",
-					"basic": [
+					"type": "bearer",
+					"bearer": [
 						{
-							"key": "username",
-							"value": "admin",
+							"key": "token",
+							"value": "{{accessToken}}",
 							"type": "string"
 						}
 					]
@@ -848,11 +931,11 @@
 			],
 			"request": {
 				"auth": {
-					"type": "basic",
-					"basic": [
+					"type": "bearer",
+					"bearer": [
 						{
-							"key": "username",
-							"value": "admin",
+							"key": "token",
+							"value": "{{accessToken}}",
 							"type": "string"
 						}
 					]
@@ -892,11 +975,11 @@
 			],
 			"request": {
 				"auth": {
-					"type": "basic",
-					"basic": [
+					"type": "bearer",
+					"bearer": [
 						{
-							"key": "username",
-							"value": "admin",
+							"key": "token",
+							"value": "{{accessToken}}",
 							"type": "string"
 						}
 					]

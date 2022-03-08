@@ -65,6 +65,8 @@ async function main(){
         table.string('password')
         table.string('nombre')
         table.string('apellido')
+        table.string('imagenurl')
+        table.boolean('admin').notNullable().defaultTo(0)
     })
     .then(() => console.log('Tabla de Usuarios Creada correctamente!'))
     .catch(err => {

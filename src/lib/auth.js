@@ -1,25 +1,21 @@
 import cfg from '../config.js'
-import basicAuth from 'basic-auth'
 import passport from 'passport'
 import { Strategy as LocalStrategy } from 'passport-local'
-import logger from '../lib/logger.js'
 import jwt from 'jsonwebtoken'
 import UsuarioApi from '../services/usuarioApi.js'
-import { ErrorRutaNoAutorizada, ErrorAutenticacionRequerida } from './errors.js'
+import { ErrorRutaNoAutorizada, ErrorAutenticacionRequerida, ErrorTokenInvalido } from './errors.js'
 
-const IS_ADMIN = cfg.ADMIN
 const PRIVATE_KEY = cfg.PRIVATE_KEY
 
 // Helpers
 function isAdmin(req){
-    const credentials = basicAuth(req)
-    return IS_ADMIN || (credentials && credentials.name == "admin")
+    return req.user.admin
 }
 
 // Export Functions
 function generateToken(req, res) {
     const user = req.user
-    const token = jwt.sign({ username: user.username }, PRIVATE_KEY, { expiresIn: 5*60 });
+    const token = jwt.sign({ username: user.username, admin: user.admin }, PRIVATE_KEY, { expiresIn: 30 });
 
     res.json({
         usuario: user,
@@ -36,25 +32,21 @@ function isAuthorized(req, res, next) {
 }
 
 function isAuthenticated(req, res, next) {
-    if(isAdmin(req)) {
-        next();
-    } else {
-        const authHeader = req.headers["authorization"] || req.headers["Authorization"] || '';
-    
-        if (!authHeader) {
-            next(new ErrorAutenticacionRequerida())
-        }
-        const token = authHeader.split(' ')[1]
-        if (!token) {
-            next(new ErrorAutenticacionRequerida())
-        }
-        try {
-            req.user = jwt.verify(token, PRIVATE_KEY);
-        } catch (ex) {
-            next(new ErrorRutaNoAutorizada(req.originalUrl, req.method))
-        }
-        next();
+    const authHeader = req.headers["authorization"] || req.headers["Authorization"] || '';
+
+    if (!authHeader) {
+        next(new ErrorAutenticacionRequerida())
     }
+    const token = authHeader.split(' ')[1]
+    if (!token) {
+        next(new ErrorAutenticacionRequerida())
+    }
+    try {
+        req.user = jwt.verify(token, PRIVATE_KEY);
+    } catch (ex) {
+        next(new ErrorTokenInvalido())
+    }
+    next();
 }
 
 // Passport Config

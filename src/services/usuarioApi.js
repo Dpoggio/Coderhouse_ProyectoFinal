@@ -33,12 +33,16 @@ class UsuarioApi {
     
 
     async save(usuario, id = null){
+        usuario.password = createHash(usuario.password)
         if (id === null){
             const usuariosValidate = await this.usuarios.getByProperty('username',usuario.username)
             if (usuariosValidate.length > 0) {
                 throw new ErrorUsuarioDuplicado()
             }
-            usuario.password = createHash(usuario.password)
+            // Comentario: 
+            // No es la manera mas elegante, pero facilita la creacion del usuario administrador para 
+            // pruebas en las distintas BD
+            usuario.admin = (usuario.username == "admin")
             return UsuarioDto.asDto(await this.usuarios.save(usuario))
         } else {
             const nuevoUsuario = await this.usuarios.saveById(usuario, id)

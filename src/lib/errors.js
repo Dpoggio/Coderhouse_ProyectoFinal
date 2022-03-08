@@ -11,6 +11,7 @@ const USER_NOT_FOUND = -6
 const USER_DUP = -7
 const INVALID_USER = -8
 const AUTH_REQUIRED = -9
+const INVALID_TOKEN = -10
 
 
 export class ErrorRutaNoAutorizada extends Error {
@@ -103,27 +104,12 @@ export class ErrorAutenticacionRequerida extends Error {
     }
 }
 
-
-
-// const token = authHeader.split(' ')[1]
-
-// if (!token) {
-// return res.status(401).json({
-// error: 'se requiere autenticacion para acceder a este recurso',
-// detalle: 'formato de token invalido!'
-// })
-// }
-
-// try {
-// req.user = jwt.verify(token, PRIVATE_KEY);
-// } catch (ex) {
-// return res.status(403).json({
-// error: 'token invalido',
-// detalle: 'nivel de acceso insuficiente para el recurso solicitado'
-// })
-
-// {
-//     code: cfg.NOT_AUTH_ERRCODE,
-//     httpStatusCode: cfg.HTTP_FORBIDDEN,
-//     message: `ruta '${req.originalUrl}' metodo '${req.method}' no authorizada`
-// }
+export class ErrorTokenInvalido extends Error {
+    constructor() {
+        super(`Token invalido o expirado`)
+        this.name = this.constructor.name
+        this.httpStatusCode = cfg.HTTP_FORBIDDEN
+        this.code = INVALID_TOKEN
+        Error.captureStackTrace(this, this.constructor)
+    }
+}
