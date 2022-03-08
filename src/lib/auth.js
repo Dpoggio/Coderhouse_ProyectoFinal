@@ -24,7 +24,7 @@ function generateToken(req, res) {
 }
 
 function isAuthorized(req, res, next) {
-    if(isAdmin(req)) {
+    if(!cfg.ENABLE_VALIDATION || isAdmin(req)) {
         next();
     } else {
         next(new ErrorRutaNoAutorizada(req.originalUrl, req.method))
@@ -32,19 +32,21 @@ function isAuthorized(req, res, next) {
 }
 
 function isAuthenticated(req, res, next) {
-    const authHeader = req.headers["authorization"] || req.headers["Authorization"] || '';
+    if ( cfg.ENABLE_VALIDATION ) {
+        const authHeader = req.headers["authorization"] || req.headers["Authorization"] || '';
 
-    if (!authHeader) {
-        next(new ErrorAutenticacionRequerida())
-    }
-    const token = authHeader.split(' ')[1]
-    if (!token) {
-        next(new ErrorAutenticacionRequerida())
-    }
-    try {
-        req.user = jwt.verify(token, PRIVATE_KEY);
-    } catch (ex) {
-        next(new ErrorTokenInvalido())
+        if (!authHeader) {
+            next(new ErrorAutenticacionRequerida())
+        }
+        const token = authHeader.split(' ')[1]
+        if (!token) {
+            next(new ErrorAutenticacionRequerida())
+        }
+        try {
+            req.user = jwt.verify(token, PRIVATE_KEY);
+        } catch (ex) {
+            next(new ErrorTokenInvalido())
+        }
     }
     next();
 }
