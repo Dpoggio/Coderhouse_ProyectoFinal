@@ -18,22 +18,45 @@
       <br>
       <form id="formRegister" class="form" role="form">
 
+        
+        <label for="username"><i><b>Mail</b></i></label>
         <div class="form-group">
           <input id="username" name='username' placeholder="Mail" class="form-control" type="text" required>
         </div>
 
+        <label for="nombre"><i><b>Nombre</b></i></label>
         <div class="form-group">
           <input id="nombre" name='nombre' placeholder="Nombre" class="form-control" type="text" required>
         </div>
 
+        <label for="apellido"><i><b>Apellido</b></i></label>
         <div class="form-group">
           <input id="apellido" name='apellido' placeholder="Apellido" class="form-control" type="text" required>
         </div>
 
+        <label for="direccion"><i><b>Direccion</b></i></label>
         <div class="form-group">
-          <input id="imagenurl" name='imagenurl' placeholder="Avatar" class="form-control" type="text" required>
+          <input id="direccion" name='direccion' placeholder="Direccion" class="form-control" type="text" required>
         </div>
 
+        <label for="fechanacimiento"><i><b>Fecha de Nacimiento</b></i></label>
+        <div class="form-group">
+          <input id="fechanacimiento" name='fechanacimiento' placeholder="Fecha de Nacimiento" class="form-control" type="date" required>
+        </div>
+
+        <label for="telefono"><i><b>Telefono</b></i></label>
+        <div class="form-group">
+          <input id="telefono" name='telefono' placeholder="Telefono" class="form-control" 
+            type="tel" pattern="[0-9]{13}" mesarequired>
+            <small>Formato: 5491100000000</small>
+        </div>
+
+        <label for="imagenurl"><i><b>Avatar</b></i></label>
+        <div class="form-group">
+          <input id="imagenurl" name='imagenurl' placeholder="Avatar" class="form-control" type="url" required>
+        </div>
+
+        <label for="password"><i><b>Contraseña</b></i></label>
         <div class="form-group">
           <input id="password" name='password' placeholder="Contraseña" class="form-control" type="password" required>
         </div>

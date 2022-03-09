@@ -7,8 +7,11 @@ formRegister.addEventListener('submit', async e => {
     username: formRegister[0].value,
     nombre: formRegister[1].value,
     apellido: formRegister[2].value,
-    imagenur: formRegister[3].value,
-    password: formRegister[4].value
+    direccion: formRegister[3].value,
+    fechanacimiento: new Date(formRegister[4].value),
+    telefono: formRegister[5].value,
+    imagenurl: formRegister[6].value,
+    password: formRegister[7].value
   }
 
   const respuesta = await fetch('/auth/signup', {
