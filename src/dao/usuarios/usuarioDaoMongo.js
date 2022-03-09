@@ -7,7 +7,7 @@ const usuarioSchema = new mongoose.Schema({
     password: {type: String},
     nombre: {type: String},
     apellido: {type: String},
-    imagenUrl: {type: String},
+    imagenurl: {type: String},
     admin: {type: Boolean}
 })
 

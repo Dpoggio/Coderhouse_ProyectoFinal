@@ -2,17 +2,26 @@
 cargarProductos()
 cargarEditor()
 
-
+class LoginRequeried extends Error {
+    constructor(){
+        super('Login requerido')
+    }
+}
   
 async function cargarProductos() {
+    const access_token = localStorage.getItem('access_token')
+    if (!access_token) {
+        return location.href='/login.html'
+    }
     const [ plantilla, productos ] = await Promise.all([ 
         fetch('/partials/editorProductos.hbs').then(respuesta => respuesta.text()),
-        fetch('/api/productos').then(response => response.json())
+        fetch('/api/productos').then(validateResponse)
     ])
 
     const render = Handlebars.compile(plantilla)
     const html = render({ productos })
     document.getElementById('listaProductos').innerHTML = html
+
 }
 
 
@@ -34,18 +43,32 @@ async function cargarEditor(idProducto = null) {
 
 
 function getHeader() {
-    const user = document.getElementById('admin').checked ? "admin" : "dummy"
-    return new Headers({
-        'Authorization': 'Basic '+btoa(user + ':'), 
-        'Content-Type': 'application/json'
-    })
+    if (document.getElementById('admin').checked){
+        const user = "admin"
+        return new Headers({
+            'Authorization': 'Basic '+btoa(user + ':'), 
+            'Content-Type': 'application/json'
+        })
+    } else {
+        return new Headers({
+            'Authorization': `Bearer ${localStorage.getItem('access_token')}`, 
+            'Content-Type': 'application/json'
+        })
+    }
+
+    
 }
 
-function validateResponse(data){
-    if (data.error && data.error < 0){
-        throw new Error(data.description)
+function validateResponse(response){
+    if (response.status == 403 || response.status == 401){
+        throw new LoginRequeried()
     }
-    return 
+    const data = response.json()
+    if (data.error && data.error < 0) {
+        alert(`Error al actualizar: ${data.error.message}`)
+        return false
+    }
+    return data
 }
 
 async function guardarProducto(form){
@@ -80,15 +103,20 @@ async function guardarProducto(form){
         url = `/api/productos/${idProducto}`
     };
 
-    await fetch(url, dataRequest)
-        .then(response => response.json())
-        .then(validateResponse)
-        .then(() => cargarProductos())
-        .then(() => alert('Actualizado Correctamente!'))
-        .catch((err) => alert(`Error al actualizar: ${err.message}`))
     
-    
-    return false
+    try {
+        const response = await fetch(url, dataRequest)
+        validateResponse(response)
+        alert('Actualizado Correctamente!')
+        cargarProductos()
+        return false           
+    } catch(err){
+        if(err instanceof LoginRequeried){
+            return location.href='/login.html'
+        } else {
+            throw err
+        }
+    }
 }
 
 async function eliminarProducto(idProducto){
@@ -96,13 +124,20 @@ async function eliminarProducto(idProducto){
         method: 'DELETE',
         headers: getHeader()
     };
-    await fetch(`/api/productos/${idProducto}`, dataRequest)
-        .then(response => response.json())
-        .then(validateResponse)
-        .then(() => cargarProductos())
-        .then(() => alert('Eliminado Correctamente!'))
-        .catch((err) => alert(`Error al actualizar: ${err.message}`))
-    
-    return false           
+    try {
+        const response = await fetch(`/api/productos/${idProducto}`, dataRequest)
+        validateResponse(response)
+        alert('Eliminado Correctamente!')
+        cargarProductos()
+        return false           
+    } catch(err){
+        if(err instanceof LoginRequeried){
+            return location.href='/login.html'
+        } else {
+            throw err
+        }
+        
+
+    }
 }
 
