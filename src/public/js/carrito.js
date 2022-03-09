@@ -1,6 +1,3 @@
-
-let idCarrito
-
 generarCarrito()
 cargarProductos()
 
@@ -17,20 +14,24 @@ async function cargarProductos() {
 }
 
 async function generarCarrito() {
-    const dataRequest = {
-        method: 'POST'
-    };
-    
-    await fetch('/api/carrito/', dataRequest)
+    if (localStorage.getItem("chart_id")) {
+        actualizarCarrito()
+    } else {
+        const dataRequest = {
+            method: 'POST'
+        };
+        
+        await fetch('/api/carrito/', dataRequest)
         .then(response => response.json())
         .then((carr) => {
-            idCarrito = carr.id
-            actualizarCarrito(idCarrito)
-        })
-    
+            localStorage.setItem("chart_id", carr.id);
+            actualizarCarrito()
+        })    
+    }
 }
 
 async function actualizarCarrito() {
+    const idCarrito = localStorage.getItem("chart_id");
     const [ plantilla, carrito ] = await Promise.all([ 
         fetch('/partials/carritoListado.hbs')
             .then(respuesta => respuesta.text()),
@@ -45,6 +46,7 @@ async function actualizarCarrito() {
 
 
 async function agregarAlCarrito(idProducto){
+    const idCarrito = localStorage.getItem("chart_id");
     const dataRequest = {
         method: 'POST'
     };
@@ -55,6 +57,7 @@ async function agregarAlCarrito(idProducto){
 }
 
 async function quitarDelCarrito(idProducto){
+    const idCarrito = localStorage.getItem("chart_id");
     const dataRequest = {
         method: 'DELETE'
     };
@@ -62,4 +65,14 @@ async function quitarDelCarrito(idProducto){
         .then(response => response.json())
         .then((carr) => actualizarCarrito(idCarrito))
         
+}
+
+async function limpiarCarrito(){
+    const idCarrito = localStorage.getItem("chart_id");
+    const dataRequest = {
+        method: 'DELETE'
+    };
+    await fetch(`/api/carrito/${idCarrito}`, dataRequest).catch(err => {return})
+    localStorage.removeItem("chart_id");
+    await generarCarrito()
 }
