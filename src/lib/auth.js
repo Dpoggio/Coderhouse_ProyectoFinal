@@ -3,6 +3,7 @@ import passport from 'passport'
 import { Strategy as LocalStrategy } from 'passport-local'
 import jwt from 'jsonwebtoken'
 import UsuarioApi from '../services/usuarioApi.js'
+import MailApi from '../services/mailApi.js'
 import { ErrorRutaNoAutorizada, ErrorAutenticacionRequerida, ErrorTokenInvalido } from './errors.js'
 import basicAuth from 'basic-auth'
 
@@ -73,6 +74,7 @@ const signupStrategy = new LocalStrategy({ passReqToCallback: true },
   async (req, username, password, done) => {
     try {
         const newUser = await usuarioApi.save(req.body)
+        MailApi.newUserMailNotif(newUser)
         return done(null, newUser)
     } catch(error) {
         done(error)

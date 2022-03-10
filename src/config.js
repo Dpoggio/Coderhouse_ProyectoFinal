@@ -14,6 +14,14 @@ export default Object.freeze({
     PORT: process.env.PORT || 8080,
     PRIVATE_KEY: process.env.USER_PRIVATE_KEY,
     ENABLE_VALIDATION: process.env.ENABLE_VALIDATION == 'true', // Variable para Testeo
+    
+    //MAIL
+    MAIL_USER: process.env.MAIL_USER,
+    MAIL_APPSENDER: process.env.MAIL_APPSENDER,
+    MAIL_PORT: process.env.MAIL_PORT,
+    MAIL_SERVICE: process.env.MAIL_SERVICE,
+    MAIL_HOST: process.env.MAIL_HOST,
+    MAIL_PASSWORD: process.env.MAIL_PASSWORD,
 
     // HTTP
     HTTP_NOT_FOUND: 404,

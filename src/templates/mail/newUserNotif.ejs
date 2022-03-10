@@ -1,0 +1,28 @@
+<style>
+    .avatar {
+        vertical-align: middle;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+</style>
+
+<% 
+function formatDate(date) {
+    return date.toISOString().replace(/T.+/i, '')
+}
+%>
+<body>
+<h3>Se ha registrado un nuevo usuario.</h3>
+<br>
+<p>Infromacion del usuario:</p>
+<img src="<%= usuario.imagenurl %>" alt="Avatar" class="avatar">
+<ul>
+    <li><b>Mail</b>: <%= usuario.username %></li>
+    <li><b>Nombre</b>: <%= usuario.nombre %></li>
+    <li><b>Apellido</b>: <%= usuario.apellido %></li>
+    <li><b>Direccion</b>: <%= usuario.direccion %></li>
+    <li><b>Fecha de Nacimiento</b>: <%= formatDate(new Date(usuario.fechanacimiento)) %></li>
+    <li><b>Telefono</b>: <%= usuario.telefono %></li>
+  </ul>  
+</body>
