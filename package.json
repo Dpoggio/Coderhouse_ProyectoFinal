@@ -41,7 +41,8 @@
     "nodemailer": "^6.7.2",
     "passport": "^0.5.2",
     "passport-local": "^1.0.0",
-    "sqlite3": "^5.0.2"
+    "sqlite3": "^5.0.2",
+    "twilio": "^3.75.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.14"

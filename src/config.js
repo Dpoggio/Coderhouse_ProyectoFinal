@@ -16,12 +16,23 @@ export default Object.freeze({
     ENABLE_VALIDATION: process.env.ENABLE_VALIDATION == 'true', // Variable para Testeo
     
     //MAIL
+    MAIL_ENABLED: process.env.MAIL_ENABLED == 'true',
     MAIL_USER: process.env.MAIL_USER,
     MAIL_APPSENDER: process.env.MAIL_APPSENDER,
     MAIL_PORT: process.env.MAIL_PORT,
     MAIL_SERVICE: process.env.MAIL_SERVICE,
     MAIL_HOST: process.env.MAIL_HOST,
     MAIL_PASSWORD: process.env.MAIL_PASSWORD,
+    
+    // Twilio
+    TWILIO_ENABLED: process.env.TWILIO_ENABLED == 'true',
+    TWILIO_ACCOUNTSID: process.env.TWILIO_ACCOUNTSID,
+    TWILIO_AUTHTOKEN: process.env.TWILIO_AUTHTOKEN,
+    TWILIO_NUMBER: process.env.TWILIO_NUMBER,
+    
+    // Admin Data
+    ADMIN_MAIL: process.env.ADMIN_MAIL,
+    ADMIN_NUMBER: process.env.ADMIN_NUMBER,
 
     // HTTP
     HTTP_NOT_FOUND: 404,

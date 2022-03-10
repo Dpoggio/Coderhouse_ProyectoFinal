@@ -1,0 +1,13 @@
+<% 
+function formatDate(date) {
+    return date.toISOString().replace(/T.+/i, '')
+}
+%>
+Se ha registrado un nuevo usuario.
+Infromacion del usuario:
+    Mail: <%= usuario.username %>
+    Nombre: <%= usuario.nombre %>
+    Apellido: <%= usuario.apellido %>
+    Direccion: <%= usuario.direccion %>
+    FechaNacimiento: <%= formatDate(new Date(usuario.fechanacimiento)) %>
+    Telefono: <%= usuario.telefono %>
