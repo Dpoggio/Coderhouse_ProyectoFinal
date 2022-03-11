@@ -20,7 +20,7 @@ function isSuperAdmin(req){
 // Export Functions
 function generateToken(req, res) {
     const user = req.user
-    const token = jwt.sign({ username: user.username, admin: user.admin }, PRIVATE_KEY, { expiresIn: 30 });
+    const token = jwt.sign({ username: user.username, admin: user.admin }, PRIVATE_KEY, { expiresIn: cfg.TOKEN_EXPIRED_TIME });
 
     res.json({
         usuario: user,

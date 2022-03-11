@@ -14,6 +14,10 @@ Proyecto Final de Coderhouse
 
     npm run devStart
 
+## Iniciar test de carga
+
+    artillery run benchmark.yml > test/loadTest.txt
+
 ## Instalar/Desinstalar Tablas en base de datos
 
 ### MariaDB
@@ -169,3 +173,4 @@ En esta pantalla se pueden administrar los productos existentes. Para eliminar, 
 `localhost:8080\carrito.html`
 
 Al ingresar en esta pagina, automaticamente se genera un carrito nuevo. Luego, es posible agregar o quitar productos al carrito generado.
+

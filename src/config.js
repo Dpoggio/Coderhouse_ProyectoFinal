@@ -15,6 +15,7 @@ export default Object.freeze({
     CLUSTER: process.env.CLUSTER == 'true',
     PRIVATE_KEY: process.env.USER_PRIVATE_KEY,
     ENABLE_VALIDATION: process.env.ENABLE_VALIDATION == 'true', // Variable para Testeo
+    TOKEN_EXPIRED_TIME: process.env.TOKEN_EXPIRED_TIME || 30, 
     
     //MAIL
     MAIL_ENABLED: process.env.MAIL_ENABLED == 'true',
