@@ -2,7 +2,7 @@ cargarBarra()
 
 function logout() {
     localStorage.removeItem('access_token');
-    localStorage.removeItem('username');
+    localStorage.removeItem('user_id');
     localStorage.removeItem('user_nombre');
     localStorage.removeItem('user_avatar');
     location.href = '/index.html'

@@ -1,0 +1,24 @@
+<% 
+
+function formatNumber(number) {
+    return parseFloat(number).toFixed(2);
+}
+function sumarItems(items) {
+    if (!items || items.length == 0){
+        return 0
+    }
+    return items.map(p => p.producto.price*p.cantidad).reduce((a, b) => a + b)
+}
+%>Su pedido a sido confirmado!
+Informacion del pedido: 
+<% orden.items.forEach((item) => { 
+    %> - <%= item.cantidad 
+    %> x [<%= item.producto.code 
+    %>] <%= item.producto.name
+    %>   *$<%= formatNumber(item.producto.price*item.cantidad) %>*
+<% }) %>
+
+*Total: $<%= sumarItems(orden.items) %>*
+----
+Nombre: <%= usuario.nombre %> 
+Mail: <%= usuario.username %>

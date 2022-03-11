@@ -23,7 +23,7 @@ formLogin.addEventListener('submit', async e => {
 
   if (access_token) {
     localStorage.setItem("access_token", access_token);
-    localStorage.setItem("username", usuario.username );
+    localStorage.setItem("user_id", usuario.id );
     localStorage.setItem("user_nombre", usuario.nombre );
     localStorage.setItem("user_avatar", usuario.imagenurl );
     location.href = '/index.html'

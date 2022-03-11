@@ -79,14 +79,13 @@ async function limpiarCarrito(){
 
 async function enviarOrden(){
     const idCarrito = localStorage.getItem("chart_id")
-    const nombre = localStorage.getItem('user_nombre')
-    const username = localStorage.getItem('username')
-
+    const idUsuario = localStorage.getItem('user_id')
     const carrito = await fetch(`/api/carrito/${idCarrito}/productos`).then(response => response.json())
 
     const orden = {
-        mail: username,
-        nombre: nombre,
+        usuario: {
+            id: idUsuario
+        },
         items: carrito.productos
     }
 

@@ -12,6 +12,7 @@ const USER_DUP = -7
 const INVALID_USER = -8
 const AUTH_REQUIRED = -9
 const INVALID_TOKEN = -10
+const INCORRECT_FORMAT = -11
 
 
 export class ErrorRutaNoAutorizada extends Error {
@@ -113,3 +114,14 @@ export class ErrorTokenInvalido extends Error {
         Error.captureStackTrace(this, this.constructor)
     }
 }
+
+export class ErrorFormatoIncorrecto extends Error {
+    constructor(mensaje) {
+        super(`Formato incorrecto: ${mensaje}`)
+        this.name = this.constructor.name
+        this.httpStatusCode = cfg.HTTP_BAD_REQUEST
+        this.code = INCORRECT_FORMAT
+        Error.captureStackTrace(this, this.constructor)
+    }
+}
+
