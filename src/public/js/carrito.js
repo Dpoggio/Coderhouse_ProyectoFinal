@@ -1,7 +1,6 @@
 generarCarrito()
 cargarProductos()
 
-
 async function cargarProductos() {
     const [ plantilla, productos ] = await Promise.all([ 
         fetch('/partials/listaProductos.hbs').then(respuesta => respuesta.text()),
@@ -75,4 +74,41 @@ async function limpiarCarrito(){
     await fetch(`/api/carrito/${idCarrito}`, dataRequest).catch(err => {return})
     localStorage.removeItem("chart_id");
     await generarCarrito()
+}
+
+
+async function enviarOrden(){
+    const idCarrito = localStorage.getItem("chart_id")
+    const nombre = localStorage.getItem('user_nombre')
+    const username = localStorage.getItem('username')
+
+    const carrito = await fetch(`/api/carrito/${idCarrito}/productos`).then(response => response.json())
+
+    const orden = {
+        mail: username,
+        nombre: nombre,
+        items: carrito.productos
+    }
+
+    try {
+        const response = await fetch('/api/ordenes', {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+            },
+            body: JSON.stringify(orden)
+          })
+        validateResponse(response)
+        alert('Su orden ah sido enviarda correctamente!')
+        cargarProductos()
+        return false           
+    } catch(err){
+        if(err instanceof LoginRequeried){
+            return location.href='/login.html'
+        } else {
+            throw err
+        }
+    }
 }

@@ -5,7 +5,7 @@ import { isAuthenticated, isAuthorized } from '../lib/auth.js'
 const routerOrdenes = Router();
 
 /**** Rutas ****/
-routerOrdenes.post('/', isAuthenticated, isAuthorized, OrdenesContr.post)
+routerOrdenes.post('/', isAuthenticated, OrdenesContr.post)
 
 
 export { routerOrdenes }

@@ -2,11 +2,7 @@
 cargarProductos()
 cargarEditor()
 
-class LoginRequeried extends Error {
-    constructor(){
-        super('Login requerido')
-    }
-}
+
   
 async function cargarProductos() {
     const access_token = localStorage.getItem('access_token')
@@ -55,20 +51,6 @@ function getHeader() {
             'Content-Type': 'application/json'
         })
     }
-
-    
-}
-
-function validateResponse(response){
-    if (response.status == 403 || response.status == 401){
-        throw new LoginRequeried()
-    }
-    const data = response.json()
-    if (data.error && data.error < 0) {
-        alert(`Error al actualizar: ${data.error.message}`)
-        return false
-    }
-    return data
 }
 
 async function guardarProducto(form){

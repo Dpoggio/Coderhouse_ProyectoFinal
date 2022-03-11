@@ -41,16 +41,16 @@ function isAuthenticated(req, res, next) {
         const authHeader = req.headers["authorization"] || req.headers["Authorization"] || '';
 
         if (!authHeader) {
-            next(new ErrorAutenticacionRequerida())
+            return next(new ErrorAutenticacionRequerida())
         }
         const token = authHeader.split(' ')[1]
         if (!token) {
-            next(new ErrorAutenticacionRequerida())
+            return next(new ErrorAutenticacionRequerida())
         }
         try {
             req.user = jwt.verify(token, PRIVATE_KEY);
         } catch (ex) {
-            next(new ErrorTokenInvalido())
+            return next(new ErrorTokenInvalido())
         }
     }
     next();
