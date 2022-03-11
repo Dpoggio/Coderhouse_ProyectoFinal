@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import OrdenesContr from '../controllers/OrdenesContr.js'
+import OrdenesContr from '../controllers/ordenesContr.js'
 import { isAuthenticated, isAuthorized } from '../lib/auth.js'
 
 const routerOrdenes = Router();
