@@ -1,6 +1,6 @@
 import { CarritoDao } from '../dao/index.js'
 import ProductosApi from './productoApi.js'
-import CarritoDto from '../model/CarritoDto.js'
+import CarritoDto from '../model/carritoDto.js'
 import { ErrorCarritoNoEncontrado } from '../lib/errors.js'
 
 
