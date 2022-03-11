@@ -1,11 +1,9 @@
 import cfg from '../config.js'
 import passport from 'passport'
-import { Strategy as LocalStrategy } from 'passport-local'
 import jwt from 'jsonwebtoken'
-import UsuarioApi from '../services/usuarioApi.js'
-import NotificationApi from '../services/notificationApi.js'
 import { ErrorRutaNoAutorizada, ErrorAutenticacionRequerida, ErrorTokenInvalido } from './errors.js'
 import basicAuth from 'basic-auth'
+import { loginStrategy, signupStrategy } from '../controllers/authContr.js'
 
 const PRIVATE_KEY = cfg.PRIVATE_KEY
 
@@ -59,29 +57,6 @@ function isAuthenticated(req, res, next) {
 }
 
 // Passport Config
-const usuarioApi = new UsuarioApi()
-
-const loginStrategy = new LocalStrategy(async (username, password, done) => {
-    try {
-        const newUser = await usuarioApi.validateUser(username, password)
-        return done(null, newUser)
-    } catch(error) {
-        done(error)
-    }
-})
-
-const signupStrategy = new LocalStrategy({ passReqToCallback: true },
-  async (req, username, password, done) => {
-    try {
-        const newUser = await usuarioApi.save(req.body)
-        NotificationApi.notificateNewUser(newUser)
-        return done(null, newUser)
-    } catch(error) {
-        done(error)
-    }
-  }
-)
-
 passport.use('login', loginStrategy)
 passport.use('signup', signupStrategy)
 

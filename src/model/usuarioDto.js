@@ -5,7 +5,7 @@ export default class UsuarioDto {
         this.nombre = datos.nombre || ''
         this.apellido = datos.apellido || ''
         this.direccion = datos.direccion || ''
-        this.fechanacimiento = (new Date((datos.fechanacimiento))).toISOString()
+        this.fechanacimiento = datos.fechanacimiento ? (new Date((datos.fechanacimiento))).toISOString() : ''
         this.telefono = datos.telefono || 0
         this.imagenurl = datos.imagenurl || ''
         this.admin = !!datos.admin 

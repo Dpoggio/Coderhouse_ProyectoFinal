@@ -1,0 +1,70 @@
+<style>
+    table.example-table,
+    .example-table td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    .example-table thead {
+        font-weight: bold
+    }
+
+    .example-table tfoot {
+        font-weight: bold
+    }
+</style>
+
+<% 
+function formatNumber(number) { 
+    return parseFloat(number).toFixed(2); 
+} 
+
+function sumarItems(items) { 
+    if (!items || items.length==0){ 
+        return 0 
+    } 
+    return items.map(p=> p.producto.price*p.cantidad).reduce((a, b) => a + b)
+}
+%>
+
+<body>
+    <p>Nuevo pedido realizado!
+    <p>Informacion del pedido:</p>
+    <br>
+
+    <span><b>Nombre</b>: <%= orden.nombre %></span>
+    <br>
+    <span><b>Mail</b>: <%= orden.mail %></span>
+    <br>
+    <span><b>Pedido</b>:</span>
+
+    <table class="example-table">
+        <thead>
+            <tr>
+                <td>Codigo</td>
+                <td>Item</td>
+                <td>Cantidad</td>
+                <td>Precio Individual</td>
+                <td>Precio Total</td>
+            </tr>
+        </thead>
+
+        <% orden.items.forEach((item)=> { %>
+        <tr>
+            <td><%= item.producto.code %></td>
+            <td><%= item.producto.name %></td>
+            <td><%= item.cantidad %></td>
+            <td><b>$<%= formatNumber(item.producto.price) %></b></td>
+            <td><b>$<%= formatNumber(item.producto.price*item.cantidad) %></b></td>
+        </tr>
+        <% }) %>
+        <td bgcolor="#FFFFFF" style="line-height:10px;" colspan=5>&nbsp;</td>
+        <tfoot>
+            <tr>
+                <td colspan="4">Total</td>
+                <td>$<%= sumarItems(orden.items) %>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</body>
