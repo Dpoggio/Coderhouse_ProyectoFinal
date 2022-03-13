@@ -13,6 +13,7 @@ const INVALID_USER = -8
 const AUTH_REQUIRED = -9
 const INVALID_TOKEN = -10
 const INCORRECT_FORMAT = -11
+const MSG_NOT_FOUND = -12
 
 
 export class ErrorRutaNoAutorizada extends Error {
@@ -125,3 +126,12 @@ export class ErrorFormatoIncorrecto extends Error {
     }
 }
 
+export class ErrorMensajeNoEncontrado extends Error {
+    constructor() {
+        super('mensaje no encontrado')
+        this.name = this.constructor.name
+        this.httpStatusCode = cfg.HTTP_NOT_FOUND
+        this.code = MSG_NOT_FOUND
+        Error.captureStackTrace(this, this.constructor)
+    }
+}

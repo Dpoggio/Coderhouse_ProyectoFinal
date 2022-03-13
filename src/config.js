@@ -50,7 +50,8 @@ export default Object.freeze({
     DAO_ENTITIES: {
         PRODUCTO:  process.env.PRODUCTOS_DAO || DAO_OPTIONS.FILE,
         CARRITO:  process.env.CARRITOS_DAO || DAO_OPTIONS.FILE,
-        USUARIO:  process.env.USUARIOS_DAO || DAO_OPTIONS.FILE
+        USUARIO:  process.env.USUARIOS_DAO || DAO_OPTIONS.FILE,
+        MENSAJE:  process.env.MENSAJES_DAO || DAO_OPTIONS.FILE,
     },
 
     // CONECTIONS
