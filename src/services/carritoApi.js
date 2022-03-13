@@ -2,20 +2,17 @@ import CarritoDao from '../dao/carritos/carritoDaoFactory.js'
 import ProductoApi from './productoApi.js'
 import CarritoDto from '../model/carritoDto.js'
 import { ErrorCarritoNoEncontrado } from '../lib/errors.js'
+import BaseApi from './baseApi.js'
 
 
-class CarritoApi {
+class CarritoApi extends BaseApi {
+    static ErrorBaseNoEncontrado = ErrorCarritoNoEncontrado
+    static BaseDao = CarritoDao
+    static BaseDto = CarritoDto
 
     static async save(){
         const carrito = await CarritoDao.getDao().save({ timestamp: new Date(), productos: [] })
         return CarritoDto.asDto(carrito)
-    }
-
-    static async delete(id){
-        const carrito = await CarritoDao.getDao().deleteById(id)
-        if (carrito == null) {
-            throw new ErrorCarritoNoEncontrado()
-        }
     }
 
     static async get(id = null){

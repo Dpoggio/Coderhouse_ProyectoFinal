@@ -2,6 +2,7 @@ import UsuarioDao from '../dao/usuarios/usuarioDaoFactory.js'
 import UsuarioDto from '../model/usuarioDto.js'
 import { ErrorUsuarioNoEncontrado, ErrorUsuarioDuplicado, ErrorUsuarioInvalido } from '../lib/errors.js'
 import bCrypt from 'bcrypt'
+import BaseApi from './baseApi.js';
 
 
 
@@ -13,21 +14,11 @@ function isValidPassword(user, password) {
     return bCrypt.compareSync(password, user.password);
 }
 
-class UsuarioApi {
+class UsuarioApi extends BaseApi {
 
-    static async get(id = null){
-        if (id === null){
-            return UsuarioDto.asDto(await UsuarioDao.getDao().getAll(id))
-        } else {
-            const usuario = await UsuarioDao.getDao().getById(id)
-            if (usuario == null){
-                throw new ErrorUsuarioNoEncontrado()
-            }
-            return UsuarioDto.asDto(usuario)
-        }
-    }
-
-    
+    static ErrorBaseNoEncontrado = ErrorUsuarioNoEncontrado
+    static BaseDao = UsuarioDao
+    static BaseDto = UsuarioDto
 
     static async save(usuario, id = null){
         usuario.password = createHash(usuario.password)
@@ -47,13 +38,6 @@ class UsuarioApi {
                 throw new ErrorUsuarioNoEncontrado()
             }
             return UsuarioDto.asDto(nuevoUsuario)
-        }
-    }
-
-    static async delete(id){
-        const usuario = await UsuarioDao.getDao().deleteById(id)
-        if (usuario == null) {
-            throw new ErrorUsuarioNoEncontrado()
         }
     }
 
