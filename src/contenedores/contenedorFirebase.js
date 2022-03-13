@@ -1,14 +1,16 @@
 // Conexion con Firebase
 import firebase from 'firebase-admin'
+import fs from 'fs'
+import logger from '../lib/logger.js'
 
 class Contenedor {
     /**
      * Genera el contenedor a partir de un modelo de mongoose.
      * @param {Mongoose.Model} model : Modelo de coleccion de mongoose
      */
-    constructor(collection) {
-        const db = firebase.firestore();
-        this.collection = db.collection(collection)
+    constructor(collectionName, firebaseFile) {
+        this.collectionName = collectionName
+        this.firebaseFile = firebaseFile
     }
 
     // Private
@@ -21,6 +23,26 @@ class Contenedor {
     }
 
     // Public
+
+    /**
+     * Procedimiento para inicializar el contenedor
+     */
+    async init() {
+        const file = await fs.promises.readFile(this.firebaseFile)
+        const serviceAccount = JSON.parse(file.toString())        
+        const app = firebase.initializeApp({
+            credential: firebase.credential.cert(serviceAccount)
+        }, this.collectionName)
+        const db = app.firestore();
+        this.collection = db.collection(this.collectionName)
+        logger.info(`[${this.constructor.name}]: Contenedor Firebase inicializado correctamente`)
+    }
+
+    /**
+     * Procedimiento para finalizar el contenedor
+     */
+    async disconnect() {
+    }
 
     /**
      * Devuelve un array con los documentos presentes en la coleccion

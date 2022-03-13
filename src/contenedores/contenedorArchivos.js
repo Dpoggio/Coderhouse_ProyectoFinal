@@ -1,4 +1,5 @@
 import fs from 'fs'
+import logger from '../lib/logger.js'
 
 const CODIFICATION = 'utf-8'
 const NUMERO_INICIAL = 1
@@ -13,6 +14,19 @@ class Contenedor {
     }
 
     // Private
+
+    /**
+     * Procedimiento para inicializar el contenedor
+     */
+     async init() {
+        logger.info(`[${this.constructor.name}]: Contenedor Archivos inicializado correctamente`)
+    }
+
+    /**
+     * Procedimiento para finalizar el contenedor
+     */
+    async disconnect() {
+    }
 
     /**
      * Funcion interna que retorna una promesa de guardar el contenedor

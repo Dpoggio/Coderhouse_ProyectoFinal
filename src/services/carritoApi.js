@@ -1,36 +1,32 @@
-import { CarritoDao } from '../dao/index.js'
-import ProductosApi from './productoApi.js'
+import CarritoDao from '../dao/carritos/carritoDaoFactory.js'
+import ProductoApi from './productoApi.js'
 import CarritoDto from '../model/carritoDto.js'
 import { ErrorCarritoNoEncontrado } from '../lib/errors.js'
 
 
 class CarritoApi {
-    constructor(){
-        this.carritos = new CarritoDao()
-        this.productoApi = new ProductosApi()
-    }
 
-    async save(){
-        const carrito = await this.carritos.save({ timestamp: Date.now(), productos: [] })
+    static async save(){
+        const carrito = await CarritoDao.getDao().save({ timestamp: new Date(), productos: [] })
         return CarritoDto.asDto(carrito)
     }
 
-    async delete(id){
-        const carrito = await this.carritos.deleteById(id)
+    static async delete(id){
+        const carrito = await CarritoDao.getDao().deleteById(id)
         if (carrito == null) {
             throw new ErrorCarritoNoEncontrado()
         }
     }
 
-    async get(id = null){
+    static async get(id = null){
         if (id) {
-            const carrito = await this.carritos.getById(id)
+            const carrito = await CarritoDao.getDao().getById(id)
             if (carrito == null){
                 throw new ErrorCarritoNoEncontrado()
             }
             const productosPromises = carrito.productos.map(async p => { 
                 return {
-                    producto: await this.productoApi.get(p.id),
+                    producto: await ProductoApi.get(p.id),
                     cantidad: p.cantidad
                 }
             })
@@ -42,12 +38,12 @@ class CarritoApi {
                 productos: await Promise.all(productosPromises)
             })
         } else {
-            const carritos = await this.carritos.getAll()
+            const carritos = await CarritoDao.getDao().getAll()
 
             const carritosPromises = carritos.map(async carrito => {
                 const productosPromises = carrito.productos.map(async p => { 
                     return {
-                        producto: await this.productoApi.get(p.id),
+                        producto: await ProductoApi.get(p.id),
                         cantidad: p.cantidad
                     }
                 })
@@ -63,8 +59,8 @@ class CarritoApi {
         }
     }
 
-    async add(idCarrito, idProducto){
-        const carrito = await this.carritos.getById(idCarrito)        
+    static async add(idCarrito, idProducto){
+        const carrito = await CarritoDao.getDao().getById(idCarrito)        
         if (carrito == null){
             throw new ErrorCarritoNoEncontrado()
         }
@@ -74,24 +70,24 @@ class CarritoApi {
             item.cantidad = item.cantidad ? item.cantidad + 1 : 1
             carrito.productos[foundIndex] = item
         } else {
-            const producto = await this.productoApi.get(idProducto)
+            const producto = await ProductoApi.get(idProducto)
             carrito.productos.push({ id: producto.id, cantidad: 1 })
         }
-        await this.carritos.saveById(carrito, idCarrito)
+        await CarritoDao.getDao().saveById(carrito, idCarrito)
     }
 
-    async remove(idCarrito, idProducto){
-        const carrito = await this.carritos.getById(idCarrito)        
+    static async remove(idCarrito, idProducto){
+        const carrito = await CarritoDao.getDao().getById(idCarrito)        
         if (carrito == null){
             throw new ErrorCarritoNoEncontrado()
         }
         carrito.productos = carrito.productos.filter(prod => prod.id != idProducto)
-        await this.carritos.saveById(carrito, idCarrito)
+        await CarritoDao.getDao().saveById(carrito, idCarrito)
     }
 
     // Solo para testeo
-    async deleteAll(){
-        await this.carritos.deleteAll()
+    static async deleteAll(){
+        await CarritoDao.getDao().deleteAll()
     }
 }
 

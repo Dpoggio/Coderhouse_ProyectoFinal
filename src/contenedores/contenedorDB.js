@@ -1,4 +1,5 @@
 import Knex from 'knex'
+import logger from '../lib/logger.js'
 
 class Contenedor {
     /**
@@ -21,6 +22,19 @@ class Contenedor {
     }
 
     // Public
+
+    /**
+     * Procedimiento para inicializar el contenedor
+     */
+     async init() {
+        logger.info(`[${this.constructor.name}]: Contenedor Sql inicializado correctamente`)
+    }
+
+    /**
+     * Procedimiento para finalizar el contenedor
+     */
+    async disconnect() {
+    }
 
     /**
      * Devuelve un array con los registros presentes en la tabla

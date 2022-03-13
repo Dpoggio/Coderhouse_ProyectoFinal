@@ -1,5 +1,6 @@
 import Contenedor from '../../contenedores/contenedorMongo.js'
 import mongoose from 'mongoose'
+import cfg from '../../config.js'
 
 const productoSchema = new mongoose.Schema({
     id: {type: Number},
@@ -14,8 +15,9 @@ const productoSchema = new mongoose.Schema({
 
 class ProductoDaoMongo extends Contenedor{
     constructor(){
+        const mongoUri = cfg.mongoDbURL
         const productos = mongoose.model('productos', productoSchema)
-        super(productos)
+        super(productos, mongoUri)
     }
 }
 

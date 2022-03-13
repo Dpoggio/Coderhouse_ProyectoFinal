@@ -1,4 +1,4 @@
-import { UsuarioDao } from '../dao/index.js'
+import UsuarioDao from '../dao/usuarios/usuarioDaoFactory.js'
 import UsuarioDto from '../model/usuarioDto.js'
 import { ErrorUsuarioNoEncontrado, ErrorUsuarioDuplicado, ErrorUsuarioInvalido } from '../lib/errors.js'
 import bCrypt from 'bcrypt'
@@ -14,15 +14,12 @@ function isValidPassword(user, password) {
 }
 
 class UsuarioApi {
-    constructor(){
-        this.usuarios = new UsuarioDao()
-    }
 
-    async get(id = null){
+    static async get(id = null){
         if (id === null){
-            return UsuarioDto.asDto(await this.usuarios.getAll(id))
+            return UsuarioDto.asDto(await UsuarioDao.getDao().getAll(id))
         } else {
-            const usuario = await this.usuarios.getById(id)
+            const usuario = await UsuarioDao.getDao().getById(id)
             if (usuario == null){
                 throw new ErrorUsuarioNoEncontrado()
             }
@@ -32,10 +29,10 @@ class UsuarioApi {
 
     
 
-    async save(usuario, id = null){
+    static async save(usuario, id = null){
         usuario.password = createHash(usuario.password)
         if (id === null){
-            const usuariosValidate = await this.usuarios.getByProperty('username',usuario.username)
+            const usuariosValidate = await UsuarioDao.getDao().getByProperty('username',usuario.username)
             if (usuariosValidate.length > 0) {
                 throw new ErrorUsuarioDuplicado()
             }
@@ -43,9 +40,9 @@ class UsuarioApi {
             // No es la manera mas elegante, pero facilita la creacion del usuario administrador para 
             // pruebas en las distintas BD
             usuario.admin = (usuario.username == "admin")
-            return UsuarioDto.asDto(await this.usuarios.save(usuario))
+            return UsuarioDto.asDto(await UsuarioDao.getDao().save(usuario))
         } else {
-            const nuevoUsuario = await this.usuarios.saveById(usuario, id)
+            const nuevoUsuario = await UsuarioDao.getDao().saveById(usuario, id)
             if (nuevoUsuario == null){
                 throw new ErrorUsuarioNoEncontrado()
             }
@@ -53,15 +50,15 @@ class UsuarioApi {
         }
     }
 
-    async delete(id){
-        const usuario = await this.usuarios.deleteById(id)
+    static async delete(id){
+        const usuario = await UsuarioDao.getDao().deleteById(id)
         if (usuario == null) {
             throw new ErrorUsuarioNoEncontrado()
         }
     }
 
-    async validateUser(username, password){
-        const listaUsuarios = await this.usuarios.getByProperty('username',username)
+    static async validateUser(username, password){
+        const listaUsuarios = await UsuarioDao.getDao().getByProperty('username',username)
         if (listaUsuarios.length === 0) {
             throw new ErrorUsuarioNoEncontrado()
         }

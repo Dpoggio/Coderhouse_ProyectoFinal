@@ -7,7 +7,8 @@ export default class ProductoDto {
         this.thumbnail = datos.thumbnail || ''
         this.price = datos.price || 0
         this.stock = datos.stock || 0
-        this.timestamp = (new Date((datos.timestamp))).toISOString()
+        const timestampParsed = Date.parse(datos.timestamp)
+        this.timestamp = timestampParsed ? (new Date(timestampParsed)).toISOString() : ''
     }
 
     static asDto(datos) {

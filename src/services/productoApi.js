@@ -1,18 +1,15 @@
-import { ProductoDao } from '../dao/index.js'
+import ProductoDao from '../dao/productos/productoDaoFactory.js'
 import ProductoDto from '../model/productoDto.js'
 import { ErrorProductoNoEncontrado } from '../lib/errors.js'
 
 
 class ProductoApi {
-    constructor(){
-        this.productos = new ProductoDao()
-    }
 
-    async get(id = null){
+    static async get(id = null){
         if (id === null){
-            return ProductoDto.asDto(await this.productos.getAll(id))
+            return ProductoDto.asDto(await ProductoDao.getDao().getAll(id))
         } else {
-            const producto = await this.productos.getById(id)
+            const producto = await ProductoDao.getDao().getById(id)
             if (producto == null){
                 throw new ErrorProductoNoEncontrado()
             }
@@ -20,12 +17,12 @@ class ProductoApi {
         }
     }
 
-    async save(producto, id = null){
-        producto.timestamp = Date.now()
+    static async save(producto, id = null){
+        producto.timestamp = new Date()
         if (id === null){
-            return ProductoDto.asDto(await this.productos.save(producto))
+            return ProductoDto.asDto(await ProductoDao.getDao().save(producto))
         } else {
-            const nuevoProducto = await this.productos.saveById(producto, id)
+            const nuevoProducto = await ProductoDao.getDao().saveById(producto, id)
             if (nuevoProducto == null){
                 throw new ErrorProductoNoEncontrado()
             }
@@ -33,8 +30,8 @@ class ProductoApi {
         }
     }
 
-    async delete(id){
-        const producto = await this.productos.deleteById(id)
+    static async delete(id){
+        const producto = await ProductoDao.getDao().deleteById(id)
         if (producto == null) {
             throw new ErrorProductoNoEncontrado()
         }

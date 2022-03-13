@@ -2,13 +2,11 @@ import CarritoApi from '../services/carritoApi.js'
 import parser from '../lib/idParser.js'
 import cfg from '../config.js'
 
-const carritoApi = new CarritoApi()
-
 /**** Rutas ****/
 class CarritoContr {
     static async post(req, res, next){  
         try {
-            const carrito = await carritoApi.save()
+            const carrito = await CarritoApi.save()
             res.status(cfg.HTTP_CREATED).json(carrito)
         } catch (error) {
             next(error)
@@ -18,7 +16,7 @@ class CarritoContr {
     static async deleteById(req, res, next){  
         try {
             const id = parser.parseID(req.params.id)
-            await carritoApi.delete(id)
+            await CarritoApi.delete(id)
             res.json({})
         } catch (error) {
             next(error)
@@ -27,7 +25,7 @@ class CarritoContr {
 
     static async get(req, res, next){  
         try {
-            const carritos = await carritoApi.get()
+            const carritos = await CarritoApi.get()
             res.json(carritos)    
         } catch (error) {
             return next(error)
@@ -37,7 +35,7 @@ class CarritoContr {
     static async getById(req, res, next){  
         try {
             const id = parser.parseID(req.params.id)
-            const carrito = await carritoApi.get(id)
+            const carrito = await CarritoApi.get(id)
             res.json(carrito)    
         } catch (error) {
             return next(error)
@@ -48,7 +46,7 @@ class CarritoContr {
         try {
             const idCarrito = parser.parseID(req.params.id)
             const idProducto = parser.parseID(req.params.id_prod)
-            await carritoApi.add(idCarrito, idProducto)
+            await CarritoApi.add(idCarrito, idProducto)
             res.json({})
         } catch (error) {
             next(error)
@@ -59,7 +57,7 @@ class CarritoContr {
         try {
             const idCarrito = parser.parseID(req.params.id)
             const idProducto = parser.parseID(req.params.id_prod)
-            await carritoApi.remove(idCarrito, idProducto)
+            await CarritoApi.remove(idCarrito, idProducto)
             res.json({})
         } catch (error) {
             next(error)
@@ -70,7 +68,7 @@ class CarritoContr {
     // Solo para testeo
     static async deleteAll(req, res, next){  
         try {
-            await carritoApi.deleteAll()
+            await CarritoApi.deleteAll()
             res.json({})
         } catch (error) {
             next(error)

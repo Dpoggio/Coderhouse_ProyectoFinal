@@ -1,5 +1,6 @@
 import Contenedor from '../../contenedores/contenedorMongo.js'
 import mongoose from 'mongoose'
+import cfg from '../../config.js'
 
 const carritoSchema = new mongoose.Schema({
     id: {type: Number},
@@ -11,8 +12,9 @@ const carritoSchema = new mongoose.Schema({
 
 class CarritoDaoMongo extends Contenedor{
     constructor(){
+        const mongoUri = cfg.mongoDbURL
         const carritos = mongoose.model('carritos', carritoSchema)
-        super(carritos)
+        super(carritos, mongoUri)
     }
 }
 

@@ -1,5 +1,6 @@
 import Contenedor from '../../contenedores/contenedorMongo.js'
 import mongoose from 'mongoose'
+import cfg from '../../config.js'
 
 const usuarioSchema = new mongoose.Schema({
     id: {type: Number},
@@ -16,8 +17,9 @@ const usuarioSchema = new mongoose.Schema({
 
 class UsuarioDaoMongo extends Contenedor{
     constructor(){
+        const mongoUri = cfg.mongoDbURL
         const usuarios = mongoose.model('usuarios', usuarioSchema)
-        super(usuarios)
+        super(usuarios, mongoUri)
     }
 }
 

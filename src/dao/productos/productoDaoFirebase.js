@@ -1,8 +1,10 @@
 import Contenedor from '../../contenedores/contenedorFirebase.js'
+import cfg from '../../config.js'
 
 class ProductoDaoFirebase extends Contenedor{
     constructor(){
-        super('productos')
+        const firebaseFile = cfg.firebaseFile
+        super('productos', firebaseFile)
     }
 }
 

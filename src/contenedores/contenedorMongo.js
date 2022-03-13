@@ -1,10 +1,13 @@
+import mongoose from 'mongoose'
+import logger from '../lib/logger.js'
 
 class Contenedor {
     /**
      * Genera el contenedor a partir de un modelo de mongoose.
      * @param {Mongoose.Model} model : Modelo de coleccion de mongoose
      */
-    constructor(model) {
+    constructor(model, mongoUri) {
+        this.mongoUri = mongoUri
         this.collection = model
     }
 
@@ -18,6 +21,25 @@ class Contenedor {
     }
 
     // Public
+    
+    /**
+     * Procedimiento para inicializar el contenedor
+     */
+    async init() {
+        await mongoose.connect(this.mongoUri, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        })
+        .then(() => logger.info(`[${this.constructor.name}]: Conectado a la base de datos Mongo`))
+        .catch(error => logger.error(`Error al conectarse a la base de datos: ${error}`))
+    }
+
+    /**
+     * Procedimiento para finalizar el contenedor
+     */
+    async disconnect() {
+        await mongoose.disconnect()
+    }
 
     /**
      * Devuelve un array con los documentos presentes en la coleccion

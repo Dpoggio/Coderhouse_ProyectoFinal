@@ -1,7 +1,8 @@
 import Contenedor from '../../contenedores/contenedorArchivos.js'
+import cfg from '../../config.js'
 
 /**** Constantes ****/
-const ARCHIVO = './DB/productos.txt'
+const ARCHIVO = cfg.fileLocation + '/productos.txt'
 
 class ProductoDaoArchivos extends Contenedor{
     constructor(){

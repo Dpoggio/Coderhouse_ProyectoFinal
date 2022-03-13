@@ -5,7 +5,8 @@ export default class UsuarioDto {
         this.nombre = datos.nombre || ''
         this.apellido = datos.apellido || ''
         this.direccion = datos.direccion || ''
-        this.fechanacimiento = datos.fechanacimiento ? (new Date((datos.fechanacimiento))).toISOString() : ''
+        const dateParsed = Date.parse(datos.fechanacimiento)
+        this.timestamp = dateParsed ? (new Date(dateParsed)).toISOString() : ''
         this.telefono = datos.telefono || 0
         this.imagenurl = datos.imagenurl || ''
         this.admin = !!datos.admin 

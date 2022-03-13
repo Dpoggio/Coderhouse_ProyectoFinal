@@ -54,6 +54,7 @@ export default Object.freeze({
     },
 
     // CONECTIONS
+    fileLocation: process.env.FILE_DB_PATH || './DB',
     mariaDb: {
         client: 'mysql',
         connection: { 
