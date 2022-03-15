@@ -14,6 +14,8 @@ const AUTH_REQUIRED = -9
 const INVALID_TOKEN = -10
 const INCORRECT_FORMAT = -11
 const MSG_NOT_FOUND = -12
+const ORDER_NOT_FOUND = -13
+const ORDER_STATUS_INVALID = -14
 
 
 export class ErrorRutaNoAutorizada extends Error {
@@ -132,6 +134,26 @@ export class ErrorMensajeNoEncontrado extends Error {
         this.name = this.constructor.name
         this.httpStatusCode = cfg.HTTP_NOT_FOUND
         this.code = MSG_NOT_FOUND
+        Error.captureStackTrace(this, this.constructor)
+    }
+}
+
+export class ErrorOrdenNoEncontrada extends Error {
+    constructor() {
+        super('orden no encontrada')
+        this.name = this.constructor.name
+        this.httpStatusCode = cfg.HTTP_NOT_FOUND
+        this.code = ORDER_NOT_FOUND
+        Error.captureStackTrace(this, this.constructor)
+    }
+}
+
+export class ErrorOrdenEstadoNoValido extends Error {
+    constructor() {
+        super('estado no valido para la orden')
+        this.name = this.constructor.name
+        this.httpStatusCode = cfg.HTTP_BAD_REQUEST
+        this.code = ORDER_STATUS_INVALID
         Error.captureStackTrace(this, this.constructor)
     }
 }

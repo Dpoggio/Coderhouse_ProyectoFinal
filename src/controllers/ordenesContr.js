@@ -2,13 +2,15 @@ import cfg from '../config.js'
 import NotificationApi from '../services/notificationApi.js'
 import UsuarioApi from '../services/usuarioApi.js'
 import { ErrorFormatoIncorrecto } from '../lib/errors.js'
+import OrdenApi from '../services/ordenApi.js'
+import BaseController from './baseController.js'
 
 const usuarioApi = new UsuarioApi()
 
-/**** Rutas ****/
-class OrdenesContr {
+class OrdenesContr extends BaseController {
+    static ServiceApi = OrdenApi
     
-    static async post(req, res, next) {  
+    /*static async post(req, res, next) {  
         try {
             const orden = req.body
             if (!req.body.usuario || !req.body.usuario.id ) {
@@ -22,7 +24,7 @@ class OrdenesContr {
         } catch (error) {
             next(error)
         }
-    }
+    }*/
 
 }
 

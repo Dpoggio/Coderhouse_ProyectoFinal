@@ -1,7 +1,7 @@
 
 class BaseApi {
 
-    static ErrorBaseNoEncontrado = undefined
+    static ErrorBaseNoEncontrado = Error
     static BaseDto = undefined
     static BaseDao = undefined
 
