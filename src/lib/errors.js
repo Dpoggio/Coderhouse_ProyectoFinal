@@ -16,6 +16,7 @@ const INCORRECT_FORMAT = -11
 const MSG_NOT_FOUND = -12
 const ORDER_NOT_FOUND = -13
 const ORDER_STATUS_INVALID = -14
+const ORDER_WITHOUT_ITEMS = -15
 
 
 export class ErrorRutaNoAutorizada extends Error {
@@ -154,6 +155,16 @@ export class ErrorOrdenEstadoNoValido extends Error {
         this.name = this.constructor.name
         this.httpStatusCode = cfg.HTTP_BAD_REQUEST
         this.code = ORDER_STATUS_INVALID
+        Error.captureStackTrace(this, this.constructor)
+    }
+}
+
+export class ErrorOrdenSinItems extends Error {
+    constructor() {
+        super('orden sin items')
+        this.name = this.constructor.name
+        this.httpStatusCode = cfg.HTTP_BAD_REQUEST
+        this.code = ORDER_WITHOUT_ITEMS
         Error.captureStackTrace(this, this.constructor)
     }
 }

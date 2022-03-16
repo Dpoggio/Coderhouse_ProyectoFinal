@@ -43,7 +43,6 @@ class OrdenApi extends BaseApi {
     }
 
     static async save(orden, id = null){
-        OrdenApi.validarEstado(orden.status)
         orden.timestamp = new Date()
         let nuevaOrden = null
         let order_mail = null
@@ -52,6 +51,7 @@ class OrdenApi extends BaseApi {
             orden.status = ORDEN_ESTADOS.GENERADA
             nuevaOrden = await OrdenDao.getDao().save(orden)
         } else {
+            OrdenApi.validarEstado(orden.status)
             const ordenVieja = await OrdenDao.getDao().getById(id)
             if (ordenVieja == null){
                 throw new ErrorOrdenNoEncontrada()
