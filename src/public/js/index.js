@@ -87,8 +87,7 @@ async function guardarProducto(form){
 
     
     try {
-        const response = await fetch(url, dataRequest)
-        validateResponse(response)
+        const response = await fetch(url, dataRequest).then(validateResponse)
         alert('Actualizado Correctamente!')
         cargarProductos()
         return false           
@@ -107,8 +106,7 @@ async function eliminarProducto(idProducto){
         headers: getHeader()
     };
     try {
-        const response = await fetch(`/api/productos/${idProducto}`, dataRequest)
-        validateResponse(response)
+        const response = await fetch(`/api/productos/${idProducto}`, dataRequest).then(validateResponse)
         alert('Eliminado Correctamente!')
         cargarProductos()
         return false           

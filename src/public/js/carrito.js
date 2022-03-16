@@ -51,7 +51,7 @@ async function agregarAlCarrito(idProducto){
     };
     await fetch(`/api/carrito/${idCarrito}/productos/${idProducto}`, dataRequest)
         .then(response => response.json())
-        .then((carr) => actualizarCarrito(idCarrito))
+        .then((carr) => actualizarCarrito())
         
 }
 
@@ -62,7 +62,7 @@ async function quitarDelCarrito(idProducto){
     };
     await fetch(`/api/carrito/${idCarrito}/productos/${idProducto}`, dataRequest)
         .then(response => response.json())
-        .then((carr) => actualizarCarrito(idCarrito))
+        .then((carr) => actualizarCarrito())
         
 }
 
@@ -98,8 +98,7 @@ async function enviarOrden(){
               'Authorization': `Bearer ${localStorage.getItem('access_token')}`
             },
             body: JSON.stringify(orden)
-          })
-        validateResponse(response)
+          }).then(validateResponse)
         alert('Su orden ah sido enviarda correctamente!')
         cargarProductos()
         return false           

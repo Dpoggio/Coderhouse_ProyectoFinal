@@ -5,14 +5,15 @@ class LoginRequeried extends Error {
     }
 }
 
-function validateResponse(response){
+async function validateResponse(response){
     if (response.status == 403 || response.status == 401){
         throw new LoginRequeried()
     }
-    const data = response.json()
-    if (data.error && data.error < 0) {
-        alert(`Error al actualizar: ${data.error.message}`)
-        return false
+    const data = await response.json()
+    if (response.status >= 500 || (data.error && data.description) ) {
+        const mensaje = data.description || 'error en el servidor'
+        alert(`Error: ${mensaje}`)
+        throw new Error(mensaje)
     }
     return data
 }
