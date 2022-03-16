@@ -7,8 +7,7 @@ const routerMensajes = Router();
 /**** Rutas ****/
 routerMensajes.get('/', MensajeContr.get.bind(MensajeContr))
 routerMensajes.get('/:id', MensajeContr.getById.bind(MensajeContr))
-routerMensajes.post('/', isAuthenticated, isAuthorized, MensajeContr.post.bind(MensajeContr))
-routerMensajes.put('/:id', isAuthenticated, isAuthorized, MensajeContr.put.bind(MensajeContr))
+routerMensajes.post('/usuario/:idUsuario', isAuthenticated, isAuthorized, MensajeContr.postByUser.bind(MensajeContr))
 routerMensajes.delete('/:id', isAuthenticated, isAuthorized, MensajeContr.delete.bind(MensajeContr))
 
 

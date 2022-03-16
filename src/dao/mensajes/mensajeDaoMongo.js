@@ -4,7 +4,9 @@ import cfg from '../../config.js'
 
 const mensajeSchema = new mongoose.Schema({
     id: {type: Number },
-    mail: {type: String},
+    usuario: {
+        id: {type: Number }
+    },
     type: {type: String},
     text: {type: String },
     timestamp: {type: Date }
