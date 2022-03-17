@@ -2,6 +2,7 @@ export default class MensajeDto {
     constructor(datos) {
         this.id = datos.id
         this.mail = datos.mail || ''
+        this.avatar = datos.avatar || ''
         this.type = datos.type || ''
         this.text = datos.text || ''
         const timestampParsed = Date.parse(datos.timestamp)

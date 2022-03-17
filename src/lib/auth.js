@@ -20,7 +20,7 @@ function isSuperAdmin(req){
 // Export Functions
 function generateToken(req, res) {
     const user = req.user
-    const token = jwt.sign({ username: user.username, admin: user.admin }, PRIVATE_KEY, { expiresIn: cfg.TOKEN_EXPIRED_TIME });
+    const token = jwt.sign({ id: user.id, username: user.username, admin: user.admin }, PRIVATE_KEY, { expiresIn: cfg.TOKEN_EXPIRED_TIME });
 
     res.json({
         usuario: user,
@@ -48,13 +48,22 @@ function isAuthenticated(req, res, next) {
             return next(new ErrorAutenticacionRequerida())
         }
         try {
-            req.user = jwt.verify(token, PRIVATE_KEY);
+            req.user = getUser(token)
         } catch (ex) {
-            return next(new ErrorTokenInvalido())
+            return next(ex)
         }
     }
     next();
 }
+
+function getUser(token){
+    try {            
+        const user = jwt.verify(token, PRIVATE_KEY);
+        return user
+    } catch (error) {
+        throw new ErrorTokenInvalido()
+    }
+}    
 
 // Passport Config
 passport.use('login', loginStrategy)
@@ -68,4 +77,4 @@ passport.deserializeUser((user, done) => {
     done(null, user);
 });
 
-export { isAuthenticated, isAuthorized, generateToken }
+export { isAuthenticated, isAuthorized, generateToken, getUser }

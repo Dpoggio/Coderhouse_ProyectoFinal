@@ -1,0 +1,1 @@
+const socket = io.connect('/ws/chat', {query: `token=${localStorage.getItem("access_token")}`} );
