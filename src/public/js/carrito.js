@@ -22,8 +22,8 @@ async function generarCarrito() {
         
         await fetch('/api/carrito/', dataRequest)
         .then(response => response.json())
-        .then((carr) => {
-            localStorage.setItem("chart_id", carr.id);
+        .then((carrito) => {
+            setChartCookie(carrito)
             actualizarCarrito()
         })    
     }

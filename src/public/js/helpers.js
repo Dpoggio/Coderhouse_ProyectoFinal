@@ -10,3 +10,8 @@ Handlebars.registerHelper("formatNumber", (number) => {
     return parseFloat(number).toFixed(2);
   }
 )
+
+Handlebars.registerHelper("reverse", (array) => {
+  return array.reverse()
+}
+)

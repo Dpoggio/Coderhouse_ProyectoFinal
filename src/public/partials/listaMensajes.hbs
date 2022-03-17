@@ -9,7 +9,7 @@
 </style>
 <div class="table-responsive">
     <table>
-        {{#each mensajes }}
+        {{#each (reverse mensajes) }}
         <tr>
             <td>
                 <b style="color:blue">{{this.mail}}</b> 

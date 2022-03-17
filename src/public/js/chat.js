@@ -8,9 +8,11 @@ async function cargarMensajes(mensajes) {
     const plantilla = await obtenerPlantillaMensajes()
     const render = Handlebars.compile(plantilla);
     const html = render({ mensajes })
+    document.getElementById('mail').value = localStorage.getItem('user_mail')
+    document.getElementById('nombre').value = localStorage.getItem('user_nombre')
     document.getElementById('mensajes').innerHTML = html
     const scrollHeight = document.getElementById("mensajes").scrollHeight
-    document.getElementById("mensajes").scrollTop = scrollHeight
+    document.getElementById("mensajes").scrollBottom = scrollHeight
 }
 
 function obtenerPlantillaMensajes() {
@@ -19,8 +21,8 @@ function obtenerPlantillaMensajes() {
 }
 
 
-socket.on('actualizarMensajes', mensajesNorm => {
-    cargarMensajes(mensajesNorm)
+socket.on('actualizarMensajes', mensajes => {
+    cargarMensajes(mensajes)
 });
 
 socket.on('invalidToken', () => {
