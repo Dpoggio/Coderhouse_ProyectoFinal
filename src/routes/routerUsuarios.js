@@ -23,7 +23,7 @@ const routerUsuarios = Router();
  *              password:
  *                  type: string
  *              nombre:
- *                  type: number
+ *                  type: string
  *              apellido:
  *                  type: string
  *              direccion:
