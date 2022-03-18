@@ -3,14 +3,15 @@ import cfg from '../config.js'
 
 /**
  * @openapi
- * definitions:
- *  CustomError:
- *      type: object
- *      properties:
- *          error:
- *              type: number
- *          description:
- *              type: string
+ * components:
+ *  schemas:
+ *      CustomError:
+ *          type: object
+ *          properties:
+ *              error:
+ *                  type: number
+ *              description:
+ *                  type: string
  */
 
 

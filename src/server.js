@@ -28,10 +28,10 @@ if (cfg.CLUSTER && cluster.isPrimary) {
     logger.info(`App Iniciada [Modo: FORK]. PID: ${ process.pid }]`)
     
     
+    const { swaggerDocs } = await import('./lib/swagger.js')
     const WebSocket = (await import('./lib/WebSocket.js')).default
     const { routes } = await import('./routes/routes.js')
     const { handleErrors } = await import('./routes/routerError.js')
-    const { swaggerDocs } = await import('./lib/swagger.js')
     
 
     /**** VARIABLES ****/

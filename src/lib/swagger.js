@@ -12,8 +12,8 @@ const swaggerOptions = {
                 name: "Demian Poggio"
             },
             servers: [`http://localhost:${cfg.PORT}`]
-        }
-    },
+        },
+    }, 
     apis: [
         "./src/routes/routerError.js",
         "./src/routes/routerAuth.js",
@@ -23,7 +23,7 @@ const swaggerOptions = {
         "./src/routes/routerMensajes.js",
         "./src/routes/routerOrdenes.js",
     ]
-  }
-  const swaggerDocs = swaggerJsDocs(swaggerOptions)
+}
+const swaggerDocs = swaggerJsDocs(swaggerOptions)
 
-  export { swaggerDocs }
+export { swaggerDocs }

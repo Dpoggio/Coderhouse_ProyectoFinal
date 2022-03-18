@@ -14,41 +14,42 @@ const routerProductos = Router();
 
 /**
  * @openapi
- * definitions:
- *  ProductoRequest:
- *      type: object
- *      properties:
- *          name:
- *              type: string
- *          description:
- *              type: string
- *          code:
- *              type: number
- *          thumbnail:
- *              type: string
- *          price:
- *              type: number
- *          stock:
- *              type: number
- *  ProductoResponse:
- *      type: object
- *      properties:
- *          id:
- *              type: number
- *          name:
- *              type: string
- *          description:
- *              type: string
- *          code:
- *              type: number
- *          thumbnail:
- *              type: string
- *          price:
- *              type: number
- *          stock:
- *              type: number
- *          timestamp:
- *              type: string
+ * components:
+ *  schemas:
+ *      ProductoRequest:
+ *          type: object
+ *          properties:
+ *              name:
+ *                  type: string
+ *              description:
+ *                  type: string
+ *              code:
+ *                  type: number
+ *              thumbnail:
+ *                  type: string
+ *              price:
+ *                  type: number
+ *              stock:
+ *                  type: number
+ *      ProductoResponse:
+ *          type: object
+ *          properties:
+ *              id:
+ *                  type: number
+ *              name:
+ *                  type: string
+ *              description:
+ *                  type: string
+ *              code:
+ *                  type: number
+ *              thumbnail:
+ *                  type: string
+ *              price:
+ *                  type: number
+ *              stock:
+ *                  type: number
+ *              timestamp:
+ *                  type: string
  */
 
 
@@ -60,15 +61,15 @@ const routerProductos = Router();
  *      - Productos
  *      summary: Obtener productos
  *      description: Obtener todos los productos
- *      produces:
- *          - application/json
  *      responses:
  *          200:
- *              description:
- *              schema:
- *                  type: array
- *                  items:
- *                      $ref: '#/definitions/ProductoResponse'
+ *              description: Respuesta OK
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          type: array
+ *                          items:
+ *                              $ref: '#/components/schemas/ProductoResponse'
  */
 routerProductos.get('/', ProductosContr.get.bind(ProductosContr))
 
@@ -80,25 +81,30 @@ routerProductos.get('/', ProductosContr.get.bind(ProductosContr))
  *      - Productos
  *      summary: Obtener producto
  *      description: Obtener el producto con id pasado por parametro 
- *      produces:
- *          - application/json
  *      parameters:
  *          - in: path
  *            name: id
+ *            required: true
  *            description: ID del producto
  *      responses:
  *          200:
- *              description: OK
- *              schema:
- *                  $ref: '#/definitions/ProductoResponse'
+ *              description: Respuesta OK
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/ProductoResponse'
  *          400:
  *              description: Id no numerico ingresado
- *              schema:
- *                  $ref: '#/definitions/CustomError'
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/CustomError'
  *          404:
  *              description: Producto no encontrado
- *              schema:
- *                  $ref: '#/definitions/CustomError'
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/CustomError'
  */
 routerProductos.get('/:id', ProductosContr.getById.bind(ProductosContr))
 
@@ -110,27 +116,31 @@ routerProductos.get('/:id', ProductosContr.getById.bind(ProductosContr))
  *      - Productos
  *      summary: Generar producto
  *      description: Generar un producto nuevo
- *      produces:
- *          - application/json
- *      parameters:
- *          - in: body
- *            name: producto
- *            description: producto a crear
- *            schema:
- *                  $ref: '#/definitions/ProductoRequest'
+ *      requestBody:
+ *          description: producto a crear
+ *          content: 
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/ProductoRequest'
  *      responses:
  *          201:
  *              description: Creado OK
- *              schema:
- *                  $ref: '#/definitions/ProductoResponse'
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/ProductoResponse'
  *          403:
  *              description: Requiere autorizacion
- *              schema:
- *                  $ref: '#/definitions/CustomError'
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/CustomError'
  *          401:
  *              description: Requiere autenticacion
- *              schema:
- *                  $ref: '#/definitions/CustomError'
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/CustomError'
  *      security:
  *          - bearerAuth: []
  *          - basicAuth: []
@@ -145,38 +155,48 @@ routerProductos.post('/', isAuthenticated, isAuthorized, ProductosContr.post.bin
  *      - Productos
  *      summary: Actualizar producto
  *      description: Actualiza un producto
- *      produces:
- *          - application/json
  *      parameters:
  *          - in: path
  *            name: id
+ *            required: true
  *            description: ID del producto
- *          - in: body
- *            name: producto
- *            description: nueva descripticion del producto
- *            schema:
- *                  $ref: '#/definitions/ProductoRequest'
+ *      requestBody:
+ *          description: nueva descripticion del producto
+ *          content: 
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/ProductoRequest'
  *      responses:
  *          200:
  *              description: Actualizado OK
- *              schema:
- *                  $ref: '#/definitions/ProductoResponse'
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/ProductoResponse'
  *          400:
  *              description: Id no numerico ingresado
- *              schema:
- *                  $ref: '#/definitions/CustomError'
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/CustomError'
  *          404:
  *              description: Producto no encontrado
- *              schema:
- *                  $ref: '#/definitions/CustomError'
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/CustomError'
  *          403:
  *              description: Requiere autorizacion
- *              schema:
- *                  $ref: '#/definitions/CustomError'
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/CustomError'
  *          401:
  *              description: Requiere autenticacion
- *              schema:
- *                  $ref: '#/definitions/CustomError'
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/CustomError'
  *      security:
  *          - bearerAuth: []
  *          - basicAuth: []
@@ -191,33 +211,43 @@ routerProductos.put('/:id', isAuthenticated, isAuthorized, ProductosContr.put.bi
  *      - Productos
  *      summary: Eliminar producto
  *      description: Elimina un producto
- *      produces:
- *          - application/json
  *      parameters:
  *          - in: path
  *            name: id
+ *            required: true
  *            description: ID del producto
  *      responses:
  *          200:
  *              description: Eliminado OK
- *              schema:
- *              type: json
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          nullable: true
  *          400:
  *              description: Id no numerico ingresado
- *              schema:
- *                  $ref: '#/definitions/CustomError'
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/CustomError'
  *          404:
  *              description: Producto no encontrado
- *              schema:
- *                  $ref: '#/definitions/CustomError'
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/CustomError'
  *          403:
  *              description: Requiere autorizacion
- *              schema:
- *                  $ref: '#/definitions/CustomError'
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/CustomError'
  *          401:
  *              description: Requiere autenticacion
- *              schema:
- *                  $ref: '#/definitions/CustomError'
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/CustomError'
  *      security:
  *          - bearerAuth: []
  *          - basicAuth: []

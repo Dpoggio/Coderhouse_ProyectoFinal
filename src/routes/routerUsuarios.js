@@ -7,56 +7,57 @@ const routerUsuarios = Router();
 /**
  * @openapi
  * tags:
- *  - name: Productos
- *    description: "Api de Productos"
+ *  - name: Usuarios
+ *    description: "Api de Usuarios"
  */
 
 /**
  * @openapi
- * definitions:
- *  UsuarioRequest:
- *      type: object
- *      properties:
- *          username:
- *              type: string
- *          password:
- *              type: string
- *          nombre:
- *              type: number
- *          apellido:
- *              type: string
- *          direccion:
- *              type: string
- *          fechanacimiento:
- *              type: string
- *          telefono:
- *              type: number
- *          imagenurl:
- *              type: string
- *          admin:
- *              type: boolean
- *              descripcion: solo disponible para modificacion
- *  UsuarioResponse:
- *      type: object
- *      properties:
- *          id:
- *              type: number
- *          username:
- *              type: string
- *          nombre:
- *              type: number
- *          apellido:
- *              type: string
- *          direccion:
- *              type: string
- *          fechanacimiento:
- *              type: string
- *          telefono:
- *              type: number
- *          imagenurl:
- *              type: string
- *          admin:
- *              type: boolean
+ * components:
+ *  schemas:
+ *      UsuarioRequest:
+ *          type: object
+ *          properties:
+ *              username:
+ *                  type: string
+ *              password:
+ *                  type: string
+ *              nombre:
+ *                  type: number
+ *              apellido:
+ *                  type: string
+ *              direccion:
+ *                  type: string
+ *              fechanacimiento:
+ *                  type: string
+ *              telefono:
+ *                  type: number
+ *              imagenurl:
+ *                  type: string
+ *              admin:
+ *                  type: boolean
+ *                  descripcion: solo disponible para modificacion
+ *      UsuarioResponse:
+ *          type: object
+ *          properties:
+ *              id:
+ *                  type: number
+ *              username:
+ *                  type: string
+ *              nombre:
+ *                  type: number
+ *              apellido:
+ *                  type: string
+ *              direccion:
+ *                  type: string
+ *              fechanacimiento:
+ *                  type: string
+ *              telefono:
+ *                  type: number
+ *              imagenurl:
+ *                  type: string
+ *              admin:
+ *                  type: boolean
  */
 
 /**
@@ -67,23 +68,27 @@ const routerUsuarios = Router();
  *      - Usuarios
  *      summary: Obtener usuarios
  *      description: Obtener todos los usuarios
- *      produces:
- *          - application/json
  *      responses:
  *          200:
  *              description:
- *              schema:
- *                  type: array
- *                  items:
- *                      $ref: '#/definitions/UsuarioResponse'
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          type: array
+ *                          items:
+ *                              $ref: '#/components/schemas/UsuarioResponse'
  *          403:
  *              description: Requiere autorizacion
- *              schema:
- *                  $ref: '#/definitions/CustomError'
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/CustomError'
  *          401:
  *              description: Requiere autenticacion
- *              schema:
- *                  $ref: '#/definitions/CustomError'
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/CustomError'
  *      security:
  *          - bearerAuth: []
  *          - basicAuth: []
@@ -98,33 +103,42 @@ routerUsuarios.get('/', isAuthenticated, isAuthorized, UsuariosContr.get.bind(Us
  *      - Usuarios
  *      summary: Obtener usuario
  *      description: Obtener el usuario con id pasado por parametro 
- *      produces:
- *          - application/json
  *      parameters:
  *          - in: path
  *            name: id
+ *            required: true
  *            description: ID del usuario
  *      responses:
  *          200:
  *              description: OK
- *              schema:
- *                  $ref: '#/definitions/UsuarioResponse'
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/UsuarioResponse'
  *          400:
  *              description: Id no numerico ingresado
- *              schema:
- *                  $ref: '#/definitions/CustomError'
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/CustomError'
  *          404:
  *              description: Usuario no encontrado
- *              schema:
- *                  $ref: '#/definitions/CustomError'
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/CustomError'
  *          403:
  *              description: Requiere autorizacion
- *              schema:
- *                  $ref: '#/definitions/CustomError'
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/CustomError'
  *          401:
  *              description: Requiere autenticacion
- *              schema:
- *                  $ref: '#/definitions/CustomError'
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/CustomError'
  *      security:
  *          - bearerAuth: []
  *          - basicAuth: []
@@ -139,19 +153,19 @@ routerUsuarios.get('/:id', isAuthenticated, isAuthorized, UsuariosContr.getById.
  *      - Usuarios
  *      summary: Generar usuario
  *      description: Generar un usuario nuevo
- *      produces:
- *          - application/json
- *      parameters:
- *          - in: body
- *            name: usuario
- *            description: usuario a crear
- *            schema:
- *                  $ref: '#/definitions/UsuarioRequest'
+ *      requestBody:
+ *          description: usuario a crear
+ *          content: 
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/UsuarioRequest'
  *      responses:
  *          201:
  *              description: Creado OK
- *              schema:
- *                  $ref: '#/definitions/UsuarioResponse'
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/UsuarioResponse'
  */
 routerUsuarios.post('/', UsuariosContr.post.bind(UsuariosContr))
 
@@ -163,38 +177,48 @@ routerUsuarios.post('/', UsuariosContr.post.bind(UsuariosContr))
  *      - Usuarios
  *      summary: Actualizar usuario
  *      description: Actualiza un usuario
- *      produces:
- *          - application/json
  *      parameters:
  *          - in: path
  *            name: id
+ *            required: true
  *            description: ID del usuario
- *          - in: body
- *            name: usuario
- *            description: nueva descripticion del usuario
- *            schema:
- *                  $ref: '#/definitions/UsuarioRequest'
+ *      requestBody:
+ *          description: nueva descripticion del usuario
+ *          content: 
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/UsuarioRequest'
  *      responses:
  *          200:
  *              description: Actualizado OK
- *              schema:
- *                  $ref: '#/definitions/UsuarioResponse'
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/UsuarioResponse'
  *          400:
  *              description: Id no numerico ingresado
- *              schema:
- *                  $ref: '#/definitions/CustomError'
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/CustomError'
  *          404:
  *              description: Usuario no encontrado
- *              schema:
- *                  $ref: '#/definitions/CustomError'
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/CustomError'
  *          403:
  *              description: Requiere autorizacion
- *              schema:
- *                  $ref: '#/definitions/CustomError'
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/CustomError'
  *          401:
  *              description: Requiere autenticacion
- *              schema:
- *                  $ref: '#/definitions/CustomError'
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/CustomError'
  *      security:
  *          - bearerAuth: []
  *          - basicAuth: []
@@ -209,33 +233,43 @@ routerUsuarios.put('/:id', isAuthenticated, isAuthorized, UsuariosContr.put.bind
  *      - Usuarios
  *      summary: Eliminar usuario
  *      description: Elimina un usuario
- *      produces:
- *          - application/json
  *      parameters:
  *          - in: path
  *            name: id
+ *            required: true
  *            description: ID del usuario
  *      responses:
  *          200:
  *              description: Eliminado OK
- *              schema:
- *              type: json
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          nullable: true
  *          400:
  *              description: Id no numerico ingresado
- *              schema:
- *                  $ref: '#/definitions/CustomError'
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/CustomError'
  *          404:
  *              description: Usuario no encontrado
- *              schema:
- *                  $ref: '#/definitions/CustomError'
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/CustomError'
  *          403:
  *              description: Requiere autorizacion
- *              schema:
- *                  $ref: '#/definitions/CustomError'
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/CustomError'
  *          401:
  *              description: Requiere autenticacion
- *              schema:
- *                  $ref: '#/definitions/CustomError'
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/CustomError'
  *      security:
  *          - bearerAuth: []
  *          - basicAuth: []

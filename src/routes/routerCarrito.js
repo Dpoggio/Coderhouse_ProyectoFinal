@@ -13,23 +13,24 @@ const routerCarrito = Router();
 
 /**
  * @openapi
- * definitions:
- *  CarritoResponse:
- *      type: object
- *      properties:
- *          id:
- *              type: number
- *          productos:
- *              type: array
- *              items:
- *                  type: object
- *                  properties:
- *                      cantidad:
- *                          type: string
- *                      producto:
- *                          $ref: '#/definitions/ProductoResponse'
- *          timestamp:
- *              type: string
+ * components:
+ *  schemas:
+ *      CarritoResponse:
+ *          type: object
+ *          properties:
+ *              id:
+ *                  type: number
+ *              productos:
+ *                  type: array
+ *                  items:
+ *                      type: object
+ *                      properties:
+ *                          cantidad:
+ *                              type: number
+ *                          producto:
+ *                              $ref: '#/components/schemas/ProductoResponse'
+ *              timestamp:
+ *                  type: string
  */
 
 
@@ -43,15 +44,15 @@ const routerCarrito = Router();
  *      - Carritos
  *      summary: Obtener todos los carritos
  *      description: Obtener todos los carritos
- *      produces:
- *          - application/json
  *      responses:
  *          200:
  *              description:
- *              schema:
- *                  type: array
- *                  items:
- *                      $ref: '#/definitions/CarritoResponse'
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          type: array
+ *                          items:
+ *                              $ref: '#/components/schemas/CarritoResponse'
  */
 routerCarrito.get('/', CarritoContr.get.bind(CarritoContr))
 
@@ -63,8 +64,6 @@ routerCarrito.get('/', CarritoContr.get.bind(CarritoContr))
  *      - Carritos
  *      summary: Obtener carrito
  *      description: Obtener el carrito con id pasado por parametro 
- *      produces:
- *          - application/json
  *      parameters:
  *          - in: path
  *            required: true
@@ -73,16 +72,22 @@ routerCarrito.get('/', CarritoContr.get.bind(CarritoContr))
  *      responses:
  *          200:
  *              description: OK
- *              schema:
- *                  $ref: '#/definitions/CarritoResponse'
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/CarritoResponse'
  *          400:
  *              description: Id no numerico ingresado
- *              schema:
- *                  $ref: '#/definitions/CustomError'
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/CustomError'
  *          404:
  *              description: Carrito no encontrado
- *              schema:
- *                  $ref: '#/definitions/CustomError'
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/CustomError'
  */
 routerCarrito.get('/:id/productos', CarritoContr.getById.bind(CarritoContr))
 
@@ -94,13 +99,13 @@ routerCarrito.get('/:id/productos', CarritoContr.getById.bind(CarritoContr))
  *      - Carritos
  *      summary: Generar carrito
  *      description: Generar un carrito nuevo
- *      produces:
- *          - application/json
  *      responses:
  *          201:
  *              description: Creado OK
- *              schema:
- *                  $ref: '#/definitions/CarritoResponse'
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/CarritoResponse'
  */
 routerCarrito.post('/', CarritoContr.post.bind(CarritoContr))
 
@@ -112,8 +117,6 @@ routerCarrito.post('/', CarritoContr.post.bind(CarritoContr))
  *      - Carritos
  *      summary: Agregar producto a carrito
  *      description: Agrega un producto existente al carrito
- *      produces:
- *          - application/json
  *      parameters:
  *          - in: path
  *            name: idCarrito
@@ -126,16 +129,23 @@ routerCarrito.post('/', CarritoContr.post.bind(CarritoContr))
  *      responses:
  *          400:
  *              description: Id no numerico ingresado
- *              schema:
- *                  $ref: '#/definitions/CustomError'
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/CustomError'
  *          404:
  *              description: Carrito/Producto no encontrado
- *              schema:
- *                  $ref: '#/definitions/CustomError' 
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/CustomError' 
  *          201:
  *              description: Creado OK
- *              schema:
- *              type: json
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          nullable: true
  */
 routerCarrito.post('/:id/productos/:id_prod', CarritoContr.postProductById.bind(CarritoContr))
 
@@ -147,8 +157,6 @@ routerCarrito.post('/:id/productos/:id_prod', CarritoContr.postProductById.bind(
  *      - Carritos
  *      summary: Eliminar carrito
  *      description: Elimina un carrito
- *      produces:
- *          - application/json
  *      parameters:
  *          - in: path
  *            name: id
@@ -157,16 +165,23 @@ routerCarrito.post('/:id/productos/:id_prod', CarritoContr.postProductById.bind(
  *      responses:
  *          200:
  *              description: Eliminado OK
- *              schema:
- *              type: json
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          nullable: true
  *          400:
  *              description: Id no numerico ingresado
- *              schema:
- *                  $ref: '#/definitions/CustomError'
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/CustomError'
  *          404:
  *              description: Carrito no encontrado
- *              schema:
- *                  $ref: '#/definitions/CustomError'
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/CustomError'
  */
 routerCarrito.delete('/:id', CarritoContr.delete.bind(CarritoContr))
 
@@ -178,8 +193,6 @@ routerCarrito.delete('/:id', CarritoContr.delete.bind(CarritoContr))
  *      - Carritos
  *      summary: Eliminar carrito
  *      description: Elimina un carrito
- *      produces:
- *          - application/json
  *      parameters:
  *          - in: path
  *            name: idCarrito
@@ -192,16 +205,23 @@ routerCarrito.delete('/:id', CarritoContr.delete.bind(CarritoContr))
  *      responses:
  *          200:
  *              description: Eliminado OK
- *              schema:
- *              type: json
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          nullable: true
  *          400:
  *              description: Id no numerico ingresado
- *              schema:
- *                  $ref: '#/definitions/CustomError'
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/CustomError'
  *          404:
  *              description: Carrito/Producto no encontrado
- *              schema:
- *                  $ref: '#/definitions/CustomError'
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/CustomError'
  */
 routerCarrito.delete('/:id/productos/:id_prod', CarritoContr.deleteProductById.bind(CarritoContr))
 
