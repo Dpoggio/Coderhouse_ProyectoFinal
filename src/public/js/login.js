@@ -10,10 +10,10 @@ formLogin.addEventListener('submit', async e => {
 
   const respuesta = await fetch('/auth/login', {
     method: 'POST',
-    headers: {
+    headers: new Headers({
       'Accept': 'application/json',
       'Content-Type': 'application/json'
-    },
+    }),
     body: JSON.stringify(datos)
   });
 

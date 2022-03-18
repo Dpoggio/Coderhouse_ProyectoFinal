@@ -7,8 +7,8 @@ function setUserCookies(access_token, refresh_token, user){
     localStorage.setItem("user_avatar", user.imagenurl );
 }
 
-function setChartCookie(){   
-    localStorage.setItem("chart_id", carr.id);
+function setChartCookie(carrito){   
+    localStorage.setItem("chart_id", carrito.id);
 }
 
 function deleteUserCookies(){

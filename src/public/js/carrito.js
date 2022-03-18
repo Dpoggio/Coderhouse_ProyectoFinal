@@ -92,11 +92,11 @@ async function enviarOrden(){
     try {
         const response = await callSecuredApi('/api/ordenes', {
             method: 'POST',
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${localStorage.getItem('access_token')}`
-            },
+            headers: new Headers({
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+            }),
             body: JSON.stringify(orden)
           }).then(validateResponse)
         alert('Su orden ah sido enviarda correctamente!')
