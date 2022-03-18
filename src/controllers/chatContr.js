@@ -11,8 +11,9 @@ export default class ChatWsContr {
             const user = validateAndGetUser(socket, token)
             if (user) {
                 logger.info('Nuevo cliente conectado')
-                socket.emit('actualizarMensajes', await ChatWsContr.obtenerMensajes())
+                socket.emit('actualizarMensajes', await ChatWsContr.actualizarMensajes())
                 socket.on('nuevoMensaje', async (data, token) => await ChatWsContr.nuevoMensaje(data, token, socket, io))
+                socket.on('obtenerMensajes', async (data, token) => await ChatWsContr.obtenerMensajes(data, token, socket))
             }
         } catch (error) {
             logger.error(error)
@@ -31,7 +32,18 @@ export default class ChatWsContr {
         }
     }
 
-    static async obtenerMensajes(){
+    static async obtenerMensajes(data, token, socket){
+        try {
+            const user = validateAndGetUser(userSocket, token)
+            if (user) {   
+                socket.emit('actualizarMensajes', await ChatWsContr.actualizarMensajes())
+            }
+        } catch (error) {
+            logger.error(error.message)
+        }
+    }
+
+    static async actualizarMensajes(){
         return await MensajeApi.get() 
     }
 }

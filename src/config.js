@@ -13,9 +13,13 @@ export default Object.freeze({
     // Misc
     PORT: process.env.PORT || 8080,
     CLUSTER: process.env.CLUSTER == 'true',
-    PRIVATE_KEY: process.env.USER_PRIVATE_KEY,
+
+    // AUTH
+    TOKEN_PRIVATE_KEY: process.env.TOKEN_PRIVATE_KEY,
+    REFRESH_TOKEN_PRIVATE_KEY: process.env.REFRESH_TOKEN_PRIVATE_KEY,
+    TOKEN_EXP_TIME: parseInt(process.env.TOKEN_EXP_TIME || 30), // 30 Segs
+    REFRESH_TOKEN_EXP_TIME: parseInt(process.env.REFRESH_TOKEN_EXP_TIME || 600), // 10 min
     ENABLE_VALIDATION: process.env.ENABLE_VALIDATION == 'true', // Variable para Testeo
-    TOKEN_EXPIRED_TIME: parseInt(process.env.TOKEN_EXPIRED_TIME || 30), 
     
     //MAIL
     MAIL_ENABLED: process.env.MAIL_ENABLED == 'true',

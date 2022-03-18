@@ -1,6 +1,7 @@
 import { Strategy as LocalStrategy } from 'passport-local'
 import UsuarioApi from '../services/usuarioApi.js'
 import NotificationApi from '../services/notificationApi.js'
+import { ErrorFormatoIncorrecto } from '../lib/errors.js'
 
 export const loginStrategy = new LocalStrategy(async (username, password, done) => {
     try {
@@ -22,3 +23,18 @@ export const signupStrategy = new LocalStrategy({ passReqToCallback: true },
     }
   }
 )
+
+export const refreshtokenStrategy = new LocalStrategy({ 
+        usernameField: 'userId',
+        passwordField: 'userId' 
+    },
+    async (username, password, done) => {
+    try {
+        const userId = username
+        const user = await UsuarioApi.get(userId)
+        return done(null, user)
+    } catch(error) {
+        done(error)
+    }
+})
+

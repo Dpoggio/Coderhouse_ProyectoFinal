@@ -4,7 +4,7 @@ cargarProductos()
 async function cargarProductos() {
     const [ plantilla, productos ] = await Promise.all([ 
         fetch('/partials/listaProductos.hbs').then(respuesta => respuesta.text()),
-        fetch('/api/productos').then(response => response.json())
+        callSecuredApi('/api/productos').then(response => response.json())
     ])
 
     const render = Handlebars.compile(plantilla)
@@ -20,7 +20,7 @@ async function generarCarrito() {
             method: 'POST'
         };
         
-        await fetch('/api/carrito/', dataRequest)
+        await callSecuredApi('/api/carrito/', dataRequest)
         .then(response => response.json())
         .then((carrito) => {
             setChartCookie(carrito)
@@ -34,7 +34,7 @@ async function actualizarCarrito() {
     const [ plantilla, carrito ] = await Promise.all([ 
         fetch('/partials/carritoListado.hbs')
             .then(respuesta => respuesta.text()),
-        fetch(`/api/carrito/${idCarrito}/productos`)
+        callSecuredApi(`/api/carrito/${idCarrito}/productos`)
             .then(response => response.json())
     ])
 
@@ -49,7 +49,7 @@ async function agregarAlCarrito(idProducto){
     const dataRequest = {
         method: 'POST'
     };
-    await fetch(`/api/carrito/${idCarrito}/productos/${idProducto}`, dataRequest)
+    await callSecuredApi(`/api/carrito/${idCarrito}/productos/${idProducto}`, dataRequest)
         .then(response => response.json())
         .then((carr) => actualizarCarrito())
         
@@ -60,7 +60,7 @@ async function quitarDelCarrito(idProducto){
     const dataRequest = {
         method: 'DELETE'
     };
-    await fetch(`/api/carrito/${idCarrito}/productos/${idProducto}`, dataRequest)
+    await callSecuredApi(`/api/carrito/${idCarrito}/productos/${idProducto}`, dataRequest)
         .then(response => response.json())
         .then((carr) => actualizarCarrito())
         
@@ -71,7 +71,7 @@ async function limpiarCarrito(){
     const dataRequest = {
         method: 'DELETE'
     };
-    await fetch(`/api/carrito/${idCarrito}`, dataRequest).catch(err => {return})
+    await callSecuredApi(`/api/carrito/${idCarrito}`, dataRequest).catch(err => {return})
     localStorage.removeItem("chart_id");
     await generarCarrito()
 }
@@ -80,7 +80,7 @@ async function limpiarCarrito(){
 async function enviarOrden(){
     const idCarrito = localStorage.getItem("chart_id")
     const idUsuario = localStorage.getItem('user_id')
-    const carrito = await fetch(`/api/carrito/${idCarrito}/productos`).then(response => response.json())
+    const carrito = await callSecuredApi(`/api/carrito/${idCarrito}/productos`).then(response => response.json())
 
     const orden = {
         usuario: {
@@ -90,7 +90,7 @@ async function enviarOrden(){
     }
 
     try {
-        const response = await fetch('/api/ordenes', {
+        const response = await callSecuredApi('/api/ordenes', {
             method: 'POST',
             headers: {
               'Accept': 'application/json',

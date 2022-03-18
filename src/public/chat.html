@@ -10,7 +10,8 @@
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <script src="/js/helpers.js"></script>
     <script src="/js/userbar.js"></script>
-    <script src="/js/socket.js"></script>
+    <script src="js/cookies.js"></script>
+    <script src="/js/auth.js"></script>
     <script src="/js/chat.js"></script>
 </head>
 
@@ -35,7 +36,7 @@
             <input id="nombre" class="form-control" type="text" name="nombre" readonly />
             <hr>
             
-            <form onsubmit="return agregarMensaje(this)">
+            <form onsubmit="return agregarMensaje()">
                 <div class="input-group">
                     <input id="mensaje" type="text" class="form-control" name="mensaje"
                     placeholder="Ingresa un mensaje..." required />

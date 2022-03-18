@@ -24,9 +24,9 @@ formRegister.addEventListener('submit', async e => {
   });
 
   const content = await respuesta.json();
-  const { access_token, usuario } = content;
+  const { access_token, refresh_token, usuario } = content;
   if (access_token) {
-    setUserCookies(access_token, usuario)
+    setUserCookies(access_token, refresh_token, usuario)
     location.href = '/index.html'
   } else {
     location.href = '/failsignup.html'

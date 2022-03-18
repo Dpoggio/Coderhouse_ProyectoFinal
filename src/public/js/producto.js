@@ -11,7 +11,7 @@ async function cargarProductos() {
     }
     const [ plantilla, productos ] = await Promise.all([ 
         fetch('/partials/editorProductos.hbs').then(respuesta => respuesta.text()),
-        fetch('/api/productos').then(validateResponse)
+        callSecuredApi('/api/productos').then(validateResponse)
     ])
 
     const render = Handlebars.compile(plantilla)
@@ -27,7 +27,7 @@ async function cargarEditor(idProducto = null) {
 
     let producto
     if (idProducto) {
-        producto = await fetch(`/api/productos/${idProducto}`)
+        producto = await callSecuredApi(`/api/productos/${idProducto}`)
             .then(response => response.json())
     }
     
@@ -87,7 +87,7 @@ async function guardarProducto(form){
 
     
     try {
-        const response = await fetch(url, dataRequest).then(validateResponse)
+        const response = await callSecuredApi(url, dataRequest).then(validateResponse)
         alert('Actualizado Correctamente!')
         cargarProductos()
         return false           
@@ -106,7 +106,7 @@ async function eliminarProducto(idProducto){
         headers: getHeader()
     };
     try {
-        const response = await fetch(`/api/productos/${idProducto}`, dataRequest).then(validateResponse)
+        const response = await callSecuredApi(`/api/productos/${idProducto}`, dataRequest).then(validateResponse)
         alert('Eliminado Correctamente!')
         cargarProductos()
         return false           

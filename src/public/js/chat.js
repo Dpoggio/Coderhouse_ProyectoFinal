@@ -4,6 +4,28 @@ Handlebars.registerHelper('formatDate', function(date) {
     );
 });
 
+
+let socket
+
+function initializeSocket() {
+    socket = io.connect('/ws/chat', {query: `token=${localStorage.getItem("access_token")}`} );
+        
+    socket.on('actualizarMensajes', mensajes => {
+        cargarMensajes(mensajes)
+    });
+
+    socket.on('invalidToken', async () => {
+        try {
+            await refreshToken()
+            initializeSocket()
+        } catch(error){
+            return location.href='/login.html'
+        }
+    });
+}
+
+initializeSocket()
+
 async function cargarMensajes(mensajes) {
     const plantilla = await obtenerPlantillaMensajes()
     const render = Handlebars.compile(plantilla);
@@ -20,23 +42,18 @@ function obtenerPlantillaMensajes() {
         .then(respuesta => respuesta.text())
 }
 
+async function obtenerMensajes(){
+    const token = localStorage.getItem("access_token")
+    socket.emit('obtenerMensajes', {}, token)
+}
 
-socket.on('actualizarMensajes', mensajes => {
-    cargarMensajes(mensajes)
-});
-
-socket.on('invalidToken', () => {
-    return location.href='/login.html'
-});
-
-
-function agregarMensaje(form) {
+function agregarMensaje() {
     const token = localStorage.getItem("access_token")
     mensaje = {
         type: "Usuario",
-        text: form["mensaje"].value
+        text: document.getElementById("mensaje").value //form["mensaje"].value
     }
     socket.emit('nuevoMensaje', mensaje, token);
-    form["mensaje"].value=""
+    document.getElementById("mensaje").value=""
     return false;
 }
