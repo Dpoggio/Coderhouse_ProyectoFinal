@@ -5,6 +5,8 @@ import cluster from 'cluster'
 import express from 'express'
 import passport from 'passport'
 import { Server as HttpServer } from 'http'
+import swaggerUI from 'swagger-ui-express'
+
 
 /*** Inicio APP ***/
 if (cfg.CLUSTER && cluster.isPrimary) {
@@ -29,6 +31,7 @@ if (cfg.CLUSTER && cluster.isPrimary) {
     const WebSocket = (await import('./lib/WebSocket.js')).default
     const { routes } = await import('./routes/routes.js')
     const { handleErrors } = await import('./routes/routerError.js')
+    const { swaggerDocs } = await import('./lib/swagger.js')
     
 
     /**** VARIABLES ****/
@@ -43,6 +46,7 @@ if (cfg.CLUSTER && cluster.isPrimary) {
     app.set('view engine', 'ejs');
 
     // Middleware incio
+    app.use("/swagger-ui", swaggerUI.serve, swaggerUI.setup(swaggerDocs))
     app.use(express.json())
     app.use('/', express.static('src/public'))
     app.use(express.urlencoded({extended: true}))

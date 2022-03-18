@@ -1,6 +1,19 @@
 import logger from '../lib/logger.js'
 import cfg from '../config.js'
 
+/**
+ * @openapi
+ * definitions:
+ *  CustomError:
+ *      type: object
+ *      properties:
+ *          error:
+ *              type: number
+ *          description:
+ *              type: string
+ */
+
+
 function handleErrors(err, req, res, next) {
     const { httpStatusCode = cfg.HTTP_SERVER_ERROR } = err
     logger.debug(err.stack);
