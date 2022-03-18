@@ -1,12 +1,17 @@
 import { Server as IOServer } from 'socket.io'
 import logger from './logger.js'
-import { getUser } from './auth.js';
+import { verifyAndGetUser } from './auth.js';
 import ChatWsContr from '../controllers/chatContr.js';
 import { ErrorTokenInvalido } from '../lib/errors.js'
 
+/**
+ * Valida que el token del usuario aun sea valido. En caso contrario, 
+ * emite un evento invalidToken sobre el cliente. Esto permite que el 
+ * cliente pueda volver a solicitar un refresco del token.
+ */
 export function validateAndGetUser(socket, token){
     try {
-        const user = getUser(token)
+        const user = verifyAndGetUser(token)
         return user
     } catch (error) {
         if (error instanceof ErrorTokenInvalido){

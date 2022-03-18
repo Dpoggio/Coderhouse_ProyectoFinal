@@ -1,7 +1,6 @@
 import cfg from '../config.js'
 
- // Custom Error Codes
-
+// Libreria de errores HTTP personalizados
 const RUOUTE_UNAUTH = -1
 const ROUTE_NOT_FOUND = -2
 const INVALID_ID = -3

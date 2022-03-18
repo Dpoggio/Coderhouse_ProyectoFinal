@@ -67,6 +67,12 @@ if (process.env.NODE_ENV === 'PROD') {
   logger = log4js.getLogger('dev')
 }
 
+/**
+ * log4js cuenta con un middleware compatible con express para el 
+ * logueo de peticiones. Se deja comentado el middleware que podria
+ * utilizarse con otra libreria de logs
+ */
+// 
 // logger.expressLogMiddleware = (req, res, next) => {
 //   logger.info(`Request: ${req.method} - ${req.url} `)
 //   next()
