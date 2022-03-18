@@ -39,6 +39,9 @@ if (cfg.CLUSTER && cluster.isPrimary) {
     const httpServer = new HttpServer(app)
     WebSocket.initialize(httpServer)
 
+    app.set('views', 'src/views');
+    app.set('view engine', 'ejs');
+
     // Middleware incio
     app.use(express.json())
     app.use('/', express.static('src/public'))

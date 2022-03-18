@@ -5,6 +5,7 @@ import { routerUsuarios } from "./routerUsuarios.js"
 import { routerOrdenes } from "./routerOrdenes.js"
 import { routerMensajes } from "./routerMensajes.js"
 import { routerAuth } from "./routerAuth.js"
+import { routerInfo } from "./routerInfo.js"
 import { ErrorRutaInexistente } from '../lib/errors.js'
 
 const routes = Router();
@@ -16,6 +17,7 @@ routes.use('/api/usuarios', routerUsuarios)
 routes.use('/api/ordenes', routerOrdenes)
 routes.use('/api/mensajes', routerMensajes)
 routes.use('/auth', routerAuth)
+routes.use('/info', routerInfo)
 
 // Ruta inexistente
 routes.use((req, res, next) => {
