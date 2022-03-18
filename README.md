@@ -38,139 +38,52 @@ Proyecto Final de Coderhouse
 
 ## Variables de Entorno
 
-### Genericos
-- **PORT** (**default**: 8080): Puerto donde se iniciara el servidor
-- **PRODUCTOS_DAO** (**default**: Archivos): Dao de persistencia para los productos. Opciones: Archivos,DB,SqLite,Firebase,Mongo. 
-- **CARRITOS_DAO** (**default**: Archivos): Dao de persistencia para los carritos. Opciones: Archivos,DB,SqLite,Firebase,Mongo.
+Ver archivo desa.env con el detalle de las configuraciones mediante variables de entorno.
 
-### Base de Datos MySql
-- **DB_HOST** (**default**: "localhost"): Host de conexion para la base de datos MySql/MariaDB
-- **DB_USER** (**default**: "root"): Usuario de conexion para la base de datos MySql/MariaDB
-- **DB_PASSWORD** (**default**: ""): Contraseña de conexion para la base de datos MySql/MariaDB
-- **DB_DATABASE** (**default**: "test"): Esquema de conexion para la base de datos MySql/MariaDB
+Para seleccionar archivos .env de variables de entorno, se debe configurar la variable de entorno NODE_ENV
 
-### Base de Datos SqLite
-- **SQLITE_FILENAME** (**default**: "./DB/ecommerce.db"): Ubicacion del archivo de base de datos SqLite
+Estas son las opciones disponibles:
 
-### Base de Datos Mongo
-- **MONGO_URL** (**default**: "mongodb://localhost:27017/ecommerce"): URL de conexion de MongoDB
+    - Desarrollo [DESA]: desa.env
+    - Testing [TEST]: test.env
+    - Staging [STG]: stg.env
+    - Homologacion [HOMO]: homo.env
+    - Produccion [PROD/default]: .env
+    
+# Front
 
-### Base de Datos Firebase
-- **FIREBASE_FILE** (**default**: "./DB/firebase.json"): Ubicacion del archivo de conexion de Firebase
-
-
-## Api de Productos
-
-### Obtener un listado de productos
-
-#### Request
-
-`GET /api/productos`
-
-    curl -i http://localhost:8080/api/productos
-
-### Obtener un producto segun su ID
-
-#### Request
-
-`GET /api/productos/{id}`
-
-    curl -i http://localhost:8080/api/productos/1
-
-### Agregar un producto al contenedor
-
-#### Request
-
-`POST /api/productos`
-
-    curl --header "Content-Type: application/json" \
-    --request POST \
-    --data '{"title":"Escuadra","price":123.45,"thumbnail":"https://icon.foo.bar.escuadra.png"}' \
-    http://localhost:8080/api/productos
-
-### Reempplazar un producto segun su ID
-
-#### Request
-
-`PUT /api/productos/{id}`
-
-    curl --header "Content-Type: application/json" \
-    --request PUT \
-    --data '{"title":"Escuadra","price":123.45,"thumbnail":"https://icon.foo.bar.escuadra.png"}' \
-    http://localhost:8080/api/productos/1
-
-### Eliminar un producto segun su ID
-
-#### Request
-
-`DELETE /api/productos/{id}`
-
-    curl --header "Content-Type: application/json" \
-    --request DELETE \
-    http://localhost:8080/api/productos/1
-
-
-## Api de Carrito
-
-### Crear un nuevo carrito
-
-#### Request
-
-`POST /api/carrito`
-
-    curl --header "Content-Type: application/json" \
-    --request POST \
-    http://localhost:8080/api/carrito
-
-### Eliminar un carrito segun su ID
-
-#### Request
-
-`DELETE /api/carrito/{id}`
-
-    curl --header "Content-Type: application/json" \
-    --request DELETE \
-    http://localhost:8080/api/carrito/1
-
-### Obtener un listado de productos de un carrito
-
-#### Request
-
-`GET /api/carrito/:id/productos`
-
-    curl -i http://localhost:8080/api/carrito/1/productos
-
-### Incorporar un producto segun su ID de producto a un carrito segun su ID
-
-#### Request
-
-`POST /api/carrito/{idCarrito}/productos/{idProducto}`
-
-    curl --header "Content-Type: application/json" \
-    --request POST \ 
-    http://localhost:8080/api/carrito/1/productos/2
-
-### Eliminar un producto segun su ID de producto a un carrito segun su ID
-
-#### Request
-
-`POST /api/carrito/{idCarrito}/productos/{idProducto}`
-
-    curl --header "Content-Type: application/json" \
-    --request DELETE \ 
-    http://localhost:8080/api/carrito/1/productos/2
-
-## Front
-
-## Pantalla Editor de productos
+## Pantalla del Carrito (inicio)
 
 `localhost:8080`
 
-En esta pantalla se pueden administrar los productos existentes. Para eliminar, editar o agregar cualquier producto se debe marcar la casilla de administrador.
+Al ingresar en esta pagina, automaticamente se genera un carrito nuevo. Ademas, es posible agregar/quitar productos al carrito generado, limpiar el carrito y generar uno nuevo o crear una orden con los items del carrrito
 
-## Pantalla del Carrito
+## Pantalla Editor de productos
 
-`localhost:8080\carrito.html`
+`localhost:8080/productos.html`
 
-Al ingresar en esta pagina, automaticamente se genera un carrito nuevo. Luego, es posible agregar o quitar productos al carrito generado.
+En esta pantalla se pueden administrar los productos existentes. Para eliminar, editar o agregar cualquier producto se debe ser administrador del sistema.
 
+## Pantalla del Chat
+
+`localhost:8080/chat.html`
+
+Al ingresar en esta pagina, se accede a un canal de chat al cual todos los usuarios tienen acceso
+
+## Pantalla del Login
+
+`localhost:8080/login.html`
+
+Pantalla requerida para iniciar sesion en el sistema
+
+## Pantalla del Registro
+
+`localhost:8080/info`
+
+Pantalla de informacion del servidor y de la conifguracion de ejecucion
+
+## Pantalla del Documentacion de Apis (proximamente...)
+
+`localhost:8080/swagger-ui`
+
+Proximamente.....
