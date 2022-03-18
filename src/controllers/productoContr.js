@@ -1,4 +1,4 @@
-import ProductoApi from '../services/ProductoApi.js'
+import ProductoApi from '../services/productoApi.js'
 import BaseController from './baseController.js'
 
 

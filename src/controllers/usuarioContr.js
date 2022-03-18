@@ -1,4 +1,4 @@
-import UsuarioApi from '../services/UsuarioApi.js'
+import UsuarioApi from '../services/usuarioApi.js'
 import BaseController from './baseController.js'
 
 

@@ -1,5 +1,5 @@
 import idParser from '../lib/idParser.js'
-import MensajeApi from '../services/MensajeApi.js'
+import MensajeApi from '../services/mensajeApi.js'
 import BaseController from './baseController.js'
 import cfg from '../config.js'
 

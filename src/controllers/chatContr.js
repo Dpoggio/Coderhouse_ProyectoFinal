@@ -1,7 +1,7 @@
 
 import logger from '../lib/logger.js'
-import MensajeApi from '../services/MensajeApi.js'
-import { validateAndGetUser } from '../lib/WebSocket.js'
+import MensajeApi from '../services/mensajeApi.js'
+import { validateAndGetUser } from '../lib/webSocket.js'
 
 export default class ChatWsContr {
 
