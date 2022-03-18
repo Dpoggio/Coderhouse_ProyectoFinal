@@ -9,7 +9,8 @@ const swaggerOptions = {
             title: "CoderHouse - Proyecto Final - E-Commerce",
             description: "Proyecto Final del curso de Backend de CoderHouse",
             contact: {
-                name: "Demian Poggio"
+                name: "Demian Poggio",
+                email: "demianpoggio@gmail.com"
             },
             servers: [`http://localhost:${cfg.PORT}`]
         },

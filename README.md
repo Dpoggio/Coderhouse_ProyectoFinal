@@ -82,8 +82,28 @@ Pantalla requerida para iniciar sesion en el sistema
 
 Pantalla de informacion del servidor y de la conifguracion de ejecucion
 
-## Pantalla del Documentacion de Apis (proximamente...)
+## Pantalla del Documentacion de Apis
 
 `localhost:8080/swagger-ui`
 
-Proximamente.....
+Para obtener la especificacion de uso de todas las apis, se puede acceder al Swagger generado en la ruta mencionada.
+
+# WebSockets
+
+## Canal '/ws/chat'
+
+### Eventos que recibe el servidor:
+
+- `connection`: Evento con el cual el cliente puede conectarse al servidor. El servidor validara la identidad del cliente mediante un token de acceso y emitira un evento de tipo "invalidToken" al cliente en caso de no ser valido. En caso de validacion ok, el servidor emitira un evento de tipo "actualizarMensajes" a la conexion entrante.
+    Query Parameters: token=access_token
+
+- `nuevoMensaje`: Evento con el cual el cliente puede enviar un nuevo mensaje al servidor. El servidor validara la identidad del cliente mediante un token de acceso y emitira un evento de tipo "invalidToken" al cliente en caso de no ser valido. En caso de validacion ok, el servidor emitira un evento de tipo "actualizarMensajes" a todas las conexiones.
+    Parameters: (mensaje, access_token)
+
+- `obtenerMensajes`: Evento con el cual el cliente puede solicitar al servidor que emita un evento de tipo "actualizarMensajes" solo a el mismo. El servidor validara la identidad del cliente mediante un token de acceso y emitira un evento de tipo "invalidToken" al cliente en caso de no ser valido.
+    Parameters: ({}, access_token)
+
+### Eventos que puede emitir el servidor:
+
+- `actualizarMensajes`: Evento con el cual el servidor informa a el/los cliente/s el listado total de mensajes persistidos en el servidor.
+- `invalidToken`: Evento con el cual el servidor le infroma a el cliente que su token de acceso se encuentra expirado y debe solicitar uno nuevo.
