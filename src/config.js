@@ -1,5 +1,20 @@
 import dotenv from 'dotenv' 
-dotenv.config()
+dotenv.config({
+    path: ((env) => {
+        switch (env) {
+            case 'DESA':
+                return 'desa.env'
+            case 'TEST':
+                return 'test.env'
+            case 'STG':
+                return 'stg.env'
+            case 'HOMO':
+                return 'homo.env'
+            default:
+                return '.env'
+        }
+    })(process.env.NODE_ENV)
+})
 
 const DAO_OPTIONS = {
     FILE: 'Archivos',
