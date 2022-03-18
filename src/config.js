@@ -20,6 +20,7 @@ export default Object.freeze({
     TOKEN_EXP_TIME: parseInt(process.env.TOKEN_EXP_TIME || 30), // 30 Segs
     REFRESH_TOKEN_EXP_TIME: parseInt(process.env.REFRESH_TOKEN_EXP_TIME || 600), // 10 min
     ENABLE_VALIDATION: process.env.ENABLE_VALIDATION == 'true', // Variable para Testeo
+    ENABLE_SUPERADMIN: process.env.ENABLE_SUPERADMIN == 'true', // Variable para Testeo como administrador
     
     //MAIL
     MAIL_ENABLED: process.env.MAIL_ENABLED == 'true',

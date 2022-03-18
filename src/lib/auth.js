@@ -15,7 +15,7 @@ function isAdmin(req){
 
 function isSuperAdmin(req){
     const credentials = basicAuth(req)
-    return (credentials && credentials.name == "admin")
+    return (cfg.ENABLE_SUPERADMIN && credentials && credentials.name == "admin") 
 }
 
 function getAccessToken(user){
