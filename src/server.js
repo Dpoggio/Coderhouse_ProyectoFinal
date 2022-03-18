@@ -29,7 +29,7 @@ if (cfg.CLUSTER && cluster.isPrimary) {
     
     
     const { swaggerDocs } = await import('./lib/swagger.js')
-    const WebSocket = (await import('./lib/WebSocket.js')).default
+    const WebSocket = (await import('./lib/webSocket.js')).default
     const { routes } = await import('./routes/routes.js')
     const { handleErrors } = await import('./routes/routerError.js')
     
