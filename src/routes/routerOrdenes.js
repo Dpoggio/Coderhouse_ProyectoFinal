@@ -16,7 +16,7 @@ const routerOrdenes = Router();
  * @openapi
  * components:
  *  schemas:
- *      OrdenItem:
+ *      OrdenProducto:
  *          type: object
  *          properties:
  *              name:
@@ -41,7 +41,16 @@ const routerOrdenes = Router();
  *              items:
  *                  type: array
  *                  items:
- *                      $ref: '#/components/schemas/OrdenItem'
+ *                      type: object
+ *                      properties:
+ *                          cantidad:
+ *                              type: number
+ *                          producto:
+ *                              type: object
+ *                              properties:
+ *                                  id:
+ *                                      type: number
+ *                                      required: true
  *      OrdenResponse:
  *          type: object
  *          properties:
@@ -52,7 +61,13 @@ const routerOrdenes = Router();
  *              items:
  *                  type: array
  *                  items:
- *                      $ref: '#/components/schemas/OrdenItem'
+ *                      type: object
+ *                      properties:
+ *                          cantidad:
+ *                              type: number
+ *                          producto:
+ *                              $ref: '#/components/schemas/OrdenProducto'
+ *                      
  *              status:
  *                  type: string
  *              timestamp:
@@ -225,6 +240,12 @@ routerOrdenes.get('/:id', isAuthenticated, OrdenContr.getById.bind(OrdenContr))
  *                  application/json:
  *                      schema:
  *                          $ref: '#/components/schemas/OrdenResponse'
+ *          404:
+ *              description: Producto no encontrado
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/CustomError'
  *          401:
  *              description: Requiere autenticacion
  *              content: 
@@ -321,7 +342,7 @@ routerOrdenes.put('/:id', isAuthenticated, isAuthorized, OrdenContr.put.bind(Ord
  *                      schema:
  *                          $ref: '#/components/schemas/CustomError'
  *          404:
- *              description: Orden no encontrada
+ *              description: Orden/Producto no encontrada/o
  *              content: 
  *                  application/json:
  *                      schema:

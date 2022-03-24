@@ -100,7 +100,8 @@ async function enviarOrden(){
             body: JSON.stringify(orden)
           }).then(validateResponse)
         alert('Su orden ah sido enviarda correctamente!')
-        cargarProductos()
+        await limpiarCarrito()
+        await cargarProductos()
         return false           
     } catch(err){
         if(err instanceof LoginRequeried){

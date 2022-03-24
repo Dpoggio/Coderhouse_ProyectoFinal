@@ -17,6 +17,7 @@ const ORDER_NOT_FOUND = -13
 const ORDER_STATUS_INVALID = -14
 const ORDER_WITHOUT_ITEMS = -15
 const USER_NOT_AUTHORIZED = -16
+const INSUFICIENT_STOCK = -17
 
 
 export class ErrorRutaNoAutorizada extends Error {
@@ -175,6 +176,16 @@ export class ErrorUsuarioNoAutorizado extends Error {
         this.name = this.constructor.name
         this.httpStatusCode = cfg.HTTP_FORBIDDEN
         this.code = USER_NOT_AUTHORIZED
+        Error.captureStackTrace(this, this.constructor)
+    }
+}
+
+export class ErrorStockInsuficiente extends Error {
+    constructor() {
+        super('No hay stock suficiente para cubrir la cantidad requerida')
+        this.name = this.constructor.name
+        this.httpStatusCode = cfg.HTTP_UNPROCESSABLE_ENTITY
+        this.code = INSUFICIENT_STOCK
         Error.captureStackTrace(this, this.constructor)
     }
 }

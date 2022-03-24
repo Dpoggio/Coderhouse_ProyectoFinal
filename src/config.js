@@ -68,6 +68,7 @@ export default Object.freeze({
     HTTP_UNAUTHORIZED: 401,
     HTTP_FORBIDDEN: 403,
     HTTP_CONFLICT: 409,
+    HTTP_UNPROCESSABLE_ENTITY: 422,
     HTTP_SERVER_ERROR: 500,
 
     // DAO

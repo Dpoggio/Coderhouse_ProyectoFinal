@@ -1,8 +1,9 @@
 import OrdenDao from '../dao/ordenes/ordenDaoFactory.js'
 import OrdenDto from '../model/ordenDto.js'
-import { ErrorOrdenNoEncontrada, ErrorOrdenEstadoNoValido } from '../lib/errors.js'
+import { ErrorOrdenNoEncontrada, ErrorOrdenEstadoNoValido, ErrorStockInsuficiente } from '../lib/errors.js'
 import BaseApi from './baseApi.js'
 import UsuarioApi from './usuarioApi.js'
+import ProductoApi from './productoApi.js'
 
 const ORDEN_ESTADOS = {
     GENERADA: "GENERADA",
@@ -24,6 +25,14 @@ class OrdenApi extends BaseApi {
         return
     }
 
+    static validarStock(orden){
+        orden.items.forEach(item => {
+            if (item.cantidad > item.producto.stock) {
+                throw new ErrorStockInsuficiente()
+            }
+        })
+    }
+
     static async get(id = null){
         if (id === null){
             const ordenes = await OrdenDao.getDao().getAll(id)
@@ -42,11 +51,21 @@ class OrdenApi extends BaseApi {
         }
     }
 
-    static async save(orden, id = null){
+    static async save(data, id = null){
+        const orden = data
         orden.timestamp = new Date()
         let nuevaOrden = null
         let order_mail = null
         if (id === null){
+            orden.items = await Promise.all(
+                data.items.map(async item => {
+                    return {
+                        cantidad: item.cantidad,
+                        producto: await ProductoApi.get(item.producto.id)
+                    }
+                })
+            )
+            OrdenApi.validarStock(orden)
             order_mail = (await UsuarioApi.get(orden.usuario.id)).username
             orden.status = ORDEN_ESTADOS.GENERADA
             nuevaOrden = await OrdenDao.getDao().save(orden)
