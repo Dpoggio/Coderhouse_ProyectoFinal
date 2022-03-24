@@ -1,5 +1,5 @@
 import MensajeDao from '../dao/mensajes/mensajeDaoFactory.js'
-import MensajeDto from '../model/mensajeDto.js'
+import MensajeDto from '../model/response/mensajeDto.js'
 import { ErrorMensajeNoEncontrado, ErrorUsuarioNoEncontrado } from '../lib/errors.js'
 import BaseApi from './baseApi.js'
 import UsuarioApi from './usuarioApi.js'

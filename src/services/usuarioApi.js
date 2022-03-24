@@ -1,5 +1,5 @@
 import UsuarioDao from '../dao/usuarios/usuarioDaoFactory.js'
-import UsuarioDto from '../model/usuarioDto.js'
+import UsuarioDto from '../model/response/usuarioDto.js'
 import { ErrorUsuarioNoEncontrado, ErrorUsuarioDuplicado, ErrorUsuarioInvalido } from '../lib/errors.js'
 import bCrypt from 'bcrypt'
 import BaseApi from './baseApi.js';

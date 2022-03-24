@@ -1,5 +1,5 @@
 import ProductoDao from '../dao/productos/productoDaoFactory.js'
-import ProductoDto from '../model/productoDto.js'
+import ProductoDto from '../model/response/productoDto.js'
 import { ErrorProductoNoEncontrado } from '../lib/errors.js'
 import BaseApi from './baseApi.js'
 

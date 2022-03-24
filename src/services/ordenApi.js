@@ -1,5 +1,5 @@
 import OrdenDao from '../dao/ordenes/ordenDaoFactory.js'
-import OrdenDto from '../model/ordenDto.js'
+import OrdenDto from '../model/response/ordenDto.js'
 import { ErrorOrdenNoEncontrada, ErrorOrdenEstadoNoValido, ErrorStockInsuficiente } from '../lib/errors.js'
 import BaseApi from './baseApi.js'
 import UsuarioApi from './usuarioApi.js'
