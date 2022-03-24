@@ -50,9 +50,11 @@ async function validateResponse(response){
 
 async function callSecuredApi(uri, options){
     try {
-        const data = options
+        let data = options
         if (!data){
-            return await fetch(uri)
+            data = {
+                method: "GET"
+            }
         }
         if (!data.headers){
             data.headers = new Headers()   

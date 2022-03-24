@@ -15,3 +15,13 @@ Handlebars.registerHelper("reverse", (array) => {
   return array.reverse()
 }
 )
+
+Handlebars.registerHelper('formatDate', function(date) {
+  if (!date){
+      return new Handlebars.SafeString("");  
+  } else {
+      return new Handlebars.SafeString(
+          new Date(date).toLocaleString()
+      )
+  }
+});

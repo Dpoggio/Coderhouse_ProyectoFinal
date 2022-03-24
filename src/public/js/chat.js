@@ -1,14 +1,3 @@
-Handlebars.registerHelper('formatDate', function(date) {
-    if (!date){
-        return new Handlebars.SafeString("");  
-    } else {
-        return new Handlebars.SafeString(
-            new Date(date).toLocaleString()
-        )
-    }
-});
-
-
 let socket
 
 function initializeSocket() {

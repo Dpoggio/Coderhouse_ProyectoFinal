@@ -1,0 +1,32 @@
+
+{{#each ordenes }}
+  <br>
+  <div class="container bg-dark text-white">
+
+    <div class="row">
+      <div class="col-md-12"><b>Orden Numero: {{ this.order_number }}</b></div>
+      <div class="col-md-12"><b>Fecha de Compra: {{ formatDate this.timestamp }}</b></div>
+      <div class="col-md-12"><b>Estado: {{ this.status }}</b></div>
+      <div class="col-md-12"><b>Items: </b></div>
+    </div>
+    <div class="row">
+      <div class="col-md-3"><b>Codigo</b></div>
+      <div class="col-md-3"><b>Nombre</b></div>
+      <div class="col-md-3"><b>Precio</b></div>
+      <div class="col-md-3"><b>Cantidad</b></div>
+    </div>  
+    
+    {{#each this.items }}
+    <div class="row">
+      <div class="col-md-3">{{this.producto.code}}</div>
+      <div class="col-md-3">{{this.producto.name}}</div>
+      <div class="col-md-3">${{formatNumber this.producto.price}}</div>
+      <div class="col-md-3">{{this.cantidad}}</div>
+    </div>
+    {{/each}}
+    <div class="row">
+      <div class="col-md-6"><b>Total</b></div>
+      <div class="col-md-3"><b>${{formatNumber (sumarProductos this.items) }}</b></div>
+    </div> 
+  </div>
+{{/each}}

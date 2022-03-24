@@ -65,6 +65,16 @@ class OrdenApi extends BaseApi {
         return OrdenDto.asDto(nuevaOrden)
     }
 
+    static async getByUser(idUsuario){
+        const ordenes = await OrdenDao.getDao().getByProperty('usuario.id', idUsuario)
+        const ordenesPromises = ordenes.map(async orden => {
+            orden.mail = (await UsuarioApi.get(orden.usuario.id)).username 
+            return orden
+        })
+        return OrdenDto.asDto(await Promise.all(ordenesPromises))
+    }
+
+
 }
 
 export default OrdenApi;

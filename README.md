@@ -70,6 +70,12 @@ En esta pantalla se pueden administrar los productos existentes. Para eliminar, 
 
 Al ingresar en esta pagina, se accede a un canal de chat al cual todos los usuarios tienen acceso
 
+## Pantalla del Ordenes
+
+`localhost:8080/ordenes.html`
+
+Al ingresar en esta pagina, se puede acceder al listado de las ordenes que realizo el usuario
+
 ## Pantalla del Login
 
 `localhost:8080/login.html`

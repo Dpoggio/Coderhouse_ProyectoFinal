@@ -16,6 +16,7 @@ const MSG_NOT_FOUND = -12
 const ORDER_NOT_FOUND = -13
 const ORDER_STATUS_INVALID = -14
 const ORDER_WITHOUT_ITEMS = -15
+const USER_NOT_AUTHORIZED = -16
 
 
 export class ErrorRutaNoAutorizada extends Error {
@@ -164,6 +165,16 @@ export class ErrorOrdenSinItems extends Error {
         this.name = this.constructor.name
         this.httpStatusCode = cfg.HTTP_BAD_REQUEST
         this.code = ORDER_WITHOUT_ITEMS
+        Error.captureStackTrace(this, this.constructor)
+    }
+}
+
+export class ErrorUsuarioNoAutorizado extends Error {
+    constructor() {
+        super('El usuario no esta autorizado a acceder a este recurso')
+        this.name = this.constructor.name
+        this.httpStatusCode = cfg.HTTP_FORBIDDEN
+        this.code = USER_NOT_AUTHORIZED
         Error.captureStackTrace(this, this.constructor)
     }
 }

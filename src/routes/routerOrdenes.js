@@ -102,7 +102,7 @@ routerOrdenes.get('/', isAuthenticated, isAuthorized, OrdenContr.get.bind(OrdenC
 
 /**
  * @openapi
- * /api/odenes/{id}:
+ * /api/ordenes/{id}:
  *  get:
  *      tags:
  *      - Ordenes
@@ -149,7 +149,64 @@ routerOrdenes.get('/:id', isAuthenticated, OrdenContr.getById.bind(OrdenContr))
 
 /**
  * @openapi
- * /api/odenes:
+ * /api/ordenes/usuario/{idUsuario}:
+ *  get:
+ *      tags:
+ *      - Ordenes
+ *      summary: Obtener ordenes de usuario
+ *      description: Obtener las ordenes del usuario con id pasado por parametro. Solamente se podran obtener las ordenes del usuario autenticado.
+ *      parameters:
+ *          - in: path
+ *            name: idUsuario
+ *            required: true
+ *            description: ID del usuario
+ *      responses:
+ *          200:
+ *              description: Respuesta OK
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          type: array
+ *                          items:
+ *                              $ref: '#/components/schemas/OrdenResponse'
+ *          400:
+ *              description: Id no numerico ingresado
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/CustomError'
+ *          404:
+ *              description: Usuario no encontrado
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/CustomError'
+ *          403:
+ *              description: Requiere autorizacion
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/CustomError'
+ *          401:
+ *              description: Requiere autenticacion
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          type: array
+ *                          items:
+ *                              $ref: '#/components/schemas/CustomError'
+ * 
+ *      security:
+ *          - bearerAuth: []
+ *          - basicAuth: []
+ */
+ routerOrdenes.get('/usuario/:id', isAuthenticated, OrdenContr.getByUser.bind(OrdenContr))
+
+
+
+/**
+ * @openapi
+ * /api/ordenes:
  *  post:
  *      tags:
  *      - Ordenes
@@ -182,7 +239,7 @@ routerOrdenes.post('/', isAuthenticated, OrdenContr.post.bind(OrdenContr))
 
 /**
  * @openapi
- * /api/odenes/{id}:
+ * /api/ordenes/{id}:
  *  put:
  *      tags:
  *      - Ordenes
@@ -238,7 +295,7 @@ routerOrdenes.put('/:id', isAuthenticated, isAuthorized, OrdenContr.put.bind(Ord
 
 /**
  * @openapi
- * /api/odenes/{id}:
+ * /api/ordenes/{id}:
  *  delete:
  *      tags:
  *      - Ordenes
