@@ -113,3 +113,11 @@ Para obtener la especificacion de uso de todas las apis, se puede acceder al Swa
 
 - `actualizarMensajes`: Evento con el cual el servidor informa a el/los cliente/s el listado total de mensajes persistidos en el servidor.
 - `invalidToken`: Evento con el cual el servidor le infroma a el cliente que su token de acceso se encuentra expirado y debe solicitar uno nuevo.
+
+
+# Deploys Heroku
+
+Estas son las URLs de Deploy en Heroku:
+
+- Stagging: https://coderhousedpoggio-stg.herokuapp.com
+- Produccion: https://coderhousedpoggio.herokuapp.com
