@@ -1,6 +1,10 @@
 <% 
 function formatDate(date) {
-    return date.toISOString().replace(/T.+/i, '')
+    if (!date){
+        return ""
+    }
+    const dateObj = new Date(date)
+    return dateObj.toISOString().replace(/T.+/i, '')
 }
 %>
 Se ha registrado un nuevo usuario.
@@ -9,5 +13,5 @@ Infromacion del usuario:
     Nombre: <%= usuario.nombre %>
     Apellido: <%= usuario.apellido %>
     Direccion: <%= usuario.direccion %>
-    Fecha de Nacimiento: <%= formatDate(new Date(usuario.fechanacimiento)) %>
+    Fecha de Nacimiento: <%= formatDate(usuario.fechanacimiento) %>
     Telefono: <%= usuario.telefono %>

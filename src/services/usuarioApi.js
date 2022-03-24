@@ -3,7 +3,8 @@ import UsuarioDto from '../model/usuarioDto.js'
 import { ErrorUsuarioNoEncontrado, ErrorUsuarioDuplicado, ErrorUsuarioInvalido } from '../lib/errors.js'
 import bCrypt from 'bcrypt'
 import BaseApi from './baseApi.js';
-
+import UsuarioRequestDto from '../model/request/usuarioRequestDto.js';
+import NotificationApi from '../services/notificationApi.js'
 
 
 function createHash(password) {
@@ -31,7 +32,9 @@ class UsuarioApi extends BaseApi {
             // No es la manera mas elegante, pero facilita la creacion del usuario administrador para 
             // pruebas en las distintas BD
             usuario.admin = (usuario.username == "admin")
-            return UsuarioDto.asDto(await UsuarioDao.getDao().save(usuario))
+            const nuevoUsuario = UsuarioDto.asDto(await UsuarioDao.getDao().save(usuario))
+            NotificationApi.notificateNewUser(nuevoUsuario)
+            return nuevoUsuario
         } else {
             const nuevoUsuario = await UsuarioDao.getDao().saveById(usuario, id)
             if (nuevoUsuario == null){
@@ -57,6 +60,21 @@ class UsuarioApi extends BaseApi {
         }
 
     }
+
+    static async saveGoogleUser(profile){
+        const listaUsuarios = await UsuarioDao.getDao().getByProperty('username',profile.email)
+        if (listaUsuarios.length > 1) {
+            throw new ErrorUsuarioDuplicado()
+        }
+        if (listaUsuarios.length === 0) {
+            const nuevoUsuario = UsuarioRequestDto.fromGoogleProfile(profile)
+            return await UsuarioApi.save(nuevoUsuario)
+        } else{
+            return UsuarioDto.asDto(listaUsuarios[0])
+        }
+    }
+
+    
 }
 
 export default UsuarioApi;

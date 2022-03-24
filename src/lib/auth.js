@@ -3,7 +3,7 @@ import passport from 'passport'
 import jwt from 'jsonwebtoken'
 import { ErrorRutaNoAutorizada, ErrorAutenticacionRequerida, ErrorTokenInvalido, ErrorFormatoIncorrecto } from './errors.js'
 import basicAuth from 'basic-auth'
-import { loginStrategy, signupStrategy, refreshtokenStrategy } from '../controllers/authContr.js'
+import { loginStrategy, signupStrategy, refreshtokenStrategy, googleStrategy } from '../controllers/authContr.js'
 
 const TOKEN_PRIVATE_KEY = cfg.TOKEN_PRIVATE_KEY
 const REFRESH_TOKEN_PRIVATE_KEY = cfg.REFRESH_TOKEN_PRIVATE_KEY
@@ -67,6 +67,28 @@ function generateToken(req, res) {
     const refreshToken = getRefreshToken(user)
 
     res.json({
+        usuario: user,
+        access_token: token,
+        refresh_token: refreshToken
+    });
+}
+
+/**
+ * Middleware que genera tokens de acceso y refresco y renderiza un script que guarda
+ * los tokens como cookies; luego redirije al cliente al home.
+ * 
+ * Comentario: Intente pensar la forma de poder resolver esto sin tener que recurrir a
+ * la vista y sin tener que usar sesiones, pero no se me ocurrio. Se que puedo usar un 
+ * callback que retorne la informacion en formato json usando el middleware anterior, 
+ * pero no encontre forma de darle los tokens desde el callback al cliente sin tener 
+ * que renderizar una vista.
+ */
+function generateTokenAndRender(req, res) {
+    const user = req.user
+    const token = getAccessToken(user)
+    const refreshToken = getRefreshToken(user)
+
+    res.render('authenticated.ejs', {
         usuario: user,
         access_token: token,
         refresh_token: refreshToken
@@ -162,6 +184,7 @@ function verifyAndGetUser(token){
 passport.use('login', loginStrategy)
 passport.use('signup', signupStrategy)
 passport.use('refreshtoken', refreshtokenStrategy)
+passport.use(googleStrategy)
 
 // ToDo: Pendiente serializacion de usuario.
 passport.serializeUser((user, done) => {
@@ -172,4 +195,4 @@ passport.deserializeUser((user, done) => {
     done(null, user);
 });
 
-export { isAuthenticated, isAuthorized, generateToken, refreshToken, verifyAndGetUser }
+export { isAuthenticated, isAuthorized, generateToken, refreshToken, verifyAndGetUser, generateTokenAndRender }

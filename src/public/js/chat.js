@@ -1,7 +1,11 @@
 Handlebars.registerHelper('formatDate', function(date) {
-    return new Handlebars.SafeString(
-        new Date(date).toLocaleString()
-    );
+    if (!date){
+        return new Handlebars.SafeString("");  
+    } else {
+        return new Handlebars.SafeString(
+            new Date(date).toLocaleString()
+        )
+    }
 });
 
 

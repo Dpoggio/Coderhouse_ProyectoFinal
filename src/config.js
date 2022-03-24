@@ -51,6 +51,11 @@ export default Object.freeze({
     TWILIO_ACCOUNTSID: process.env.TWILIO_ACCOUNTSID,
     TWILIO_AUTHTOKEN: process.env.TWILIO_AUTHTOKEN,
     TWILIO_NUMBER: process.env.TWILIO_NUMBER,
+
+    // Google Auth
+    GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+    GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+    GOOGLE_CALLBACK_URL: process.env.GOOGLE_CALLBACK_URL,
     
     // Admin Data
     ADMIN_MAIL: process.env.ADMIN_MAIL,

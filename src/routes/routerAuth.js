@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import passport from 'passport'
-import { generateToken, refreshToken } from '../lib/auth.js';
+import { generateToken, refreshToken, generateTokenAndRender } from '../lib/auth.js';
 
 const routerAuth = Router();
   
@@ -161,6 +161,10 @@ const routerAuth = Router();
   *                          $ref: '#/components/schemas/CustomError'
   */
  routerAuth.post('/refreshtoken', passport.authenticate('refreshtoken'), refreshToken)
+
+// Google Auth
+ routerAuth.get('/google', passport.authenticate('google', { scope: [ 'email', 'profile' ]}));
+ routerAuth.get('/google/callback', passport.authenticate('google'), generateTokenAndRender);
  
  export { routerAuth }
  
